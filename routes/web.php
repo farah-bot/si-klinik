@@ -8,6 +8,10 @@ Route::get('/datapengguna', function () {
     return view('admin.datapengguna');
 })->name('datapengguna'); 
 
+Route::get('/datapasien', function () {
+    return view('admin.datapasien');
+})->name('datapasien'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
