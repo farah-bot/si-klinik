@@ -22,7 +22,7 @@
         </div>
     </nav>
     <div class="container form-container d-flex justify-content-center align-items-center">
-        <div class="card p-4 glass-effect w-100">
+        <div class="card login-card p-4 glass-effect w-100">
             <div class="card-body">
                 <h2 class="bold-text text-center">Masuk</h2>
                 <form action="{{ route('login') }}" method="POST">

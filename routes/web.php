@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataPenggunaController;
+
+Route::get('/datapengguna', function () {
+    return view('admin.datapengguna');
+})->name('datapengguna'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
