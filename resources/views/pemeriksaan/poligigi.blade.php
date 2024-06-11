@@ -163,7 +163,7 @@
 
     document.getElementById('pemeriksaanForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        // Implement form submission logic
+       
     });
 
     document.getElementById('addResep').addEventListener('click', function() {

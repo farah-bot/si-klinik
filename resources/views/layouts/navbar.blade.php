@@ -52,7 +52,7 @@
                         Rekam Medis
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="rekamMedisDropdown">
-                        <li><a class="dropdown-item" href="#">Riwayat Pelayanan Pasien</a></li>
+                        <li><a class="dropdown-item" href="{{ route('riwayatpelayanan') }}">Riwayat Pelayanan Pasien</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Kunjungan</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Surveilens Mingguan</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Surveilens Bulanan</a></li>

@@ -32,6 +32,10 @@ Route::get('/poligigi', function () {
     return view('pemeriksaan.poligigi');
 })->name('poligigi'); 
 
+Route::get('/riwayatpelayanan', function () {
+    return view('rekammedis.riwayatpelayanan');
+})->name('riwayatpelayanan'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
