@@ -19,8 +19,8 @@
                     <ul class="dropdown-menu" aria-labelledby="dataMasterDropdown">
                         <li><a class="dropdown-item" href="{{ route('datapengguna') }}">Data Pengguna</a></li>
                         <li><a class="dropdown-item" href="{{ route('datapasien') }}">Data Pasien</a></li>
-                        <li><a class="dropdown-item" href="#">Data Diagnosa</a></li>
-                        <li><a class="dropdown-item" href="#">Data Tindakan</a></li>
+                        <li><a class="dropdown-item" href="{{ route('datadiagnosa') }}">Data Diagnosa</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dataobat') }}">Data Obat</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">

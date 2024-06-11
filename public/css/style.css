@@ -143,6 +143,17 @@ body, html {
     }
 }
 
+    .btn-tambah {
+        background-color: #37517E; 
+        border-radius: 20px; 
+        color: white;
+    }
+
+    .btn-batal {
+        background-color: #B31312; 
+        border-radius: 20px;
+        color: white;
+    }
 
 .form-container {
   max-width: 800px;
@@ -164,6 +175,7 @@ body, html {
 .dashboard-card {
   background-color: #fff;
   color: #253A5E;
+  max-width: 300px;
 }
 
 .login-card {
@@ -177,7 +189,7 @@ body, html {
 
 .card-title.font-weight-bold {
   font-weight: 800;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 .card-text.font-weight-semibold {

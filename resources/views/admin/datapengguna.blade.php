@@ -20,6 +20,19 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label>Jenis Kelamin *</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki" value="Laki-Laki">
+                                    <label class="form-check-label" for="laki_laki">Laki-Laki</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
+                                    <label class="form-check-label" for="perempuan">Perempuan</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label for="nama_pengguna">Nama Pengguna</label>
                                 <input type="text" class="form-control" id="nama_pengguna" name="nama_pengguna">
                             </div>
@@ -34,19 +47,6 @@
                             <div class="form-group">
                                 <label for="alamat">Alamat *</label>
                                 <textarea class="form-control" id="alamat" name="alamat"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Jenis Kelamin *</label><br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki" value="Laki-Laki">
-                                    <label class="form-check-label" for="laki_laki">Laki-Laki</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
-                                    <label class="form-check-label" for="perempuan">Perempuan</label>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -69,8 +69,8 @@
                         </div>
                     </div>
                     <div class="float-right">
-                        <button type="submit" class="btn btn-primary">Tambah</button> 
-                        <button type="reset" class="btn btn-danger">Batal</button>
+                        <button type="submit" class="btn btn-tambah">Tambah</button> 
+                        <button type="reset" class="btn btn-batal">Batal</button>
                     </div>
                 </form>
             </div>

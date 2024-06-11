@@ -12,20 +12,29 @@ Route::get('/datapasien', function () {
     return view('admin.datapasien');
 })->name('datapasien'); 
 
+Route::get('/datadiagnosa', function () {
+    return view('admin.datadiagnosa');
+})->name('datadiagnosa'); 
+
+Route::get('/dataobat', function () {
+    return view('admin.dataobat');
+})->name('dataobat'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome'); 
-Route::post('/', function () {
-    return view('welcome');
-})->name('welcome'); 
+// Route::post('/', function () {
+//     return view('welcome');
+// })->name('welcome'); 
 
 
 Route::get('/login', function () {
     return view('login');
 })->name('login'); 
+
 Route::post('/login', function () {
     return view('login');
-})->name('login'); 
+})->name('login.submit'); 

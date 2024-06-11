@@ -69,8 +69,8 @@
                         </div>
                     </div>
                     <div class="float-right">
-                        <button type="submit" class="btn btn-primary">Tambah</button> 
-                        <button type="reset" class="btn btn-danger">Batal</button>
+                        <button type="submit" class="btn btn-tambah">Tambah</button> 
+                        <button type="reset" class="btn btn-batal">Batal</button>
                     </div>
                 </form>
             </div>
