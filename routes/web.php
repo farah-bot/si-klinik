@@ -36,6 +36,10 @@ Route::get('/riwayatpelayanan', function () {
     return view('rekammedis.riwayatpelayanan');
 })->name('riwayatpelayanan'); 
 
+Route::get('/laporankunjungan', function () {
+    return view('rekammedis.laporankunjungan');
+})->name('laporankunjungan'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
