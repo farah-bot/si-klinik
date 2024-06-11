@@ -27,7 +27,7 @@
             <div class="col-lg-8 col-md-8 col-sm-10">
                 <h1><span class="bold-text">SI - KLINIK PRATAMA CAMAR MANDIRI JEMBER</span></h1>
                 <p>Menjadikan Klinik Pratama terdepan yang memberi pelayanan kesehatan prima bagi masyarakat Jember dan sekitarnya</p>
-                <button href="{{ route('login') }}" type="button" class="btn btn-masuk btn-lg rounded-pill">Masuk</button>
+                <a href="{{ route('login') }}" class="btn btn-masuk btn-lg rounded-pill">Masuk</a>
             </div>
         </div>
     </div>

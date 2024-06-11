@@ -43,6 +43,7 @@
                     <ul class="dropdown-menu" aria-labelledby="pemeriksaanDropdown">
                         <li><a class="dropdown-item" href="{{ route('dataantrianpoli') }}">Data Antrian Poli</a></li>
                         <li><a class="dropdown-item" href="{{ route('formpemeriksaan') }}">Form Pemeriksaan</a></li>
+                        <li><a class="dropdown-item" href="{{ route('poligigi') }}">Poli Gigi</a></li>
                         <li><a class="dropdown-item" href="#">Poli KIA</a></li>
                     </ul>
                 </li>

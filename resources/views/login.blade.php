@@ -37,8 +37,8 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
                     </div>
                     <div class="d-flex gap-2">
-                        <button href="{{ route('login.submit') }}" type="submit" class="btn btn-masuk btn-lg flex-grow-1">Masuk</button>
-                        <button type="button" class="btn btn-kembali btn-lg flex-grow-1" id="backButton">Kembali</button>
+                        <a href="{{ route('login.submit') }}" class="btn btn-masuk btn-lg flex-grow-1">Masuk</a>
+                        <a href="{{ route('welcome') }}" class="btn btn-kembali btn-lg flex-grow-1">Kembali</a>
                     </div>
                 </form>
             </div>

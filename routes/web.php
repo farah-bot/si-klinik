@@ -28,6 +28,10 @@ Route::get('/formpemeriksaan', function () {
     return view('pemeriksaan.formpemeriksaan');
 })->name('formpemeriksaan'); 
 
+Route::get('/poligigi', function () {
+    return view('pemeriksaan.poligigi');
+})->name('poligigi'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
