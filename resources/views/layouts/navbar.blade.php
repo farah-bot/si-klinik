@@ -41,8 +41,8 @@
                         Pemeriksaan
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="pemeriksaanDropdown">
-                        <li><a class="dropdown-item" href="#">Poli Umum</a></li>
-                        <li><a class="dropdown-item" href="#">Poli Gigi</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dataantrianpoli') }}">Data Antrian Poli</a></li>
+                        <li><a class="dropdown-item" href="{{ route('formpemeriksaan') }}">Form Pemeriksaan</a></li>
                         <li><a class="dropdown-item" href="#">Poli KIA</a></li>
                     </ul>
                 </li>
@@ -51,6 +51,7 @@
                         Rekam Medis
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="rekamMedisDropdown">
+                        <li><a class="dropdown-item" href="#">Riwayat Pelayanan Pasien</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Kunjungan</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Surveilens Mingguan</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Surveilens Bulanan</a></li>

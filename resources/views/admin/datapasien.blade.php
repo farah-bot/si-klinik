@@ -10,7 +10,7 @@
         </div>
         <div class="row mb-3">
             <div class="col-lg-12">
-                <form>
+                <form id="addPatientForm">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -50,42 +50,45 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="jabatan">Jabatan</label>
-                                <input type="text" class="form-control" id="jabatan" name="jabatan">
+                            <div class="d-flex">
+                                <div class="form-group flex-grow-1 mr-2">
+                                    <label for="jenis_kunjungan">Jenis Kunjungan</label>
+                                    <select class="form-control" id="jenis_kunjungan" name="jenis_kunjungan">
+                                        <option value="Umum">Umum</option>
+                                        <option value="BPJS">BPJS</option>
+                                    </select>
+                                </div>
+                                <div class="form-group flex-grow-1">
+                                    <label for="bpjs">Nomor BPJS</label>
+                                    <input type="text" class="form-control" id="bpjs" name="bpjs">
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" name="username">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <label for="no">No. Telp</label>
+                                <input type="text" class="form-control" id="no" name="no">
                             </div>
                         </div>
                     </div>
                     <div class="float-right">
-                        <button type="submit" class="btn btn-tambah">Tambah</button> 
+                        <button type="button" class="btn btn-tambah" onclick="addPatient()">Tambah</button> 
                         <button type="reset" class="btn btn-batal">Batal</button>
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="d-flex">
+        <div class="d-flex mb-3">
             <span class="align-self-center">Show</span>
-            <select class="custom-select custom-select-sm form-control form-control-sm mr-2" id="entries">
+            <select class="custom-select custom-select-sm form-control form-control-sm mr-2" id="entries" onchange="updateEntries()">
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="25">25</option>
                 <option value="50">50</option>
             </select>
             <span class="align-self-center mr-2">entries</span>
-            <input type="text" class="form-control form-control-sm ml-2 float-right" placeholder="Cari Data Pasien" id="search">
+            <input type="text" class="form-control form-control-sm ml-2 float-right" placeholder="Cari Data Pasien" id="search" onkeyup="searchPatient()">
         </div>
 
         <div class="row">
@@ -99,11 +102,13 @@
                             <th>Jenis Kelamin</th>
                             <th>Tanggal Lahir</th>
                             <th>Alamat</th>
-                            <th>Jabatan</th>
+                            <th>Jenis Kunjungan</th>
+                            <th>No. Telp</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="patientTable">
+                        
                         <tr>
                             <td>1</td>
                             <td>ID001</td>
@@ -111,10 +116,11 @@
                             <td>Laki-Laki</td>
                             <td>1990-01-01</td>
                             <td>Jakarta</td>
-                            <td>Manager</td>
+                            <td>Umum</td>
+                            <td>0123456789</td>
                             <td>
-                                <button class="btn btn-warning btn-sm">Edit</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <button class="btn btn-warning btn-sm" onclick="editPatient(this)">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>
                             </td>
                         </tr>
                         <tr>
@@ -124,12 +130,14 @@
                             <td>Perempuan</td>
                             <td>1992-02-02</td>
                             <td>Bandung</td>
-                            <td>Staff</td>
+                            <td>BPJS</td>
+                            <td>0987654321</td>
                             <td>
-                                <button class="btn btn-warning btn-sm">Edit</button>
-                                <button class="btn btn-danger btn-sm">Hapus</button>
+                                <button class="btn btn-warning btn-sm" onclick="editPatient(this)">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteRow(this)">Hapus</button>
                             </td>
                         </tr>
+                    
                     </tbody>
                 </table>
             </div>

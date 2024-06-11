@@ -20,6 +20,14 @@ Route::get('/dataobat', function () {
     return view('admin.dataobat');
 })->name('dataobat'); 
 
+Route::get('/dataantrianpoli', function () {
+    return view('pemeriksaan.dataantrianpoli');
+})->name('dataantrianpoli'); 
+
+Route::get('/formpemeriksaan', function () {
+    return view('pemeriksaan.formpemeriksaan');
+})->name('formpemeriksaan'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

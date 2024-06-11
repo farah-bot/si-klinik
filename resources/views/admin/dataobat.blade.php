@@ -3,9 +3,9 @@
 @section('title', 'Data Obat')
 
 @section('content')
-<div class="data-obat-container">
+<div class="data-pengguna-container">
     <div class="container">
-        <div class="data-obat-header">
+        <div class="data-pengguna-header">
             <h2>DATA OBAT</h2>
         </div>
         <div class="row mb-3">
