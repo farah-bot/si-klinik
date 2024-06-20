@@ -31,9 +31,8 @@
                         Pendaftaran
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="pendaftaranDropdown">
-                        <li><a class="dropdown-item" href="#">Submenu 1</a></li>
-                        <li><a class="dropdown-item" href="#">Submenu 2</a></li>
-                        <li><a class="dropdown-item" href="#">Submenu 3</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dataantrian') }}">Data Antrian Poli</a></li>
+                        <li><a class="dropdown-item" href="{{ route('formpemeriksaan') }}">Form Pemeriksaan</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -41,8 +40,6 @@
                         Pemeriksaan
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="pemeriksaanDropdown">
-                        <li><a class="dropdown-item" href="{{ route('dataantrianpoli') }}">Data Antrian Poli</a></li>
-                        <li><a class="dropdown-item" href="{{ route('formpemeriksaan') }}">Form Pemeriksaan</a></li>
                         <li><a class="dropdown-item" href="{{ route('poligigi') }}">Poli Gigi</a></li>
                         <li><a class="dropdown-item" href="#">Poli KIA</a></li>
                     </ul>

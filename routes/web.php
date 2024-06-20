@@ -20,12 +20,12 @@ Route::get('/dataobat', function () {
     return view('admin.dataobat');
 })->name('dataobat'); 
 
-Route::get('/dataantrianpoli', function () {
-    return view('pemeriksaan.dataantrianpoli');
-})->name('dataantrianpoli'); 
+Route::get('/dataantrian', function () {
+    return view('pendaftaran.dataantrian');
+})->name('dataantrian'); 
 
 Route::get('/formpemeriksaan', function () {
-    return view('pemeriksaan.formpemeriksaan');
+    return view('pendaftaran.formpemeriksaan');
 })->name('formpemeriksaan'); 
 
 Route::get('/poligigi', function () {

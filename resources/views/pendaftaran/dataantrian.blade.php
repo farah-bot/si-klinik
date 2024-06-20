@@ -74,10 +74,13 @@
                 <td>${row.jk}</td>
                 <td>${row.jenis_kunjungan}</td>
                 <td>${row.poli}</td>
-                <td>${row.status}</td>
+                <td class="${row.status === 'Belum Terlayani' ? 'bg-secondary text-white' : 'bg-success text-white'}">${row.status}</td>
                 <td>
-                    <button class="btn btn-info btn-sm">Detail</button>
-                    <button class="btn btn-warning btn-sm">Edit</button>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-info btn-sm"><i class="fas fa-bullhorn"></i></button>
+                        <button type="button" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    </div>
                 </td>
             `;
             tableBody.appendChild(tr);
@@ -86,7 +89,7 @@
 
     function updateEntriesInfo(count) {
         const entriesInfo = document.getElementById('entries-info');
-        entriesInfo.textContent = `Showing ${count} entries`;
+        entriesInfo.textContent = `Showing 1 to ${count} of ${count} entries`;
     }
 
     function filterData() {
