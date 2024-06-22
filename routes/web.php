@@ -39,6 +39,10 @@ Route::get('/laporankunjungan', function () {
     return view('rekammedis.laporankunjungan');
 })->name('laporankunjungan'); 
 
+Route::get('/dataapotek', function () {
+    return view('apotek.dataapotek');
+})->name('dataapotek'); 
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

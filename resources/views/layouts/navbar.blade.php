@@ -63,9 +63,7 @@
                         Apotek
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="apotekDropdown">
-                        <li><a class="dropdown-item" href="#">Submenu 1</a></li>
-                        <li><a class="dropdown-item" href="#">Submenu 2</a></li>
-                        <li><a class="dropdown-item" href="#">Submenu 3</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dataapotek') }}">Data Antrian Apotek</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown no-arrow">
