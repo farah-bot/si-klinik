@@ -43,6 +43,10 @@ Route::get('/laporanjasa', function () {
     return view('rekammedis.laporanjasa');
 })->name('laporanjasa'); 
 
+Route::get('/laporanpenyakit', function () {
+    return view('rekammedis.laporanpenyakit');
+})->name('laporanpenyakit'); 
+
 Route::get('/dataapotek', function () {
     return view('apotek.dataapotek');
 })->name('dataapotek'); 
