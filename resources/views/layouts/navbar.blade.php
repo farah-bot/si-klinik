@@ -53,7 +53,7 @@
                         <li><a class="dropdown-item" href="{{ route('laporankunjungan') }}">Laporan Kunjungan</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Surveilens Mingguan</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Surveilens Bulanan</a></li>
-                        <li><a class="dropdown-item" href="#">Laporan Jumlah Jasa Pelayanan Dokter</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporanjasa') }}">Laporan Jumlah Jasa Pelayanan Dokter</a></li>
                         <li><a class="dropdown-item" href="#">Laporan Pasien Tuberkulosis</a></li>
 
                     </ul>

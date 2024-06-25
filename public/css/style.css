@@ -7,6 +7,19 @@ body, html {
   font-family: 'Montserrat', sans-serif;
 }
 
+.btn-icon {
+    background: none;
+    border: none;
+    font-size: 30px; 
+    padding: 0;
+    cursor: pointer;
+    margin-right: 10px; 
+    }
+
+.btn-icon:last-child {
+    margin-right: 0;
+}
+
 .float-right {
     float: right;
 }

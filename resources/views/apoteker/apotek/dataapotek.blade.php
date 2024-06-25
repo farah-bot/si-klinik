@@ -161,7 +161,7 @@
             document.getElementById('modalJenisKunjungan').innerText = patient.jenis_kunjungan;
             document.getElementById('modalPoliTujuan').innerText = patient.poli;
             document.getElementById('modalStatus').innerText = patient.status;
-            $('#viewModal').modal('show'); // Show the modal using jQuery
+            $('#viewModal').modal('show'); 
         }
     }
 

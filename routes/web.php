@@ -39,6 +39,10 @@ Route::get('/laporankunjungan', function () {
     return view('rekammedis.laporankunjungan');
 })->name('laporankunjungan'); 
 
+Route::get('/laporanjasa', function () {
+    return view('rekammedis.laporanjasa');
+})->name('laporanjasa'); 
+
 Route::get('/dataapotek', function () {
     return view('apotek.dataapotek');
 })->name('dataapotek'); 
