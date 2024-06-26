@@ -4,28 +4,28 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/datapengguna', function () {
-    return view('admin.datapengguna');
+    return view('admin.datamaster.datapengguna');
 })->name('datapengguna'); 
 
 Route::get('/datapasien', function () {
-    return view('admin.datapasien');
+    return view('admin.datamaster.datapasien');
 })->name('datapasien'); 
 
 Route::get('/datadiagnosa', function () {
-    return view('admin.datadiagnosa');
+    return view('admin.datamaster.datadiagnosa');
 })->name('datadiagnosa'); 
 
 Route::get('/dataobat', function () {
-    return view('admin.dataobat');
+    return view('admin.datamaster.dataobat');
 })->name('dataobat'); 
 
 Route::get('/dataantrian', function () {
     return view('pendaftaran.dataantrian');
 })->name('dataantrian'); 
 
-Route::get('/formpemeriksaan', function () {
-    return view('pendaftaran.formpemeriksaan');
-})->name('formpemeriksaan'); 
+Route::get('/formpendaftaran', function () {
+    return view('pendaftaran.formpendaftaran');
+})->name('formpendaftaran'); 
 
 Route::get('/poligigi', function () {
     return view('pemeriksaan.poligigi');
