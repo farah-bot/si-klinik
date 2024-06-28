@@ -9,10 +9,11 @@
             <h2>Pendaftaran Pasien Baru</h2>
         </div>
         <div class="card-body">
-            <form action="#" method="POST">
+            <form id="pendaftaranForm" action="#" onsubmit="return showModal(event)">
                 @csrf
                 <div class="row">
                     <div class="col-md-6">
+                        <!-- Form fields for patient data -->
                         <div class="form-group">
                             <label for="no_rm">No RM</label>
                             <input type="text" id="no_rm" name="no_rm" class="form-control" value="" required>
@@ -70,23 +71,46 @@
                     <label for="poli_tujuan">Poli Tujuan</label>
                     <select id="poli_tujuan" name="poli_tujuan" class="form-control">
                         <option value="">- Pilih -</option>
-                        <option value="Poli A">Poli A</option>
-                        <option value="Poli B">Poli B</option>
-                        <option value="Poli C">Poli C</option>
+                        <option value="Poli A">Poli Umum</option>
+                        <option value="Poli B">Poli Gigi</option>
+                        <option value="Poli C">Poli KIA</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="jenis_kunjungan">Jenis Kunjungan</label>
-                    <select id="jenis_kunjungan" name="jenis_kunjungan" class="form-control">
-                        <option value="Baru">Baru</option>
-                        <option value="Lama">Lama</option>
-                    </select>
+                    <label>Jenis Kunjungan</label><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="jenis_kunjungan" id="jenis_kunjungan_baru" value="Baru" checked>
+                        <label class="form-check-label" for="jenis_kunjungan_baru">Baru</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="jenis_kunjungan" id="jenis_kunjungan_lama" value="Lama">
+                        <label class="form-check-label" for="jenis_kunjungan_lama">Lama</label>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Daftar</button>
+                <button class="btn btn-primary">Daftar</button>
                 <a href="#" class="btn btn-secondary">Batal</a>
             </form>
         </div>
     </div>
+</div>
+
+
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Apakah Data yang anda isikan sudah sesuai?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Daftar</button>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection
 
@@ -101,6 +125,17 @@ function toggleBPJSInput() {
     } else {
         nomor_bpjs_input.disabled = true;
     }
+}
+
+function showModal(event) {
+    event.preventDefault();
+    var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+    confirmationModal.show();
+    return false;
+}
+
+function submitForm() {
+    document.getElementById('pendaftaranForm').submit();
 }
 </script>
 @endsection
