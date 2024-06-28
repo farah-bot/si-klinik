@@ -14,7 +14,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('img/camar.png') }}" alt="Logo"> 
+                <img src="{{ asset('img/camar.png') }}" alt="Logo">
                 <div class="brand-text">
                     <span class="brand-line1">KLINIK PRATAMA</span>
                     <span class="brand-line2">CAMAR MANDIRI</span>
@@ -26,20 +26,17 @@
         <div class="card login-card p-4 glass-effect w-100">
             <div class="card-body">
                 <h2 class="bold-text text-center">Masuk</h2>
-                <form action="{{ route('login') }}" method="POST">
+                <form method="POST" action="{{ route('login.submit') }}">
                     @csrf
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                    <div class="form-group">
+                        <label for="name">Email:</label>
+                        <input type="name" class="form-control" id="name" name="name" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <div class="d-flex gap-2">
-                        <a href="{{ route('login.submit') }}" class="btn btn-masuk btn-lg flex-grow-1">Masuk</a>
-                        <a href="{{ route('welcome') }}" class="btn btn-kembali btn-lg flex-grow-1">Kembali</a>
-                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
                 </form>
             </div>
         </div>

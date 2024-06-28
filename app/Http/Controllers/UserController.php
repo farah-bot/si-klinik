@@ -29,7 +29,7 @@ class UserController extends Controller
                 'alamat' => $validated['alamat'],
                 'jabatan' => $validated['jabatan'],
                 'username' => $validated['username'],
-                'email' => $validated['username'] . '@example.com', 
+                'email' => $validated['username'] . '@example.com',
                 'password' => bcrypt($validated['password']),
             ]);
 
@@ -53,12 +53,12 @@ class UserController extends Controller
 
         switch ($roleName) {
             case 'Dokter':
-                $permissions = ['Dashboard', 'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien'];
+                $permissions = ['Dashboard', 'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum'];
                 break;
             case 'Rekam Medis':
                 $permissions = [
-                    'Dashboard', 'Data Antrian Poli', 'Form Pendaftaran', 'Riwayat Pelayanan Pasien', 
-                    'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan', 
+                    'Dashboard', 'Data Antrian Poli', 'Form Pendaftaran', 'Riwayat Pelayanan Pasien',
+                    'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan',
                     'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'
                 ];
                 break;
@@ -73,7 +73,7 @@ class UserController extends Controller
                 break;
             case 'Kepala Klinik':
                 $permissions = [
-                    'Riwayat Pelayanan Pasien', 'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 
+                    'Riwayat Pelayanan Pasien', 'Laporan Kunjungan', 'Laporan Surveilens Mingguan',
                     'Laporan Surveilens Bulanan', 'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'
                 ];
                 break;

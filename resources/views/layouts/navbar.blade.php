@@ -18,9 +18,9 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dataMasterDropdown">
                         <li><a class="dropdown-item" href="{{ route('datapengguna') }}">Data Pengguna</a></li>
-                        <li><a class="dropdown-item" href="{{ route('datapasien') }}">Data Pasien</a></li>
-                        <li><a class="dropdown-item" href="{{ route('datadiagnosa') }}">Data Diagnosa</a></li>
-                        <li><a class="dropdown-item" href="{{ route('dataobat') }}">Data Obat</a></li>
+                        {{-- <li><a class="dropdown-item" href="{{ route('datapasien') }}">Data Pasien</a></li> --}}
+                        {{-- <li><a class="dropdown-item" href="{{ route('datadiagnosa') }}">Data Diagnosa</a></li> --}}
+                        {{-- <li><a class="dropdown-item" href="{{ route('dataobat') }}">Data Obat</a></li> --}}
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -50,10 +50,10 @@
                         Rekam Medis
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="rekamMedisDropdown">
-                        <li><a class="dropdown-item" href="{{ route('riwayatpelayanan') }}">Riwayat Pelayanan Pasien</a></li>
+                        <li><a class="dropdown-item" href="{{ route('riwayatpelayananpasien') }}">Riwayat Pelayanan Pasien</a></li>
                         <li><a class="dropdown-item" href="{{ route('laporankunjungan') }}">Laporan Kunjungan</a></li>
-                        <li><a class="dropdown-item" href="{{ route('laporanpenyakit') }}">Laporan Surveilans</a></li>
-                        <li><a class="dropdown-item" href="{{ route('laporanjasa') }}">Laporan Jumlah Jasa Pelayanan Dokter</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporan10besarpenyakit') }}">Laporan Surveilans</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporanjumlahjasapelayanandokter') }}">Laporan Jumlah Jasa Pelayanan Dokter</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown" style="margin-right: 100px;">
