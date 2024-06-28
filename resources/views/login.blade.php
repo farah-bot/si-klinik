@@ -26,8 +26,8 @@
         <div class="card login-card p-4 glass-effect w-100">
             <div class="card-body">
                 <h2 class="bold-text text-center">Masuk</h2>
-                <form action="{{ route('login') }}" method="POST">
-                    @csrf
+                <form action="{{ route('login.submit') }}" method="POST">
+                    <!-- @csrf -->
                     <div class="mb-3">
                         <label for="username" class="form-label">Username</label>
                         <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
@@ -37,7 +37,7 @@
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
                     </div>
                     <div class="d-flex gap-2">
-                        <a href="{{ route('login.submit') }}" class="btn btn-masuk btn-lg flex-grow-1">Masuk</a>
+                        <button type="submit" class="btn btn-masuk btn-lg flex-grow-1">Masuk</button>
                         <a href="{{ route('welcome') }}" class="btn btn-kembali btn-lg flex-grow-1">Kembali</a>
                     </div>
                 </form>
