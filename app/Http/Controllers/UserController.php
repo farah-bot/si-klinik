@@ -12,7 +12,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_pengguna' => 'required|string|max:255',
+            'id_pengguna' => 'required|string|max:255|unique:users,id_pengguna',
             'nama_pengguna' => 'required|string|max:255',
             'jenis_kelamin' => 'required|string',
             'tanggal_lahir' => 'required|date',
@@ -25,19 +25,64 @@ class UserController extends Controller
         try {
             $user = User::create([
                 'name' => $validated['nama_pengguna'],
-                'email' => $validated['username'] . '@example.com', 
+                'jenis_kelamin' => $validated['jenis_kelamin'],
+                'tanggal_lahir' => $validated['tanggal_lahir'],
+                'alamat' => $validated['alamat'],
+                'jabatan' => $validated['jabatan'],
+                'username' => $validated['username'],
+                'email' => $validated['username'] . '@example.com', // Placeholder email, modify as needed
                 'password' => bcrypt($validated['password']),
             ]);
 
             $role = Role::where('name', $validated['jabatan'])->first();
             if ($role) {
                 $user->assignRole($role);
+
+                // Assign default permissions based on role
+                $this->assignDefaultPermissions($user, $role->name);
             }
 
             return redirect()->back()->with('success', 'Pengguna berhasil ditambahkan.');
         } catch (\Exception $e) {
             Log::error('Error saving user: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menambahkan pengguna.');
+        }
+    }
+
+    private function assignDefaultPermissions($user, $roleName)
+    {
+        $permissions = [];
+
+        switch ($roleName) {
+            case 'Dokter':
+                $permissions = ['Dashboard', 'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien'];
+                break;
+            case 'Rekam Medis':
+                $permissions = [
+                    'Dashboard', 'Data Antrian Poli', 'Form Pendaftaran', 'Riwayat Pelayanan Pasien', 
+                    'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan', 
+                    'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'
+                ];
+                break;
+            case 'Apoteker':
+                $permissions = ['Dashboard', 'Data Antrian Apotek'];
+                break;
+            case 'Bidan':
+                $permissions = ['Dashboard', 'Poli KIA'];
+                break;
+            case 'Perawat':
+                $permissions = ['Dashboard', 'Poli Umum', 'Riwayat Pelayanan Pasien'];
+                break;
+            case 'Kepala Klinik':
+                $permissions = [
+                    'Riwayat Pelayanan Pasien', 'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 
+                    'Laporan Surveilens Bulanan', 'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'
+                ];
+                break;
+        }
+
+        if (!empty($permissions)) {
+            $user->givePermissionTo($permissions);
         }
     }
 }
