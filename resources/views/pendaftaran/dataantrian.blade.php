@@ -13,8 +13,7 @@
             <div class="col-md-3">
                 <label for="filterNama">Cari Nama Pasien</label>
                 <div class="input-group">
-                    <input type="text" id="filterNama" class="form-control" placeholder="Nama Pasien" onkeydown="if(event.keyCode==13) filterData()">
-                    <button class="btn btn-primary" type="button" onclick="filterData()">Cari</button>
+                    <input type="text" id="filterNama" class="form-control" placeholder="Nama Pasien" onkeydown="filterData(event)">
                 </div>
             </div>
             <div class="col-md-3">
@@ -53,6 +52,10 @@
                     
                 </tbody>
             </table>
+
+            <div id="noDataFound" style="display: none;" class="alert alert-info mt-3">
+                Data tidak ditemukan.
+            </div>
         </div>
     </div>
 </div>
@@ -93,9 +96,10 @@
 
     }
 
-    function filterData() {
+    function filterData(event) {
         const filterNama = document.getElementById('filterNama').value.toLowerCase();
         const tableRows = document.getElementById('tableBody').getElementsByTagName('tr');
+        let found = false;
 
         for (let i = 0; i < tableRows.length; i++) {
             const namaPasien = tableRows[i].getElementsByTagName('td')[1];
@@ -103,10 +107,18 @@
                 const textValue = namaPasien.textContent || namaPasien.innerText;
                 if (textValue.toLowerCase().indexOf(filterNama) > -1) {
                     tableRows[i].style.display = '';
+                    found = true;
                 } else {
                     tableRows[i].style.display = 'none';
                 }
             }
+        }
+
+        const noDataFound = document.getElementById('noDataFound');
+        if (found) {
+            noDataFound.style.display = 'none';
+        } else {
+            noDataFound.style.display = 'block';
         }
     }
 

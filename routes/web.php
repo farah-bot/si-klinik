@@ -27,6 +27,10 @@ Route::get('/formpendaftaran', function () {
     return view('pendaftaran.formpendaftaran');
 })->name('formpendaftaran'); 
 
+Route::get('/poliumum', function () {
+    return view('pemeriksaan.datapoliumum');
+})->name('datapoliumum');
+
 Route::get('/poligigi', function () {
     return view('pemeriksaan.poligigi');
 })->name('poligigi'); 
