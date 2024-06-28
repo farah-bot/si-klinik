@@ -33,6 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/poligigi', function () {
             return view('pemeriksaan.poligigi');
         })->name('poligigi'); //aman
+        Route::get('/datapoligigi', function () {
+            return view('pemeriksaan.datapoligigi');
+        })->name('datapoligigi'); //aman
     });
 
     // Rekam Medis routes
@@ -66,9 +69,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Bidan routes
     Route::group(['middleware' => ['role:Bidan']], function () {
-        Route::get('/polikia', function () {
-            return view('pemeriksaan.polikia');
-        })->name('polikia');
+        Route::get('/datapolikia', function () {
+            return view('pemeriksaan.datapolikia');
+        })->name('datapolikia');
     });
 
     // Perawat routes
