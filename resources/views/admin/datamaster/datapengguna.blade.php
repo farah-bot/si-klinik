@@ -10,23 +10,24 @@
         </div>
         <div class="row mb-3">
             <div class="col-lg-12">
-                <form>
+                <form method="POST" action="{{ route('users.store') }}">
+                    @csrf
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="id_pengguna">ID Pengguna</label>
-                                <input type="text" class="form-control" id="id_pengguna" name="id_pengguna">
+                                <input type="text" class="form-control" id="id_pengguna" name="id_pengguna" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jenis Kelamin *</label><br>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki" value="Laki-Laki">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki" value="Laki-Laki" required>
                                     <label class="form-check-label" for="laki_laki">Laki-Laki</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan" required>
                                     <label class="form-check-label" for="perempuan">Perempuan</label>
                                 </div>
                             </div>
@@ -34,37 +35,44 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="nama_pengguna">Nama Pengguna</label>
-                                <input type="text" class="form-control" id="nama_pengguna" name="nama_pengguna">
+                                <input type="text" class="form-control" id="nama_pengguna" name="nama_pengguna" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="tanggal_lahir">Tanggal Lahir *</label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
+                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="alamat">Alamat *</label>
-                                <textarea class="form-control" id="alamat" name="alamat"></textarea>
+                                <textarea class="form-control" id="alamat" name="alamat" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="jabatan">Jabatan</label>
-                                <input type="text" class="form-control" id="jabatan" name="jabatan">
+                                <select class="form-control" id="jabatan" name="jabatan" required>
+                                    <option value="Dokter">Dokter</option>
+                                    <option value="Rekam Medis">Rekam Medis</option>
+                                    <option value="Apoteker">Apoteker</option>
+                                    <option value="Bidan">Bidan</option>
+                                    <option value="Perawat">Perawat</option>
+                                    <option value="Kepala Klinik">Kepala Klinik</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="username">Username</label>
-                                <input type="text" class="form-control" id="username" name="username">
+                                <input type="text" class="form-control" id="username" name="username" required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <input type="password" class="form-control" id="password" name="password" required>
                             </div>
                         </div>
                     </div>
