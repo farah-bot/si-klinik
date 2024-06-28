@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\RolesAndPermissionController;
-use App\Http\Controllers\UserController;
 
 Route::get('/datapengguna', function () {
     return view('admin.datamaster.datapengguna');
@@ -67,6 +65,3 @@ Route::get('/login', function () {
 Route::post('/login', function () {
     return view('login');
 })->name('login.submit'); 
-
-Route::get('add-permission', [RolesAndPermissionController::class, 'addPermission']);
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
