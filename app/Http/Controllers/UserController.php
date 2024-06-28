@@ -12,7 +12,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'id_pengguna' => 'required|string|max:255|unique:users,id_pengguna',
             'nama_pengguna' => 'required|string|max:255',
             'jenis_kelamin' => 'required|string',
             'tanggal_lahir' => 'required|date',
@@ -30,7 +29,7 @@ class UserController extends Controller
                 'alamat' => $validated['alamat'],
                 'jabatan' => $validated['jabatan'],
                 'username' => $validated['username'],
-                'email' => $validated['username'] . '@example.com', // Placeholder email, modify as needed
+                'email' => $validated['username'] . '@example.com', 
                 'password' => bcrypt($validated['password']),
             ]);
 
@@ -38,7 +37,6 @@ class UserController extends Controller
             if ($role) {
                 $user->assignRole($role);
 
-                // Assign default permissions based on role
                 $this->assignDefaultPermissions($user, $role->name);
             }
 
