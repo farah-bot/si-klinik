@@ -8,6 +8,25 @@
         <div class="data-pengguna-header">
             <h2>DATA PENGGUNA</h2>
         </div>
+
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="row mb-3">
             <div class="col-lg-12">
                 <form method="POST" action="{{ route('users.store') }}">
@@ -77,7 +96,7 @@
                         </div>
                     </div>
                     <div class="float-right">
-                        <button type="submit" class="btn btn-tambah">Tambah</button> 
+                        <button type="submit" class="btn btn-tambah">Tambah</button>
                         <button type="reset" class="btn btn-batal">Batal</button>
                     </div>
                 </form>
