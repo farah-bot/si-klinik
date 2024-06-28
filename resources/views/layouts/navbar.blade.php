@@ -41,8 +41,8 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="pemeriksaanDropdown">
                          <li><a class="dropdown-item" href="{{ route('datapoliumum') }}">Poli Umum</a></li>
-                        <li><a class="dropdown-item" href="{{ route('poligigi') }}">Poli Gigi</a></li>
-                        <li><a class="dropdown-item" href="#">Poli KIA</a></li>
+                        <li><a class="dropdown-item" href="{{ route('datapoligigi') }}">Poli Gigi</a></li>
+                        <li><a class="dropdown-item" href="{{ route('datapolikia') }}">Poli KIA</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

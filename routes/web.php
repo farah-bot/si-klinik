@@ -34,8 +34,12 @@ Route::get('/poliumum', function () {
 })->name('datapoliumum');
 
 Route::get('/poligigi', function () {
-    return view('pemeriksaan.poligigi');
-})->name('poligigi'); 
+    return view('pemeriksaan.datapoligigi');
+})->name('datapoligigi'); 
+
+Route::get('/polikia', function () {
+    return view('pemeriksaan.datapolikia');
+})->name('datapolikia');
 
 Route::get('/riwayatpelayanan', function () {
     return view('rekammedis.riwayatpelayanan');
