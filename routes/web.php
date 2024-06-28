@@ -95,7 +95,6 @@ Route::group(['middleware' => ['auth']], function () {
     });
 });
 
-// General routes
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
