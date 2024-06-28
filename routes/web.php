@@ -8,20 +8,22 @@ use App\Http\Controllers\AuthController;
 Route::group(['middleware' => ['auth']], function () {
 
     // Admin-only routes
-    Route::group(['middleware' => ['role:admin']], function () {
-    //     Route::get('/datapengguna', function () {
-    //         return view('admin.datamaster.datapengguna');
-    //     })->name('datapengguna');
+    Route::group(['middleware' => ['role:Admin']], function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/datapengguna', function () {
+            return view('admin.datamaster.datapengguna');
+        })->name('datapengguna');
 
-    //     Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
     });
 
     // Dokter routes
     Route::group(['middleware' => ['role:Dokter']], function () {
-        Route::get('/datapengguna', function () {
-            return view('admin.datamaster.datapengguna');
-        })->name('datapengguna'); //testing
-        Route::post('/users', [UserController::class, 'store'])->name('users.store'); //testing
+        // Route::get('/datapengguna', function () {
+        //     return view('admin.datamaster.datapengguna');
+        // })->name('datapengguna'); //testing
+        // Route::post('/users', [UserController::class, 'store'])->name('users.store'); //testing
         Route::get('/poliumum', function () {
             return view('pemeriksaan.poliumum');
         })->name('poliumum'); //aman
@@ -58,22 +60,22 @@ Route::group(['middleware' => ['auth']], function () {
         })->name('datapolikia');
     });
 
-    Route::group(['middleware' =>  ['role:Dokter|Perawat|Rekam Medis']], function(){
+    Route::group(['middleware' =>  ['role:Dokter|Perawat|Rekam Medis']], function () {
         Route::get('/riwayatpelayananpasien', function () {
             return view('rekammedis.riwayatpelayanan');
         })->name('riwayatpelayananpasien'); //aman
     });
-    Route::group(['middleware' =>  ['role:Dokter|Perawat']], function(){
+    Route::group(['middleware' =>  ['role:Dokter|Perawat']], function () {
         Route::get('/datapoliumum', function () {
             return view('pemeriksaan.datapoliumum');
         })->name('datapoliumum'); //aman
     });
-    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function(){
+    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function () {
         Route::get('/laporan10besarpenyakit', function () {
             return view('rekammedis.laporanpenyakit');
         })->name('laporan10besarpenyakit');
     });
-    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function(){
+    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function () {
         Route::get('/laporankunjungan', function () {
             return view('rekammedis.laporankunjungan');
         })->name('laporankunjungan');
@@ -90,10 +92,10 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::get('/datapengguna', function () {
-    return view('admin.datamaster.datapengguna');
-})->name('datapengguna');
+// Route::get('/datapengguna', function () {
+//     return view('admin.datamaster.datapengguna');
+// })->name('datapengguna');
 
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+// Route::post('/users', [UserController::class, 'store'])->name('users.store');
+// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 

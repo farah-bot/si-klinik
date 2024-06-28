@@ -79,6 +79,7 @@
                                     <option value="Bidan">Bidan</option>
                                     <option value="Perawat">Perawat</option>
                                     <option value="Kepala Klinik">Kepala Klinik</option>
+                                    <option value="Admin">Admin</option>
                                 </select>
                             </div>
                         </div>

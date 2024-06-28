@@ -17,31 +17,29 @@ class AdminSeeder extends Seeder
     public function run()
     {
         Log::info('Starting AdminSeeder');
-
-        $adminRole = Role::firstOrCreate(['name' => 'admin']);
         Log::info('Admin role created or retrieved');
 
         // Create admin user
         $adminUser = User::create([
-            'name' => 'Admin User',
+            'name' => 'Dokter User',
             'jenis_kelamin' => 'Laki-Laki',
             'tanggal_lahir' => '22-02-2024 00:00:00',
-            'jabatan' => 'admin',
+            'jabatan' => 'Dokter',
             'alamat' => 'tes',
-            'username' => 'admin',
-            'email' => 'admin@admin.com',
+            'username' => 'dokter',
+            'email' => 'dokter@admin.com',
             'password' => bcrypt('password'),
         ]);
 
         Log::info('Admin user created: ' . $adminUser->id);
+        $role = Role::where('name','Admin')->first();
+        if ($role) {
+            $adminUser->assignRole($role);
 
-        // Assign admin role to the admin user
-        $adminUser->assignRole($adminRole);
+            $this->assignDefaultPermissions($adminUser, $role->name);
+        }
 
         Log::info('Admin role assigned to admin user');
-
-        // Assign default permissions to the admin user
-        $this->assignDefaultPermissions($adminUser, 'admin');
     }
 
     private function assignDefaultPermissions($user, $roleName)
@@ -49,7 +47,7 @@ class AdminSeeder extends Seeder
         $permissions = [];
 
         switch ($roleName) {
-            case 'admin':
+            case 'Admin':
                 $permissions = [
                     'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum', 'Dashboard', 'Data Antrian Poli', 'Form Pendaftaran',
                     'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan',
