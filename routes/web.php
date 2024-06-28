@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 
 Route::group(['middleware' => ['auth']], function () {
+
     // Admin-only routes
     Route::group(['middleware' => ['role:admin']], function () {
     //     Route::get('/datapengguna', function () {
@@ -24,12 +25,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/poliumum', function () {
             return view('pemeriksaan.poliumum');
         })->name('poliumum'); //aman
-        Route::get('/datapoliumum', function () {
-            return view('pemeriksaan.datapoliumum');
-        })->name('datapoliumum'); //aman
-        Route::get('/riwayatpelayananpasien', function () {
-            return view('rekammedis.riwayatpelayanan');
-        })->name('riwayatpelayananpasien');
         Route::get('/poligigi', function () {
             return view('pemeriksaan.poligigi');
         })->name('poligigi'); //aman
@@ -46,22 +41,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/formpendaftaran', function () {
             return view('pendaftaran.formpendaftaran');
         })->name('formpendaftaran'); //aman
-        Route::get('/riwayatpelayananpasien', function () {
-            return view('rekammedis.riwayatpelayanan');
-        })->name('riwayatpelayananpasien'); //aman
-        Route::get('/laporankunjungan', function () {
-            return view('rekammedis.laporankunjungan');
-        })->name('laporankunjungan');
-        Route::get('/laporan10besarpenyakit', function () {
-            return view('rekammedis.laporanpenyakit');
-        })->name('laporan10besarpenyakit'); //aman
-        Route::get('/laporanjumlahjasapelayanandokter', function () {
-            return view('rekammedis.laporanjasa');
-        })->name('laporanjumlahjasapelayanandokter'); //aman
+
     });
 
     // Apoteker routes
-    Route::group(['middleware' => ['role:apoteker']], function () {
+    Route::group(['middleware' => ['role:Apoteker']], function () {
         Route::get('/dataapotek', function () {
             return view('apotek.dataapotek');
         })->name('dataapotek');
@@ -74,27 +58,28 @@ Route::group(['middleware' => ['auth']], function () {
         })->name('datapolikia');
     });
 
-    // Perawat routes
-    Route::group(['middleware' => ['role:perawat']], function () {
-        Route::get('/poliumum', function () {
-            return view('pemeriksaan.datapoliumum');
-        })->name('datapoliumum');
-        Route::get('/riwayatpelayanan', function () {
+    Route::group(['middleware' =>  ['role:Dokter|Perawat|Rekam Medis']], function(){
+        Route::get('/riwayatpelayananpasien', function () {
             return view('rekammedis.riwayatpelayanan');
-        })->name('riwayatpelayanan');
+        })->name('riwayatpelayananpasien'); //aman
     });
-
-    // Kepala Klinik routes
-    Route::group(['middleware' => ['role:kepala klinik']], function () {
+    Route::group(['middleware' =>  ['role:Dokter|Perawat']], function(){
+        Route::get('/datapoliumum', function () {
+            return view('pemeriksaan.datapoliumum');
+        })->name('datapoliumum'); //aman
+    });
+    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function(){
+        Route::get('/laporan10besarpenyakit', function () {
+            return view('rekammedis.laporanpenyakit');
+        })->name('laporan10besarpenyakit');
+    });
+    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function(){
         Route::get('/laporankunjungan', function () {
             return view('rekammedis.laporankunjungan');
         })->name('laporankunjungan');
-        Route::get('/laporanpenyakit', function () {
-            return view('rekammedis.laporanpenyakit');
-        })->name('laporanpenyakit');
-        Route::get('/laporanjasa', function () {
+        Route::get('/laporanjumlahjasapelayanandokter', function () {
             return view('rekammedis.laporanjasa');
-        })->name('laporanjasa');
+        })->name('laporanjumlahjasapelayanandokter'); //aman
     });
 });
 

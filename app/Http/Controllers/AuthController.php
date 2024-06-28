@@ -30,6 +30,16 @@ class AuthController extends Controller
                 return redirect()->intended(route('dashboard'));
             } elseif($user->hasRole('Bidan')) {
                 return redirect()->intended(route('dashboard'));
+            } elseif($user->hasRole('Perawat')) {
+                return redirect()->intended(route('dashboard'));
+            } elseif($user->hasRole('Dokter Gigi')) {
+                return redirect()->intended(route('dashboard'));
+            } elseif($user->hasRole('Admin')) {
+                return redirect()->intended(route('dashboard'));
+            } elseif($user->hasRole('Kepala Klinik')) {
+                return redirect()->intended(route('dashboard'));
+            } elseif($user->hasRole('Apoteker')) {
+                return redirect()->intended(route('dashboard'));
             }
             else {
                 Auth::logout();

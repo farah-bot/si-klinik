@@ -52,6 +52,13 @@ class UserController extends Controller
         $permissions = [];
 
         switch ($roleName) {
+            case 'Admin':
+                $permissions = [
+                    'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum', 'Dashboard', 'Data Antrian Poli', 'Form Pendaftaran',
+                    'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan',
+                    'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'
+                ];
+                break;
             case 'Dokter':
                 $permissions = ['Dashboard', 'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum'];
                 break;
