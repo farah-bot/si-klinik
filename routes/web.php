@@ -9,7 +9,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Admin-only routes
     Route::group(['middleware' => ['role:Admin']], function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('/datapengguna', function () {
             return view('admin.datamaster.datapengguna');
         })->name('datapengguna');
@@ -92,6 +91,8 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
 // Route::get('/datapengguna', function () {
 //     return view('admin.datamaster.datapengguna');
 // })->name('datapengguna');
