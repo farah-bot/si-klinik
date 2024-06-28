@@ -52,12 +52,8 @@
                     <ul class="dropdown-menu" aria-labelledby="rekamMedisDropdown">
                         <li><a class="dropdown-item" href="{{ route('riwayatpelayanan') }}">Riwayat Pelayanan Pasien</a></li>
                         <li><a class="dropdown-item" href="{{ route('laporankunjungan') }}">Laporan Kunjungan</a></li>
-                        <li><a class="dropdown-item" href="#">Laporan Surveilens Mingguan</a></li>
-                        <li><a class="dropdown-item" href="#">Laporan Surveilens Bulanan</a></li>
-                        <li><a class="dropdown-item" href="{{ route('laporanpenyakit') }}">Laporan 10 Besar Penyakit</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporanpenyakit') }}">Laporan Surveilans</a></li>
                         <li><a class="dropdown-item" href="{{ route('laporanjasa') }}">Laporan Jumlah Jasa Pelayanan Dokter</a></li>
-                        <li><a class="dropdown-item" href="#">Laporan Pasien Tuberkulosis</a></li>
-
                     </ul>
                 </li>
                 <li class="nav-item dropdown" style="margin-right: 100px;">
