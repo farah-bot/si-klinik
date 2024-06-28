@@ -34,7 +34,7 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                   
+                    
                 </tbody>
             </table>
 
@@ -70,12 +70,13 @@
                 <h5 class="modal-title" id="panggilAntrianModalLabel">Panggil Antrian</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Mengaktifkan toa untuk memanggil nomor antrian <span id="nomorAntrianPanggil"></span></p>
+            <div class="modal-body text-center">
+                <i class="fas fa-bullhorn fa-3x"></i>
+                <p>Nomor Antrian: <span id="nomorAntrianPanggil"></span></p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-center">
+                <button type="button" class="btn btn-success ms-2" onclick="panggilLagi()">Panggil Antrian</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Skip</button>
-                <button type="button" class="btn btn-primary" onclick="panggilLagi()">Panggil Lagi</button>
             </div>
         </div>
     </div>
@@ -84,7 +85,7 @@
 <script>
     const dataAntrian = [
         {
-            nomorAntrian: '4',
+            nomorAntrian: '004',
             tanggalPeriksa: '15/01/2023',
             namaPasien: 'Kiara Azzahra',
             noRM: '1500',
@@ -111,7 +112,7 @@
             jenisKelamin: 'Laki-laki',
             jenisKunjungan: 'Lama',
             poli: 'Poli Umum',
-            status: 'Belum Terlayani'
+            status: 'Proses Pelayanan'
         },
         {
             nomorAntrian: '001',
@@ -129,13 +130,15 @@
         const tableBody = document.getElementById('tableBody');
         let tableHTML = '';
     
-        data.forEach(item => {
-            let statusClass = '';
-            if (item.status === 'Sudah Terlayani') {
-                statusClass = 'bg-success text-white';
-            } else {
-                statusClass = 'bg-secondary text-white';
-            }
+    data.forEach(item => {
+        let statusClass = '';
+        if (item.status === 'Sudah Terlayani') {
+            statusClass = 'bg-success text-white';
+        } else if (item.status === 'Proses Pelayanan') {
+            statusClass = 'bg-primary text-white';
+        } else {
+            statusClass = 'bg-secondary text-white';
+        }
         
             tableHTML += `
                 <tr>
@@ -265,9 +268,15 @@
             audioQueue.push(...digits);
         }
 
+        console.log('Audio Queue:', audioQueue);
+
+        let delay = 0;
         audioQueue.forEach(file => {
-            const audio = new Audio(audioPath + file);
-            audio.play();
+            setTimeout(() => {
+                const audio = new Audio(audioPath + file);
+                audio.play().catch(error => console.error('Audio play error:', error));
+            }, delay);
+            delay += 500;  
         });
     }
 
