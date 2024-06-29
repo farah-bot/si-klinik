@@ -8,6 +8,11 @@ use App\Models\Kunjungan;
 
 class PendaftaranController extends Controller
 {
+    public function index()
+    {
+        $pasien = Pasien::all();
+        return view('pendaftaran.dataantrian', compact('pasien'));
+    }
     public function daftarPasien(Request $request)
     {
         $request->validate([
