@@ -8,6 +8,11 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\LaporanController;
 
 // lOGIN
+// Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
+// Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
+
+
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -28,15 +33,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     // ADMIN DAN DOKTER
     Route::group(['middleware' => ['role:Dokter|Admin']], function () {
-        Route::get('/poliumum', function () {
-            return view('pemeriksaan.poliumum');
-        })->name('poliumum');
+
+
         Route::get('/poligigi', function () {
             return view('pemeriksaan.poligigi');
         })->name('poligigi');
-        Route::get('/datapoligigi', function () {
-            return view('pemeriksaan.datapoligigi');
-        })->name('datapoligigi');
+        Route::get('/datapoligigi', [PendaftaranController::class, 'dataPoliGigi'])->name('datapoligigi');
     });
 
     // REKAM MEDIS DAN ADMIN
@@ -57,9 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // BIDAN DAN ADMIN
     Route::group(['middleware' => ['role:Bidan|Admin']], function () {
-        Route::get('/datapolikia', function () {
-            return view('pemeriksaan.datapolikia');
-        })->name('datapolikia');
+        Route::get('/datapolikia', [PendaftaranController::class, 'dataPoliKia'])->name('datapolikia');
     });
 
     // DOKTER, PERAWAT, REKAM MEDIS, DAN ADMIN
@@ -71,9 +71,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // DOKTER, PERAWAT, DAN ADMIN
     Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin']], function () {
-        Route::get('/datapoliumum', function () {
-            return view('pemeriksaan.datapoliumum');
-        })->name('datapoliumum');
+        Route::get('/poliumum', function () {
+            return view('pemeriksaan.poliumum');
+        })->name('poliumum');
+        Route::get('/datapoliumum', [PendaftaranController::class, 'dataPoliUmum'])->name('datapoliumum');
     });
 
     // KEPALA KLINIK, REKAM MEDIS, DAN ADMIN

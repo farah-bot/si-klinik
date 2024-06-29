@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreignId('pasien_id')->constrained('pasiens');
             $table->date('tanggal_kunjungan');
             $table->string('poli_tujuan');
+            $table->string('status')->default('Belum Terlayani');
+            $table->integer('nomor_antrian')->nullable();
             $table->string('jenis_kunjungan');
             $table->timestamps();
         });
