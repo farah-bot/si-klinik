@@ -10,8 +10,7 @@ class Kunjungan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pasien_id', 'tanggal_kunjungan', 'poli_tujuan', 'jenis_kunjungan', 'status',
-        'nomor_antrian',
+        'pasien_id', 'tanggal_kunjungan', 'poli_tujuan', 'jenis_kunjungan'
     ];
 
     public function pasien()

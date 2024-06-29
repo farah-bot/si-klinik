@@ -13,7 +13,6 @@ class PendaftaranController extends Controller
         $pasien = Pasien::all();
         return view('pendaftaran.dataantrian', compact('pasien'));
     }
-
     public function daftarPasien(Request $request)
     {
         $request->validate([
@@ -43,47 +42,13 @@ class PendaftaranController extends Controller
             'nomor_bpjs' => $request->nomor_bpjs ?? null,
         ]);
 
-        // Menghitung nomor antrian berikutnya
-        $nomor_antrian_terakhir = Kunjungan::whereDate('tanggal_kunjungan', $request->tanggal_kunjungan)
-            ->where('poli_tujuan', $request->poli_tujuan)
-            ->max('nomor_antrian');
-
-        $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
-
         $kunjungan = Kunjungan::create([
             'pasien_id' => $pasien->id,
             'tanggal_kunjungan' => $request->tanggal_kunjungan,
             'poli_tujuan' => $request->poli_tujuan,
             'jenis_kunjungan' => $request->jenis_kunjungan,
-            'status' => 'Belum Terlayani',
-            'nomor_antrian' => $nomor_antrian_baru,
         ]);
 
         return redirect()->back()->with('success', 'Pendaftaran pasien berhasil.');
-    }
-
-    public function dataPoliGigi()
-    {
-        $kunjungans = Kunjungan::with('pasien')
-            ->where('poli_tujuan', 'Poli Gigi')
-            ->get();
-
-        return view('pemeriksaan.datapoligigi', compact('kunjungans'));
-    }
-    public function dataPoliKia()
-    {
-        $kunjungans = Kunjungan::with('pasien')
-            ->where('poli_tujuan', 'Poli KIA')
-            ->get();
-
-        return view('pemeriksaan.datapolikia', compact('kunjungans'));
-    }
-    public function dataPoliUmum()
-    {
-        $kunjungans = Kunjungan::with('pasien')
-            ->where('poli_tujuan', 'Poli Umum')
-            ->get();
-
-        return view('pemeriksaan.datapoliumum', compact('kunjungans'));
     }
 }
