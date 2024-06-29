@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Formulir Pemeriksaan Poli Umum')
+@section('title', 'Formulir Pemeriksaan Poli KIA')
 
 @section('content')
 <div class="data-pengguna-container">
     <div class="container">
         <div class="data-pengguna-header">
-            <h2>FORMULIR PEMERIKSAAN POLI UMUM</h2>
+            <h2>FORMULIR PEMERIKSAAN POLI KIA</h2>
         </div>
 
         <!-- Patient Information Section -->
@@ -207,24 +207,17 @@
         <!-- Plan -->
         <div class="border rounded p-3 mb-3">
         <h4>PLAN</h4>
-        <div class="row">
-        <div class="col-md-6">
         <div class="form-group">
             <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
             <textarea class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" rows="3" required></textarea>
         </div>
-        </div>
-        <div class="col-md-6">
         <div class="form-group">
             <label for="tindakan">Tindakan</label>
             <input type="text" class="form-control" id="tindakan" name="tindakan">
         </div>
-        </div>
-        <div class="col-md-6">
         <div class="form-group">
             <label for="rujukan">Rujukan</label>
             <input type="text" class="form-control" id="rujukan" name="rujukan">
-        </div>
         </div>
         </div>
 

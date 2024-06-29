@@ -109,3 +109,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/formpoliumum', function () {
     return view('pemeriksaan.poliumum');
 })->name('poliumum');
+
+Route::get('/formpolikia', function () {
+    return view('pemeriksaan.polikia');
+})->name('polikia');

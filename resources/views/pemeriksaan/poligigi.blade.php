@@ -8,214 +8,374 @@
         <div class="data-pengguna-header">
             <h2>FORMULIR PEMERIKSAAN POLI GIGI</h2>
         </div>
-        <form id="pemeriksaanForm">
-            <div class="row mb-3">
+
+        <!-- Patient Information Section -->
+        <div class="border border-primary rounded p-3 mb-3">
+            <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="no_rm">No RM *</label>
-                        <input type="text" class="form-control" id="no_rm" name="no_rm" readonly>
+                        <label><strong>Nomor RM:</strong></label>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="tanggal_kunjungan">Tanggal Kunjungan *</label>
-                        <input type="date" class="form-control" id="tanggal_kunjungan" name="tanggal_kunjungan" required>
+                        <label><strong>Tanggal Kunjungan:</strong></label>
+                        <p class="form-control-static">15/01/2023</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nama_pasien">Nama Lengkap Pasien *</label>
-                        <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" required>
+                        <label><strong>Nama Lengkap Pasien:</strong></label>
+                        <p class="form-control-static">Kiara Azzahra</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nama_dokter">Nama Dokter *</label>
-                        <input type="text" class="form-control" id="nama_dokter" name="nama_dokter" required>
+                        <label><strong>Nama Dokter:</strong></label>
+                        <p class="form-control-static">dr. Dania Eka Susila</p>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <h3>SUBJECT (KELUHAN)</h3>
-            <div class="row mb-3">
-                <div class="col-md-12">
+
+        <!-- Subjective Complaints -->
+        <div class="border rounded p-3 mb-3">
+            <h4>SUBJECT (KELUHAN)</h4>
+            <div class="row">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <label for="keluhan_pasien">Subject (Keluhan Pasien) *</label>
-                        <textarea class="form-control" id="keluhan_pasien" name="keluhan_pasien" required></textarea>
+                        <label for="keluhan_pasien">Subject (Keluhan Pasien)<span class="required">*</span></label>
+                        <textarea class="form-control" id="keluhan_pasien" placeholder="Input keluhan pasien" name="keluhan_pasien" rows="3" required></textarea>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="riwayat_alergi">Riwayat Alergi</label>
-                        <textarea class="form-control" id="riwayat_alergi" name="riwayat_alergi"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="upload_lab">Upload Hasil Laboratorium</label>
-                        <input type="file" class="form-control" id="upload_lab" name="upload_lab">
+                        <textarea class="form-control" id="riwayat_alergi" placeholder="Input riwayat alergi pasien" name="riwayat_alergi" rows="3"></textarea>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <h3>ASSESMENT</h3>
-            <div class="row mb-3">
-                <div class="col-md-6">
+        <!-- Objective Examination -->
+        <div class="border rounded p-3 mb-3">
+            <h4>OBJECT (PEMERIKSAAN)</h4>
+            <div class="row">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="kode_icd10">Kode ICD-10</label>
-                        <input type="text" class="form-control" id="kode_icd10" name="kode_icd10">
+                        <label>Tekanan Darah<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="tekanan_darah" placeholder="135 / 90 mm/Hg" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="diagnosa_icd10">Diagnosa ICD-10</label>
-                        <input type="text" class="form-control" id="diagnosa_icd10" name="diagnosa_icd10" readonly>
+                        <label>Suhu Tubuh<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="suhu_tubuh" placeholder="45 C" required>
                     </div>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="catatan_assesmen">Catatan Assesmen Pemeriksaan</label>
-                        <textarea class="form-control" id="catatan_assesmen" name="catatan_assesmen"></textarea>
+                        <label>BB<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="bb" placeholder="65 kg" required>
                     </div>
                 </div>
             </div>
-
-            <h3>PLAN</h3>
-            <div class="row mb-3">
-                <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien</label>
-                        <textarea class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut"></textarea>
+                        <label>Nadi<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="nadi" placeholder="60 x/menit" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="tindakan">Tindakan</label>
-                        <textarea class="form-control" id="tindakan" name="tindakan"></textarea>
+                        <label>RR<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="rr" placeholder="Normal" required>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="rujukan">Rujukan</label>
-                        <textarea class="form-control" id="rujukan" name="rujukan"></textarea>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="tempat_rujukan">Tempat Rujukan</label>
-                        <textarea class="form-control" id="tempat_rujukan" name="tempat_rujukan"></textarea>
+                        <label>KU<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="ku" placeholder="Sakit Ringan" required>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <h3>RESEP</h3>
-            <div id="resepContainer">
-                <div class="resep-item row mb-3">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="nama_obat">Nama Obat</label>
-                            <input type="text" class="form-control" id="nama_obat" name="nama_obat[]">
+        
+        <!-- Detailed Objective Examination -->
+        <div class="border rounded p-3 mb-3">
+            <h4>PEMERIKSAAN DETIL</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>A. Kepala dan Leher</label>
+                        <label>Sakit pada bagian Kepala/Leher?</label>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Normal"> Kepala</label>
+                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Abnormal"> Leher</label>
+                        </div>
+                        <label>Apakah bagian leher terdapat limfadenopati?</label>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Normal"> Kepala</label>
+                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Abnormal"> Leher</label>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="satuan">Satuan</label>
-                            <select class="form-control" id="satuan" name="satuan[]">
-                                <option value="tablet">Tablet</option>
-                                <option value="syrup">Syrup</option>
-                                <option value="capsule">Capsule</option>
-                                <option value="others">Others</option>
-                            </select>
+                    <div class="form-group">
+                        <label>B. Mata</label>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="mata" value="Normal"> Normal</label>
+                            <label class="radio-inline"><input type="radio" name="mata" value="Abnormal"> Abnormal</label>
                         </div>
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="jumlah">Jumlah</label>
-                            <input type="text" class="form-control" id="jumlah" name="jumlah[]">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="aturan_pakai">Catatan Aturan Pakai</label>
-                            <textarea class="form-control" id="aturan_pakai" name="aturan_pakai[]"></textarea>
+                    <div class="form-group">
+                        <label>C. Telinga</label>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="telinga" value="Normal"> Normal</label>
+                            <label class="radio-inline"><input type="radio" name="telinga" value="Abnormal"> Abnormal</label>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>D. Hidung</label>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="hidung" value="Normal"> Normal</label>
+                            <label class="radio-inline"><input type="radio" name="hidung" value="Abnormal"> Abnormal</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>E. Gigi dan Mulut</label>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="gigi_mulut" value="Normal"> Normal</label>
+                            <label class="radio-inline"><input type="radio" name="gigi_mulut" value="Abnormal"> Abnormal</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>F. Faring dan Orofaring</label>
+                        <div>
+                            <label class="radio-inline"><input type="radio" name="faring_orofaring" value="Normal"> Normal</label>
+                            <label class="radio-inline"><input type="radio" name="faring_orofaring" value="Abnormal"> Abnormal</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="mt-3">
-                <button type="button" class="btn btn-success" id="addResep">+</button>
-                <button type="button" class="btn btn-danger" id="removeResep">-</button>
+        
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>G. Pemeriksaan Penunjang (Upload jika perlu)</label>
+                        <input type="file" class="form-control" id="pemeriksaan_penunjang" name="pemeriksaan_penunjang">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>H. Lainnya</label>
+                        <input type="text" class="form-control" name="lainnya">
+                    </div>
+                </div>
             </div>
+        </div>
 
-            <div class="float-right mt-3">
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                <button type="reset" class="btn btn-secondary">Batal</button>
+        <!-- Assessment -->
+        <div class="border rounded p-3 mb-3">
+        <h4>ASSESMENT</h4>
+        <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="kode_icd10">Kode ICD - 10<span class="required">*</span></label>
+                <input type="text" class="form-control" id="kode_icd10" name="kode_icd10" required>
             </div>
-        </form>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="diagnosa_icd10">Diagnosa ICD - 10</label>
+                <input type="text" class="form-control" id="diagnosa_icd10" name="diagnosa_icd10" readonly>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="catatan_assessment">Catatan Assesmen Pemeriksaan</label>
+                <textarea class="form-control" id="catatan_assessment" name="catatan_assessment" rows="3"></textarea>
+            </div>
+        </div>
+        </div>
+        </div>
+
+        <!-- Plan -->
+        <div class="border rounded p-3 mb-3">
+        <h4>PLAN</h4>
+        <div class="form-group">
+            <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
+            <textarea class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tindakan">Tindakan</label>
+            <input type="text" class="form-control" id="tindakan" name="tindakan">
+        </div>
+        <div class="form-group">
+            <label for="rujukan">Rujukan</label>
+            <input type="text" class="form-control" id="rujukan" name="rujukan">
+        </div>
+        </div>
+
+        <!-- Medication Prescription -->
+        <div class="border rounded p-3 mb-3">
+            <h4>RESEP OBAT</h4>
+            <div id="prescription-container">
+                <div class="row prescription-row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Nama Obat</label>
+                            <input type="text" class="form-control" placeholder="Inputkan nama obat" name="nama_obat[]">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Satuan</label>
+                            <input type="text" class="form-control" placeholder="Inputkan satuan" name="satuan[]">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Jumlah Obat</label>
+                            <input type="text" class="form-control" placeholder="Inputkan jumlah obat" name="jumlah_obat[]">
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="button" class="btn btn-success add-prescription-row">+</button>
+                        <button type="button" class="btn btn-danger remove-prescription-row ml-2">-</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Catatan Resep</label>
+                <textarea class="form-control" name="catatan_resep" placeholder="Inputkan catatan resep" rows="3"></textarea>
+            </div>
+        </div>
+
+        <!-- Authentication -->
+        <div class="border rounded p-3 mb-3">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>AUTENTIFIKASI</h4>
+                    <div class="form-group">
+                        <label for="nama_dokter_search">Nama Dokter<span class="required">*</span></label>
+                        <input type="text" class="form-control" id="nama_dokter_search" placeholder="Cari nama dokter..." oninput="searchDoctor()">
+                        <div id="nama_dokter_suggestions" class="list-group"></div>
+                    </div>
+            </div>  
+            <div class="col-md-6">
+                <h3>&nbsp;</h3> 
+                <div class="form-group">
+                    <label for="tanda_tangan">Tanda Tangan<span class="required">*</span></label>
+                    <div id="signature-pad" class="signature-pad">
+                        <div class="signature-pad-body">
+                            <canvas></canvas>
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="clear-signature">Hapus Tanda Tangan</button>
+                        <input type="hidden" id="tanda_tangan" name="tanda_tangan">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="#" class="btn btn-secondary">Batal</a>
+        </div>
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    function updateRemoveButtonState() {
-        const resepItems = document.querySelectorAll('.resep-item');
-        document.getElementById('removeResep').disabled = resepItems.length === 1;
+    document.addEventListener('DOMContentLoaded', function() {
+        var canvas = document.querySelector('canvas');
+        var signaturePad = new SignaturePad(canvas, {
+            backgroundColor: 'rgb(255, 255, 255)'
+        });
+
+        document.getElementById('clear-signature').addEventListener('click', function() {
+            signaturePad.clear();
+        });
+
+        var form = document.getElementById('form-pemeriksaan');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var signatureData = signaturePad.toDataURL();
+            document.getElementById('tanda_tangan').value = signatureData;
+        });
+    });
+
+    function searchDoctor() {
+        const input = document.getElementById('nama_dokter_search');
+        const filter = input.value.toLowerCase();
+        const suggestions = document.getElementById('nama_dokter_suggestions');
+
+        const doctors = ['dr. Dania Eka Susila', 'dr. Budi Setiawan', 'dr. Siti Nurhaliza'];
+
+        suggestions.innerHTML = '';
+
+        if (filter.length > 0) {
+            const filteredDoctors = doctors.filter(doctor => doctor.toLowerCase().includes(filter));
+            filteredDoctors.forEach(doctor => {
+                const suggestionItem = document.createElement('a');
+                suggestionItem.className = 'list-group-item list-group-item-action';
+                suggestionItem.innerText = doctor;
+                suggestionItem.onclick = () => {
+                    document.getElementById('nama_dokter_search').value = doctor;
+                    suggestions.innerHTML = '';
+                };
+                suggestions.appendChild(suggestionItem);
+            });
+        }
     }
 
-    document.getElementById('pemeriksaanForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-       
-    });
-
-    document.getElementById('addResep').addEventListener('click', function() {
-        var resepContainer = document.getElementById('resepContainer');
-        var newResepItem = document.createElement('div');
-        newResepItem.className = 'resep-item row mb-3';
-        newResepItem.innerHTML = `
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="nama_obat">Nama Obat</label>
-                    <input type="text" class="form-control" id="nama_obat" name="nama_obat[]">
+    $(document).ready(function() {
+        function addPrescriptionRow() {
+            var newRow = `
+            <div class="row prescription-row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Nama Obat</label>
+                        <input type="text" class="form-control" placeholder="Inputkan nama obat" name="nama_obat[]">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="satuan">Satuan</label>
-                    <select class="form-control" id="satuan" name="satuan[]">
-                        <option value="tablet">Tablet</option>
-                        <option value="syrup">Syrup</option>
-                        <option value="capsule">Capsule</option>
-                        <option value="others">Others</option>
-                    </select>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Satuan</label>
+                        <input type="text" class="form-control" placeholder="Inputkan satuan" name="satuan[]">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div class="form-group">
-                    <label for="jumlah">Jumlah</label>
-                    <input type="text" class="form-control" id="jumlah" name="jumlah[]">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Jumlah Obat</label>
+                        <input type="text" class="form-control" placeholder="Inputkan jumlah obat" name="jumlah_obat[]">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <label for="aturan_pakai">Catatan Aturan Pakai</label>
-                    <textarea class="form-control" id="aturan_pakai" name="aturan_pakai[]"></textarea>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="button" class="btn btn-success add-prescription-row">+</button>
+                    <button type="button" class="btn btn-danger remove-prescription-row ml-2">-</button>
                 </div>
-            </div>
-        `;
-        resepContainer.appendChild(newResepItem);
-        updateRemoveButtonState();
-    });
-
-    document.getElementById('removeResep').addEventListener('click', function() {
-        var resepContainer = document.getElementById('resepContainer');
-        var resepItems = resepContainer.querySelectorAll('.resep-item');
-        if (resepItems.length > 1) {
-            resepContainer.removeChild(resepItems[resepItems.length - 1]);
+            </div>`;
+            $('#prescription-container').append(newRow);
         }
-        updateRemoveButtonState();
-    });
+        
+        function removePrescriptionRow(button) {
+            $(button).closest('.prescription-row').remove();
+        }
+     
+        $('#prescription-container').on('click', '.add-prescription-row', function() {
+            addPrescriptionRow();
+        });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        updateRemoveButtonState();
+      
+        $('#prescription-container').on('click', '.remove-prescription-row', function() {
+            removePrescriptionRow(this);
+        });
     });
 </script>
 @endsection

@@ -7,6 +7,10 @@ body, html {
   font-family: 'Montserrat', sans-serif;
 }
 
+.required {
+  color: #EF2828;
+}
+
     .signature-pad {
         position: relative;
         width: 100%;
