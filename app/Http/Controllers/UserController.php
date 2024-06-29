@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
+    public function index()
+    {
+        $users = User::all();
+
+        return view('admin.datamaster.datapengguna', compact('users'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

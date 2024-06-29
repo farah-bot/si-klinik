@@ -9,20 +9,13 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Admin-only routes
     Route::group(['middleware' => ['role:Admin']], function () {
-        Route::get('/datapengguna', function () {
-            return view('admin.datamaster.datapengguna');
-        })->name('datapengguna');
-
+        Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
         Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
     });
 
     // Dokter routes
-    Route::group(['middleware' => ['role:Dokter']], function () {
-        // Route::get('/datapengguna', function () {
-        //     return view('admin.datamaster.datapengguna');
-        // })->name('datapengguna'); //testing
-        // Route::post('/users', [UserController::class, 'store'])->name('users.store'); //testing
+    Route::group(['middleware' => ['role:Dokter|Admin']], function () {
         Route::get('/poliumum', function () {
             return view('pemeriksaan.poliumum');
         })->name('poliumum'); //aman
@@ -35,7 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Rekam Medis routes
-    Route::group(['middleware' => ['role:Rekam Medis']], function () {
+    Route::group(['middleware' => ['role:Rekam Medis|Admin']], function () {
         Route::get('/dataantrian', function () {
             return view('pendaftaran.dataantrian');
         })->name('dataantrian'); //aman
@@ -46,35 +39,35 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // Apoteker routes
-    Route::group(['middleware' => ['role:Apoteker']], function () {
+    Route::group(['middleware' => ['role:Apoteker|Admin']], function () {
         Route::get('/dataapotek', function () {
-            return view('apotek.dataapotek');
+            return view('apoteker.apotek.dataapotek');
         })->name('dataapotek');
     });
 
     // Bidan routes
-    Route::group(['middleware' => ['role:Bidan']], function () {
+    Route::group(['middleware' => ['role:Bidan|Admin']], function () {
         Route::get('/datapolikia', function () {
             return view('pemeriksaan.datapolikia');
         })->name('datapolikia');
     });
 
-    Route::group(['middleware' =>  ['role:Dokter|Perawat|Rekam Medis']], function () {
+    Route::group(['middleware' =>  ['role:Dokter|Perawat|Rekam Medis|Admin']], function () {
         Route::get('/riwayatpelayananpasien', function () {
             return view('rekammedis.riwayatpelayanan');
         })->name('riwayatpelayananpasien'); //aman
     });
-    Route::group(['middleware' =>  ['role:Dokter|Perawat']], function () {
+    Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin']], function () {
         Route::get('/datapoliumum', function () {
             return view('pemeriksaan.datapoliumum');
         })->name('datapoliumum'); //aman
     });
-    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function () {
+    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis|Admin']], function () {
         Route::get('/laporan10besarpenyakit', function () {
             return view('rekammedis.laporanpenyakit');
         })->name('laporan10besarpenyakit');
     });
-    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis']], function () {
+    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis|Admin']], function () {
         Route::get('/laporankunjungan', function () {
             return view('rekammedis.laporankunjungan');
         })->name('laporankunjungan');
@@ -92,11 +85,4 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-// Route::get('/datapengguna', function () {
-//     return view('admin.datamaster.datapengguna');
-// })->name('datapengguna');
-
-// Route::post('/users', [UserController::class, 'store'])->name('users.store');
-// Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
