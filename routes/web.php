@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\LaporanController;
+
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -62,6 +64,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/laporankunjungan', function () {
             return view('rekammedis.laporankunjungan');
         })->name('laporankunjungan');
+
+
+        Route::get('/laporankunjungan', [LaporanController::class, 'index'])->name('laporankunjungan');
+
         Route::get('/laporanjumlahjasapelayanandokter', function () {
             return view('rekammedis.laporanjasa');
         })->name('laporanjumlahjasapelayanandokter');
