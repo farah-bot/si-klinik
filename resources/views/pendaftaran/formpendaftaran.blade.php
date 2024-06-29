@@ -84,11 +84,11 @@
                         <label for="poli_tujuan">Poli Tujuan</label>
                         <select id="poli_tujuan" name="poli_tujuan" class="form-control" required>
                             <option value="">- Pilih -</option>
-                            <option value="Poli A" {{ old('poli_tujuan') == 'Poli A' ? 'selected' : '' }}>Poli Umum
+                            <option value="Poli Umum" {{ old('poli_tujuan') == 'Poli Umum' ? 'selected' : '' }}>Poli Umum
                             </option>
-                            <option value="Poli B" {{ old('poli_tujuan') == 'Poli B' ? 'selected' : '' }}>Poli Gigi
+                            <option value="Poli Gigi" {{ old('poli_tujuan') == 'Poli Gigi' ? 'selected' : '' }}>Poli Gigi
                             </option>
-                            <option value="Poli C" {{ old('poli_tujuan') == 'Poli C' ? 'selected' : '' }}>Poli KIA</option>
+                            <option value="Poli KIA" {{ old('poli_tujuan') == 'Poli KIA' ? 'selected' : '' }}>Poli KIA</option>
                         </select>
                     </div>
                     <div class="form-group">

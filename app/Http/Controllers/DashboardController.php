@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Pasien;
+use App\Models\Kunjungan;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $data = [
-            'poliUmumCount' => 10, // Replace with actual data
-            'poliGigiCount' => 5,  // Replace with actual data
-            'poliKIACount' => 8,   // Replace with actual data
-            'kunjunganUmumCount' => 15, // Replace with actual data
-            'kunjunganBPJSCount' => 12, // Replace with actual data
-        ];
-
-        return view('dashboard', $data);
+        $poliUmumCount = Kunjungan::where('poli_tujuan', 'Poli Umum')->count();
+        $poliGigiCount = Kunjungan::where('poli_tujuan', 'Poli Gigi')->count();
+        $poliKIACount = Kunjungan::where('poli_tujuan', 'Poli KIA')->count();
+        $kunjunganUmumCount = Pasien::where('jenis_pasien', 'Umum')->count();
+        $kunjunganBPJSCount = Pasien::where('jenis_pasien', 'BPJS')->count();
+        return view('dashboard', compact('poliUmumCount', 'poliGigiCount', 'poliKIACount', 'kunjunganUmumCount', 'kunjunganBPJSCount'));
     }
 }
