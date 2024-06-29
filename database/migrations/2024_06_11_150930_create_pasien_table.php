@@ -8,29 +8,28 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('pasien', function (Blueprint $table) {
+        Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
             $table->string('no_rm')->unique();
             $table->string('jenis_kelamin');
-            $table->string('nama_lengkap');
+            $table->string('nama');
             $table->date('tanggal_lahir');
             $table->string('alamat');
-            $table->string('nomor_telepon');
-            $table->string('nik')->unique();
+            $table->string('nomor_telepon', 15);
+            $table->string('nik', 20)->unique();
             $table->string('jenis_pasien');
             $table->string('nomor_bpjs')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('pasien');
+        Schema::dropIfExists('pasiens');
     }
 };

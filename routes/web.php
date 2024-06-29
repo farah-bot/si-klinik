@@ -4,15 +4,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\PatientRegistrationController;
+use App\Http\Controllers\PendaftaranController;
 
 Route::group(['middleware' => ['auth']], function () {
 
     // Admin-only routes
     Route::group(['middleware' => ['role:Admin']], function () {
-        // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
-        // Route::post('/users', [UserController::class, 'store'])->name('users.store');
-
+        Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
     });
 
     // Dokter routes
@@ -30,7 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Rekam Medis routes
     Route::group(['middleware' => ['role:Rekam Medis|Admin']], function () {
-        Route::post('/register', [PatientRegistrationController::class, 'patientRegister'])->name('register');
+        Route::post('/daftar_pasien', [PendaftaranController::class, 'daftarPasien'])->name('daftar_pasien');
         Route::get('/dataantrian', function () {
             return view('pendaftaran.dataantrian');
         })->name('dataantrian'); //aman
@@ -88,5 +87,8 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
+// Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
+// Route::post('/users', [UserController::class, 'store'])->name('users.store');
+
+
+

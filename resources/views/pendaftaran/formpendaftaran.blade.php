@@ -9,23 +9,24 @@
                 <h2>Pendaftaran Pasien Baru</h2>
             </div>
             <div class="card-body">
-                <form id="pendaftaranForm" action="{{ route('register') }}" method="POST">
+                <form id="pendaftaranForm" action="{{ route('daftar_pasien') }}" method="POST"
+                    onsubmit="return showModal(event)">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
+                            <!-- Form fields for patient data -->
                             <div class="form-group">
                                 <label for="no_rm">No RM</label>
                                 <input type="text" id="no_rm" name="no_rm" class="form-control"
                                     value="{{ old('no_rm') }}" required>
-                                @error('no_rm')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
                             </div>
                             <div class="form-group">
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
                                 <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
-                                    <option value="Laki-Laki">Laki-Laki</option>
-                                    <option value="Perempuan">Perempuan</option>
+                                    <option value="Laki-Laki" {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>
+                                        Laki-Laki</option>
+                                    <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                        Perempuan</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -59,14 +60,16 @@
                                 <select id="jenis_pasien" name="jenis_pasien" class="form-control"
                                     onchange="toggleBPJSInput()" required>
                                     <option value="">- Pilih -</option>
-                                    <option value="Umum">Umum</option>
-                                    <option value="BPJS">BPJS</option>
+                                    <option value="Umum" {{ old('jenis_pasien') == 'Umum' ? 'selected' : '' }}>Umum
+                                    </option>
+                                    <option value="BPJS" {{ old('jenis_pasien') == 'BPJS' ? 'selected' : '' }}>BPJS
+                                    </option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="nomor_bpjs">Nomor BPJS</label>
                                 <input type="text" id="nomor_bpjs" name="nomor_bpjs" class="form-control"
-                                    value="{{ old('nomor_bpjs') }}" disabled>
+                                    value="{{ old('nomor_bpjs') }}" {{ old('jenis_pasien') != 'BPJS' ? 'disabled' : '' }}>
                             </div>
                         </div>
                     </div>
@@ -79,11 +82,13 @@
                     </div>
                     <div class="form-group">
                         <label for="poli_tujuan">Poli Tujuan</label>
-                        <select id="poli_tujuan" name="poli_tujuan" class="form-control">
+                        <select id="poli_tujuan" name="poli_tujuan" class="form-control" required>
                             <option value="">- Pilih -</option>
-                            <option value="Poli Umum">Poli Umum</option>
-                            <option value="Poli Gigi">Poli Gigi</option>
-                            <option value="Poli KIA">Poli KIA</option>
+                            <option value="Poli A" {{ old('poli_tujuan') == 'Poli A' ? 'selected' : '' }}>Poli Umum
+                            </option>
+                            <option value="Poli B" {{ old('poli_tujuan') == 'Poli B' ? 'selected' : '' }}>Poli Gigi
+                            </option>
+                            <option value="Poli C" {{ old('poli_tujuan') == 'Poli C' ? 'selected' : '' }}>Poli KIA</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -100,7 +105,7 @@
                             <label class="form-check-label" for="jenis_kunjungan_lama">Lama</label>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="showModal(event)">Daftar</button>
+                    <button type="submit" class="btn btn-primary">Daftar</button>
                     <a href="#" class="btn btn-secondary">Batal</a>
                 </form>
             </div>
@@ -125,6 +130,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('scripts')
