@@ -25,6 +25,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'Laporan Jumlah Jasa Pelayanan Dokter',
             'Data Antrian Apotek',
             'Poli KIA',
+            'Register',
         ];
 
         foreach ($permissions as $permission) {
@@ -52,8 +53,9 @@ class RolesAndPermissionsSeeder extends Seeder
                 'Laporan Jumlah Jasa Pelayanan Dokter',
                 'Data Antrian Apotek',
                 'Poli KIA',
+                'Register'
             ],
-            'Rekam Medis' => ['Dashboard', 'Data Antrian Poli', 'Form Pendaftaran', 'Riwayat Pelayanan Pasien', 'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan', 'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'],
+            'Rekam Medis' => ['Register','Dashboard', 'Data Antrian Poli', 'Form Pendaftaran', 'Riwayat Pelayanan Pasien', 'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan', 'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'],
             'Apoteker' => ['Dashboard', 'Data Antrian Apotek'],
             'Bidan' => ['Dashboard', 'Poli KIA'],
             'Perawat' => ['Dashboard', 'Poli Umum', 'Riwayat Pelayanan Pasien'],
