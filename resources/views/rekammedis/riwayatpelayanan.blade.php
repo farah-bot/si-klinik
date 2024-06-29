@@ -36,6 +36,7 @@
                         <th>Jenis Kunjungan</th>
                         <th>Poli Tujuan</th>
                         <th>Nama Dokter</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
@@ -44,22 +45,22 @@
             </table>
         </div>
 
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
+        </div>
     </div>
 </div>
 
@@ -86,8 +87,18 @@
                 <td>${row.jenis_kunjungan}</td>
                 <td>${row.poli}</td>
                 <td>${row.dokter}</td>
+                <td><button class="btn btn-primary btn-edit" data-id="${row.no_rm}"><i class="fas fa-edit"></i></button></td>
             `;
             tableBody.appendChild(tr);
+        });
+
+        // Add event listeners to the edit buttons
+        document.querySelectorAll('.btn-edit').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                // Implement edit action here, e.g., redirect to edit page or open edit modal
+                alert(`Edit data for no RM: ${id}`);
+            });
         });
     }
 
@@ -113,7 +124,6 @@
     document.getElementById('cari_pasien').addEventListener('input', filterData);
     document.getElementById('filter_tanggal').addEventListener('change', filterData);
 
-    
     renderTable(data);
     updateEntriesInfo(data.length);
 </script>

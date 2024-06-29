@@ -190,19 +190,21 @@
             const audioPath = '/audio/';
             const audioQueue = ['nomor-urut.wav'];
             const digits = nomorAntrian.split('').map(digit => `${digit}.wav`);
-
-            if (nomorAntrian === '10') {
+        
+            const nomor = parseInt(nomorAntrian, 10);
+        
+            if (nomor === 10) {
                 audioQueue.push('sepuluh.wav');
-            } else if (nomorAntrian === '11') {
+            } else if (nomor === 11) {
                 audioQueue.push('sebelas.wav');
-            } else if (nomorAntrian > 11 && nomorAntrian < 20) {
+            } else if (nomor > 11 && nomor < 20) {
                 audioQueue.push(`${nomorAntrian[1]}.wav`, 'belas.wav');
-            } else if (nomorAntrian >= 20 && nomorAntrian < 100) {
+            } else if (nomor >= 20 && nomor < 100) {
                 audioQueue.push(`${nomorAntrian[0]}.wav`, 'puluh.wav');
                 if (nomorAntrian[1] !== '0') {
                     audioQueue.push(`${nomorAntrian[1]}.wav`);
                 }
-            } else if (nomorAntrian >= 100 && nomorAntrian < 200) {
+            } else if (nomor >= 100 && nomor < 200) {
                 audioQueue.push('seratus.wav');
                 if (nomorAntrian[1] !== '0') {
                     if (nomorAntrian[1] === '1' && nomorAntrian[2] === '0') {
@@ -220,7 +222,7 @@
                 } else if (nomorAntrian[2] !== '0') {
                     audioQueue.push(`${nomorAntrian[2]}.wav`);
                 }
-            } else if (nomorAntrian >= 200 && nomorAntrian < 1000) {
+            } else if (nomor >= 200 && nomor < 1000) {
                 audioQueue.push(`${nomorAntrian[0]}.wav`, 'ratus.wav');
                 if (nomorAntrian[1] !== '0') {
                     if (nomorAntrian[1] === '1' && nomorAntrian[2] === '0') {
@@ -241,9 +243,9 @@
             } else {
                 audioQueue.push(...digits);
             }
-
+        
             console.log('Audio Queue:', audioQueue);
-
+        
             let delay = 0;
             audioQueue.forEach(file => {
                 setTimeout(() => {
@@ -253,6 +255,7 @@
                 delay += 500;
             });
         }
+
 
         window.onload = function() {
             loadDataIntoTable(dataAntrian);

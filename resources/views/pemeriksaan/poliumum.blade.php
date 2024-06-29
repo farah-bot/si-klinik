@@ -14,26 +14,26 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label><strong>Nomor RM:</strong></label>
-                        <p class="form-control-static">1512</p>
+                        <label>Nomor RM</label>
+                        <input type="text" class="form-control" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label><strong>Tanggal Kunjungan:</strong></label>
-                        <p class="form-control-static">15/01/2023</p>
+                        <label>Tanggal Kunjungan</label>
+                        <input type="date" class="form-control" id="filter_tanggal" name="filter_tanggal">
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label><strong>Nama Lengkap Pasien:</strong></label>
-                        <p class="form-control-static">Kiara Azzahra</p>
+                        <label>Nama Lengkap Pasien</label>
+                        <input type="text" class="form-control" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label><strong>Nama Dokter:</strong></label>
-                        <p class="form-control-static">dr. Dania Eka Susila</p>
+                        <label>Nama Dokter</label>
+                        <input type="text" class="form-control" readonly>
                     </div>
                 </div>
             </div>

@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', 'Formulir Pemeriksaan Poli KIA')
+@section('title', 'Formulir Pemeriksaan Poli Gigi')
 
 @section('content')
 <div class="data-pengguna-container">
     <div class="container">
         <div class="data-pengguna-header">
-            <h2>FORMULIR PEMERIKSAAN POLI KIA</h2>
+            <h2>FORMULIR PEMERIKSAAN POLI GIGI</h2>
         </div>
 
         <!-- Patient Information Section -->
@@ -15,25 +15,25 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nomor RM</label>
-                        <input type="text" class="form-control" readonly>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tanggal Kunjungan</label>
-                        <input type="date" class="form-control" id="filter_tanggal" name="filter_tanggal">
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nama Lengkap Pasien</label>
-                        <input type="text" class="form-control" readonly>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nama Dokter</label>
-                        <input type="text" class="form-control" readonly>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
             </div>
@@ -47,13 +47,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="keluhan_pasien">Subject (Keluhan Pasien)<span class="required">*</span></label>
-                        <textarea class="form-control" id="keluhan_pasien" placeholder="Input keluhan pasien" name="keluhan_pasien" rows="3" required></textarea>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="riwayat_alergi">Riwayat Alergi</label>
-                        <textarea class="form-control" id="riwayat_alergi" placeholder="Input riwayat alergi pasien" name="riwayat_alergi" rows="3"></textarea>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
             </div>
@@ -66,19 +66,19 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Tekanan Darah<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="tekanan_darah" placeholder="135 / 90 mm/Hg" required>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Suhu Tubuh<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="suhu_tubuh" placeholder="45 C" required>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>BB<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="bb" placeholder="65 kg" required>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
             </div>
@@ -86,19 +86,19 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Nadi<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="nadi" placeholder="60 x/menit" required>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>RR<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="rr" placeholder="Normal" required>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>KU<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="ku" placeholder="Sakit Ringan" required>
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
             </div>
@@ -173,7 +173,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>H. Lainnya</label>
-                        <input type="text" class="form-control" name="lainnya">
+                        <p class="form-control-static">1512</p>
                     </div>
                 </div>
             </div>
@@ -186,19 +186,19 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="kode_icd10">Kode ICD - 10<span class="required">*</span></label>
-                <input type="text" class="form-control" id="kode_icd10" name="kode_icd10" required>
+                <p class="form-control-static">1512</p>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="diagnosa_icd10">Diagnosa ICD - 10</label>
-                <input type="text" class="form-control" id="diagnosa_icd10" name="diagnosa_icd10" readonly>
+                <p class="form-control-static">1512</p>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="catatan_assessment">Catatan Assesmen Pemeriksaan</label>
-                <textarea class="form-control" id="catatan_assessment" name="catatan_assessment" rows="3"></textarea>
+                <p class="form-control-static">1512</p>
             </div>
         </div>
         </div>
@@ -207,17 +207,24 @@
         <!-- Plan -->
         <div class="border rounded p-3 mb-3">
         <h4>PLAN</h4>
+        <div class="row">
+        <div class="col-md-6">
         <div class="form-group">
             <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
-            <textarea class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" rows="3" required></textarea>
+            <p class="form-control-static">1512</p>
         </div>
+        </div>
+        <div class="col-md-6">
         <div class="form-group">
             <label for="tindakan">Tindakan</label>
-            <input type="text" class="form-control" id="tindakan" name="tindakan">
+            <p class="form-control-static">1512</p>
         </div>
+        </div>
+        <div class="col-md-6">
         <div class="form-group">
             <label for="rujukan">Rujukan</label>
-            <input type="text" class="form-control" id="rujukan" name="rujukan">
+            <p class="form-control-static">1512</p>
+        </div>
         </div>
         </div>
 
@@ -229,30 +236,26 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Nama Obat</label>
-                            <input type="text" class="form-control" placeholder="Inputkan nama obat" name="nama_obat[]">
+                            <p class="form-control-static">1512</p>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Satuan</label>
-                            <input type="text" class="form-control" placeholder="Inputkan satuan" name="satuan[]">
+                            <p class="form-control-static">1512</p>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Jumlah Obat</label>
-                            <input type="text" class="form-control" placeholder="Inputkan jumlah obat" name="jumlah_obat[]">
+                            <p class="form-control-static">1512</p>
                         </div>
-                    </div>
-                    <div class="col-md-3 d-flex align-items-end">
-                        <button type="button" class="btn btn-success add-prescription-row">+</button>
-                        <button type="button" class="btn btn-danger remove-prescription-row ml-2">-</button>
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label>Catatan Resep</label>
-                <textarea class="form-control" name="catatan_resep" placeholder="Inputkan catatan resep" rows="3"></textarea>
+                <p class="form-control-static">1512</p>
             </div>
         </div>
 
@@ -263,7 +266,7 @@
                 <h4>AUTENTIFIKASI</h4>
                     <div class="form-group">
                         <label for="nama_dokter_search">Nama Dokter<span class="required">*</span></label>
-                        <input type="text" class="form-control" id="nama_dokter_search" placeholder="Cari nama dokter..." oninput="searchDoctor()">
+                        <p class="form-control-static">1512</p>
                         <div id="nama_dokter_suggestions" class="list-group"></div>
                     </div>
             </div>  

@@ -47,9 +47,12 @@
                         <li><a class="dropdown-item" href="{{ route('datapoliumum') }}">Poli Umum</a></li>
                         <li><a class="dropdown-item" href="{{ route('datapoligigi') }}">Poli Gigi</a></li>
                         <li><a class="dropdown-item" href="{{ route('datapolikia') }}">Poli KIA</a></li>
-                        <li><a class="dropdown-item" href="{{ route('poliumum') }}">Poli u</a></li>
+                        <li><a class="dropdown-item" href="{{ route('poliumum') }}">Poli umum</a></li>
                         <li><a class="dropdown-item" href="{{ route('poligigi') }}">Poli gigi</a></li>
                         <li><a class="dropdown-item" href="{{ route('polikia') }}">Poli kia</a></li>
+                        <li><a class="dropdown-item" href="{{ route('detailpoliumum') }}">Detail Poli umum</a></li>
+                        <li><a class="dropdown-item" href="{{ route('detailpoligigi') }}">Detail Poli gigi</a></li>
+                        <li><a class="dropdown-item" href="{{ route('detailpolikia') }}">Detail Poli kia</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
