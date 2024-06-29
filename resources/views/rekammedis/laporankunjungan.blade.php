@@ -30,13 +30,23 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <button class="btn btn-primary mt-4" id="cari_pasien">Cari</button>
-                        <button class="btn btn-secondary mt-4" id="cetak_laporan">Cetak</button>
+                    </div>
+                </div>
+
+                <div class="row mb-3 justify-content-end">
+                    <div class="col-auto">
+                        <button id="btnCetakExcel" class="btn-icon" style="color: green;">
+                            <i class="fas fa-file-excel"></i>
+                        </button>
+                        <button id="btnCetakPDF" class="btn-icon" style="color: red;">
+                            <i class="fas fa-file-pdf"></i>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <div class="table-responsive">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="reportTable">
                     <thead>
                         <tr>
                             <th>No. RM</th>
@@ -53,13 +63,20 @@
                 </table>
             </div>
 
-            <div class="d-flex justify-content-between">
-                <div id="entries-info">
-                    Showing 1 to 5 of 5 entries
-                </div>
-                <div>
-                    <button class="btn btn-primary" id="prevPage" disabled>Previous</button>
-                    <button class="btn btn-primary" id="nextPage" disabled>Next</button>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -119,43 +136,26 @@
             entriesInfo.textContent = `Showing 1 to ${count} of ${count} entries`;
         }
 
-        function cetakPDF() {
-            const {
-                jsPDF
-            } = window.jspdf;
-            const doc = new jsPDF();
+    document.getElementById('btnCetakExcel').addEventListener('click', () => {
+        const wb = XLSX.utils.book_new();
+        const ws = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
+        XLSX.utils.book_append_sheet(wb, ws, 'Laporan');
+        XLSX.writeFile(wb, 'LaporanKunjungan.xlsx');
+    });
 
-            let y = 10;
-            doc.setFontSize(12);
-            doc.text('Laporan Kunjungan', 10, y);
-            y += 10;
-
-            const tableColumn = ["No. RM", "Nama Pasien", "NIK", "Alamat", "Jenis Kelamin", "Tanggal Lahir",
-            "Jenis Pasien"];
-            const tableRows = [];
-
-            data.forEach(row => {
-                const rowData = [
-                    row.no_rm,
-                    row.nama,
-                    row.nik,
-                    row.alamat,
-                    row.jk,
-                    row.tgl_lahir,
-                    row.jenis_pasien
-                ];
-                tableRows.push(rowData);
-            });
-
-            doc.autoTable(tableColumn, tableRows, {
-                startY: y
-            });
-
-            doc.save('laporan_kunjungan.pdf');
-        }
+    document.getElementById('btnCetakPDF').addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.autoTable({
+            html: '#reportTable',
+            startY: 10,
+            theme: 'grid',
+            headStyles: { fillColor: [22, 160, 133] },
+        });
+        doc.save('LaporanKunjungan.pdf');
+    });
 
         document.getElementById('cari_pasien').addEventListener('click', filterData);
-        document.getElementById('cetak_laporan').addEventListener('click', cetakPDF);
 
 
         renderTable(data);
