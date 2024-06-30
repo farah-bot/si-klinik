@@ -8,11 +8,9 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\LaporanController;
 
 // lOGIN
+
 // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
 // Route::post('/users', [UserController::class, 'store'])->name('users.store');
-
-
-
 
 Route::group(['middleware' => ['auth']], function () {
 
