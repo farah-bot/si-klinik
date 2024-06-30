@@ -14,6 +14,14 @@ class PendaftaranController extends Controller
         return view('pendaftaran.dataantrian', compact('pasien'));
     }
 
+    public function dataAntrianPoli()
+    {
+        $kunjungans = Kunjungan::with('pasien')
+        ->get();
+
+        return view('pendaftaran.dataantrianpoli', compact('kunjungans'));
+    }
+
     public function daftarPasien(Request $request)
     {
         $request->validate([

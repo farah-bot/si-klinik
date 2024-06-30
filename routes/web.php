@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth']], function () {
     // REKAM MEDIS DAN ADMIN
     Route::group(['middleware' => ['role:Rekam Medis|Admin']], function () {
         Route::get('/dataantrian', [PendaftaranController::class, 'index'])->name('dataantrian');
+        Route::get('/dataantrianpoli', [PendaftaranController::class, 'dataAntrianPoli'])->name('dataantrianpoli');
         Route::post('/daftar_pasien', [PendaftaranController::class, 'daftarPasien'])->name('daftar_pasien');
         Route::get('/formpendaftaran', function () {
             return view('pendaftaran.formpendaftaran');

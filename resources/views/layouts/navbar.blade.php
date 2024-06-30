@@ -33,9 +33,10 @@
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Pendaftaran
                     </a>
+                    {{-- dataantrian --}}
                     <ul class="dropdown-menu" aria-labelledby="pendaftaranDropdown">
-                        <li><a class="dropdown-item" href="{{ route('dataantrian') }}">Data Antrian Poli</a></li>
-                        <li><a class="dropdown-item" href="{{ route('formpendaftaran') }}">Form Pendaftaran</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dataantrianpoli') }}">Data Antrian Poli</a></li>
+                        <li><a class="dropdown-item" href="{{ route('dataantrian') }}">Form Pendaftaran</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

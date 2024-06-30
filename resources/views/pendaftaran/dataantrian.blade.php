@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <a href="#" class="btn btn-success mt-4">Daftarkan Pasien Baru</a>
+                    <a href="{{ route('formpendaftaran') }}" class="btn btn-success mt-4">Daftarkan Pasien Baru</a>
                 </div>
             </div>
 

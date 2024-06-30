@@ -29,7 +29,7 @@
                 <form method="POST" action="{{ route('login.submit') }}">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Email:</label>
+                        <label for="name">Username:</label>
                         <input type="name" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="form-group">
