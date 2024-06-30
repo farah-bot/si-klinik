@@ -18,7 +18,6 @@ class PendaftaranController extends Controller
     {
         $kunjungans = Kunjungan::with('pasien')
         ->get();
-
         return view('pendaftaran.dataantrianpoli', compact('kunjungans'));
     }
 
@@ -51,7 +50,6 @@ class PendaftaranController extends Controller
             'nomor_bpjs' => $request->nomor_bpjs ?? null,
         ]);
 
-        // Menghitung nomor antrian berikutnya
         $nomor_antrian_terakhir = Kunjungan::whereDate('tanggal_kunjungan', $request->tanggal_kunjungan)
             ->where('poli_tujuan', $request->poli_tujuan)
             ->max('nomor_antrian');

@@ -23,14 +23,13 @@
                 <table class="table table-bordered" id="antrianTable">
                     <thead>
                         <tr>
-                            <th>Nomor Antrian</th>
-                            <th>Tanggal Periksa</th>
-                            <th>Nama Pasien</th>
                             <th>No. RM</th>
+                            <th>Nama Pasien</th>
+                            <th>Tanggal Periksa</th>
                             <th>Jenis Kelamin</th>
                             <th>Jenis Kunjungan</th>
+                            <th>Jenis Pasien</th>
                             <th>Poli</th>
-                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -82,19 +81,25 @@
             </div>
         </div>
     </div>
-
+    {{-- <th>No. RM</th>
+                            <th>Nama Pasien</th>
+                            <th>Tanggal Periksa</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Jenis Kunjungan</th>
+                            <th>Jenis Pasien</th>
+                            <th>Poli</th>
+                            <th>Action</th> --}}
     <script>
         const dataAntrian = [
             @foreach ($kunjungans as $kunjungan)
                 {
-                    nomorAntrian: '{{ $kunjungan->nomor_antrian }}',
-                    tanggalPeriksa: '{{ $kunjungan->tanggal_kunjungan }}',
-                    namaPasien: '{{ $kunjungan->pasien->nama }}',
                     noRM: '{{ $kunjungan->pasien->no_rm }}',
+                    namaPasien: '{{ $kunjungan->pasien->nama }}',
+                    tanggalPeriksa: '{{ $kunjungan->tanggal_kunjungan }}',
                     jenisKelamin: '{{ $kunjungan->pasien->jenis_kelamin }}',
                     jenisKunjungan: '{{ $kunjungan->jenis_kunjungan }}',
+                    jenisPasien: '{{ $kunjungan->pasien->jenis_pasien }}',
                     poli: '{{ $kunjungan->poli_tujuan }}',
-                    status: 'Belum Terlayani'
                 },
             @endforeach
         ];
@@ -104,29 +109,21 @@
             let tableHTML = '';
 
             data.forEach(item => {
-                let statusClass = '';
-                if (item.status === 'Sudah Terlayani') {
-                    statusClass = 'bg-success text-white';
-                } else if (item.status === 'Proses Pelayanan') {
-                    statusClass = 'bg-primary text-white';
-                } else {
-                    statusClass = 'bg-secondary text-white';
-                }
                 tableHTML += `
                 <tr>
-                    <td>${item.nomorAntrian}</td>
-                    <td>${item.tanggalPeriksa}</td>
-                    <td>${item.namaPasien}</td>
                     <td>${item.noRM}</td>
+                    <td>${item.namaPasien}</td>
+                    <td>${item.tanggalPeriksa}</td>
                     <td>${item.jenisKelamin}</td>
                     <td>${item.jenisKunjungan}</td>
+                    <td>${item.jenisPasien}</td>
                     <td>${item.poli}</td>
-                    <td class="${statusClass}">${item.status}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Aksi">
-                            <button class="btn btn-success btn-sm" onclick="openPanggilModal('${item.nomorAntrian}')"><i class="fas fa-volume-up"></i></button>
-                            <button class="btn btn-primary btn-sm mx-1" onclick="editData('${item.nomorAntrian}')"><i class="fas fa-edit"></i></button>
-                            <button class="btn btn-danger btn-sm" onclick="deleteData('${item.nomorAntrian}')"><i class="fas fa-trash-alt"></i></button>
+                            <button class="btn btn-warning" onclick="editPasien({{ $kunjungan->no_rm }})"><i
+                                            class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger" onclick="hapusPasien({{ $kunjungan->no_rm }})"><i
+                                    class="fas fa-trash"></i></button>
                         </div>
                     </td>
                 </tr>
@@ -188,9 +185,9 @@
             const audioPath = '/audio/';
             const audioQueue = ['nomor-urut.wav'];
             const digits = nomorAntrian.split('').map(digit => `${digit}.wav`);
-        
+
             const nomor = parseInt(nomorAntrian, 10);
-        
+
             if (nomor === 10) {
                 audioQueue.push('sepuluh.wav');
             } else if (nomor === 11) {
@@ -241,9 +238,9 @@
             } else {
                 audioQueue.push(...digits);
             }
-        
+
             console.log('Audio Queue:', audioQueue);
-        
+
             let delay = 0;
             audioQueue.forEach(file => {
                 setTimeout(() => {
