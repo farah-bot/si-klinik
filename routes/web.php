@@ -122,3 +122,7 @@ Route::get('/detailpoligigi', function () {
 Route::get('/detailpolikia', function () {
     return view('pemeriksaan.detailpolikia');
 })->name('detailpolikia');
+
+Route::get('/formlama', function () {
+    return view('pendaftaran.formpasienlama');
+})->name('formlama');

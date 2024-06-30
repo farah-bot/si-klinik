@@ -37,6 +37,7 @@
                     <ul class="dropdown-menu" aria-labelledby="pendaftaranDropdown">
                         <li><a class="dropdown-item" href="{{ route('dataantrianpoli') }}">Data Antrian Poli</a></li>
                         <li><a class="dropdown-item" href="{{ route('dataantrian') }}">Form Pendaftaran</a></li>
+                        <li><a class="dropdown-item" href="{{ route('formlama') }}">Form Lama</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">

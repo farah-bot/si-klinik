@@ -38,6 +38,12 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label for="tanggal_kunjungan">Tanggal Kunjungan</label>
+                                <input type="date" class="form-control" id="tanggal_kunjungan" name="tanggal_kunjungan">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label>Jenis Kelamin<span class="required">*</span></label><br>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki" value="Laki-Laki">
@@ -112,6 +118,7 @@
                             <th>Jenis Kelamin</th>
                             <th>Tanggal Lahir</th>
                             <th>Alamat</th>
+                            <th>Tanggal Kunjungan</th>
                             <th>Jenis Kunjungan</th>
                             <th>Jenis Poli</th>
                             <th>No. Telp</th>
@@ -129,8 +136,8 @@
 
 <script>
     const patients = [
-        { no_rm: 'ID001', name: 'John Doe', gender: 'Laki-Laki', birthDate: '1990-01-01', address: 'Jakarta', visitType: 'Umum', poliType: 'Poli Umum', phone: '0123456789' },
-        { no_rm: 'ID002', name: 'Jane Doe', gender: 'Perempuan', birthDate: '1992-02-02', address: 'Bandung', visitType: 'BPJS', poliType: 'Poli Gigi', phone: '0987654321' },
+        { no_rm: 'ID001', name: 'John Doe', gender: 'Laki-Laki', birthDate: '1990-01-01', address: 'Jakarta', visitType: 'Umum', poliType: 'Poli Umum', phone: '0123456789', visitDate: '2024-07-01' },
+        { no_rm: 'ID002', name: 'Jane Doe', gender: 'Perempuan', birthDate: '1992-02-02', address: 'Bandung', visitType: 'BPJS', poliType: 'Poli Gigi', phone: '0987654321', visitDate: '2024-07-02' },
     ];
 
     function addPatient() {
@@ -142,8 +149,9 @@
         const visitType = document.getElementById('jenis_kunjungan').value;
         const poliType = document.getElementById('jenis_poli').value;
         const phone = document.getElementById('no').value;
+        const visitDate = document.getElementById('tanggal_kunjungan').value;
 
-        const patient = { no_rm, name, gender, birthDate, address, visitType, poliType, phone };
+        const patient = { no_rm, name, gender, birthDate, address, visitType, poliType, phone, visitDate };
         patients.push(patient);
         renderTable();
     }
@@ -159,14 +167,15 @@
                 <td>${patient.gender}</td>
                 <td>${patient.birthDate}</td>
                 <td>${patient.address}</td>
+                <td>${patient.visitDate}</td>
                 <td>${patient.visitType}</td>
                 <td>${patient.poliType}</td>
                 <td>${patient.phone}</td>
                 <td>
-                <div class="btn-group" role="group" aria-label="Aksi">
-                    <button class="btn btn-warning btn-sm" onclick="editPatient(${index})"><i class="fas fa-edit"></i></button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})"><i class="fas fa-trash-alt"></i></button>
-                </div>
+                    <div class="btn-group" role="group" aria-label="Aksi">
+                        <button class="btn btn-warning btn-sm" onclick="editPatient(${index})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})"><i class="fas fa-trash-alt"></i></button>
+                    </div>
                 </td>
             </tr>`;
             table.innerHTML += row;
@@ -183,6 +192,7 @@
         document.getElementById('jenis_kunjungan').value = patient.visitType;
         document.getElementById('jenis_poli').value = patient.poliType;
         document.getElementById('no').value = patient.phone;
+        document.getElementById('tanggal_kunjungan').value = patient.visitDate;
 
         document.querySelector('.btn-tambah').setAttribute('onclick', `updatePatient(${index})`);
     }
@@ -196,6 +206,7 @@
         patients[index].visitType = document.getElementById('jenis_kunjungan').value;
         patients[index].poliType = document.getElementById('jenis_poli').value;
         patients[index].phone = document.getElementById('no').value;
+        patients[index].visitDate = document.getElementById('tanggal_kunjungan').value;
 
         renderTable();
         document.getElementById('addPatientForm').reset();
@@ -227,6 +238,7 @@
                 <td>${patient.gender}</td>
                 <td>${patient.birthDate}</td>
                 <td>${patient.address}</td>
+                <td>${patient.visitDate}</td>
                 <td>${patient.visitType}</td>
                 <td>${patient.poliType}</td>
                 <td>${patient.phone}</td>
@@ -242,4 +254,3 @@
     renderTable();
 </script>
 @endsection
-
