@@ -81,14 +81,6 @@
             </div>
         </div>
     </div>
-    {{-- <th>No. RM</th>
-                            <th>Nama Pasien</th>
-                            <th>Tanggal Periksa</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Jenis Kunjungan</th>
-                            <th>Jenis Pasien</th>
-                            <th>Poli</th>
-                            <th>Action</th> --}}
     <script>
         const dataAntrian = [
             @foreach ($kunjungans as $kunjungan)
