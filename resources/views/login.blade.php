@@ -13,7 +13,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ route('welcome')}}">
                 <img src="{{ asset('img/camar.png') }}" alt="Logo">
                 <div class="brand-text">
                     <span class="brand-line1">KLINIK PRATAMA</span>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
+use App\Models\User; 
+use Illuminate\Support\Facades\Auth;
 
 class PendaftaranController extends Controller
 {
@@ -16,8 +18,7 @@ class PendaftaranController extends Controller
 
     public function dataAntrianPoli()
     {
-        $kunjungans = Kunjungan::with('pasien')
-        ->get();
+        $kunjungans = Kunjungan::with('pasien')->get();
         return view('pendaftaran.dataantrianpoli', compact('kunjungans'));
     }
 
@@ -36,6 +37,7 @@ class PendaftaranController extends Controller
             'tanggal_kunjungan' => 'required|date',
             'poli_tujuan' => 'required|string',
             'jenis_kunjungan' => 'required|string|in:Baru,Lama',
+            'nama_dokter' => 'required|string',
         ]);
 
         $pasien = Pasien::create([
@@ -56,8 +58,12 @@ class PendaftaranController extends Controller
 
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
+        $dokter = User::where('name', $request->nama_dokter)->where('jabatan', 'Dokter')->first();
+        $user_id = $dokter ? $dokter->id : null;
+
         $kunjungan = Kunjungan::create([
             'pasien_id' => $pasien->id,
+            'user_id' => $user_id,
             'tanggal_kunjungan' => $request->tanggal_kunjungan,
             'poli_tujuan' => $request->poli_tujuan,
             'jenis_kunjungan' => $request->jenis_kunjungan,
@@ -102,8 +108,12 @@ class PendaftaranController extends Controller
 
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
+        $dokter = User::where('name', $request->nama_dokter)->where('jabatan', 'Dokter')->first();
+        $user_id = $dokter ? $dokter->id : null;
+
         $kunjungan = Kunjungan::create([
             'pasien_id' => $pasien->id,
+            'user_id' => $user_id,
             'tanggal_kunjungan' => $request->tanggal_kunjungan,
             'poli_tujuan' => $request->poli_tujuan,
             'jenis_kunjungan' => 'Lama',
@@ -122,6 +132,7 @@ class PendaftaranController extends Controller
 
         return view('pemeriksaan.datapoligigi', compact('kunjungans'));
     }
+
     public function dataPoliKia()
     {
         $kunjungans = Kunjungan::with('pasien')
@@ -130,6 +141,7 @@ class PendaftaranController extends Controller
 
         return view('pemeriksaan.datapolikia', compact('kunjungans'));
     }
+
     public function dataPoliUmum()
     {
         $kunjungans = Kunjungan::with('pasien')

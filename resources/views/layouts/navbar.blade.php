@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('dashboard') }}">
             <img src="{{ asset('img/camar.png') }}" alt="Logo">
             <div class="brand-text">
                 <span class="brand-line1">KLINIK PRATAMA</span>
@@ -85,7 +85,7 @@
                     <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
                         id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user"></i>
-                        <span class="ml-2">{{ auth()->user()->name }}</span>
+                        {{-- <span class="ml-2">{{ auth()->user()->name }}</span> --}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">

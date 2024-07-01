@@ -87,7 +87,8 @@
                             </option>
                             <option value="Poli Gigi" {{ old('poli_tujuan') == 'Poli Gigi' ? 'selected' : '' }}>Poli Gigi
                             </option>
-                            <option value="Poli KIA" {{ old('poli_tujuan') == 'Poli KIA' ? 'selected' : '' }}>Poli KIA</option>
+                            <option value="Poli KIA" {{ old('poli_tujuan') == 'Poli KIA' ? 'selected' : '' }}>Poli KIA
+                            </option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -103,6 +104,10 @@
                                 {{ old('jenis_kunjungan') == 'Lama' ? 'checked' : '' }}>
                             <label class="form-check-label" for="jenis_kunjungan_lama">Lama</label>
                         </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_dokter">Nama Dokter</label>
+                        <input type="text" id="nama_dokter" name="nama_dokter" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Daftar</button>
                     <a href="#" class="btn btn-secondary">Batal</a>

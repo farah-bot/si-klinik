@@ -9,16 +9,15 @@ use App\Http\Controllers\LaporanController;
 
 // lOGIN
 
-// Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
-// Route::post('/users', [UserController::class, 'store'])->name('users.store');
-Route::post('/daftar_pasien_lama', [PendaftaranController::class, 'daftarPasienLama'])->name('daftar_pasien_lama');
+Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
+Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 Route::group(['middleware' => ['auth']], function () {
-
+    
     // HANYA ADMIN
     Route::group(['middleware' => ['role:Admin']], function () {
-        Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
-        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
+        // Route::post('/users', [UserController::class, 'store'])->name('users.store');
         Route::get('/datadiagnosa', function () {
             return view('admin.datamaster.datadiagnosa');
         })->name('datadiagnosa');
@@ -28,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/datapasien', function () {
             return view('admin.datamaster.datapasien');
         })->name('datapasien');
+        Route::post('/daftar_pasien_lama', [PendaftaranController::class, 'daftarPasienLama'])->name('daftar_pasien_lama');
     });
 
     // ADMIN DAN DOKTER
