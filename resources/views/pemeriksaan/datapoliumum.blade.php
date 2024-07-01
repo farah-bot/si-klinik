@@ -95,7 +95,7 @@
                     jenisKelamin: '{{ $kunjungan->pasien->jenis_kelamin }}',
                     jenisKunjungan: '{{ $kunjungan->jenis_kunjungan }}',
                     poli: '{{ $kunjungan->poli_tujuan }}',
-                    status: 'Belum Terlayani'
+                    status: '{{ $kunjungan->status }}'
                 },
             @endforeach
         ];

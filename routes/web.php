@@ -11,6 +11,7 @@ use App\Http\Controllers\LaporanController;
 
 // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
 // Route::post('/users', [UserController::class, 'store'])->name('users.store');
+Route::post('/daftar_pasien_lama', [PendaftaranController::class, 'daftarPasienLama'])->name('daftar_pasien_lama');
 
 Route::group(['middleware' => ['auth']], function () {
 

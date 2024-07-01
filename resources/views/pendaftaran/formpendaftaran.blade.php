@@ -14,7 +14,6 @@
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
-                            <!-- Form fields for patient data -->
                             <div class="form-group">
                                 <label for="no_rm">No RM</label>
                                 <input type="text" id="no_rm" name="no_rm" class="form-control"

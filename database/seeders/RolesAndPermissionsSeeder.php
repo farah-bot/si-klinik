@@ -26,6 +26,9 @@ class RolesAndPermissionsSeeder extends Seeder
             'Data Antrian Apotek',
             'Poli KIA',
             'Register',
+            'Data Diagnosa',
+            'Data Obat',
+            'Data Pasien',
         ];
 
         foreach ($permissions as $permission) {
@@ -53,7 +56,10 @@ class RolesAndPermissionsSeeder extends Seeder
                 'Laporan Jumlah Jasa Pelayanan Dokter',
                 'Data Antrian Apotek',
                 'Poli KIA',
-                'Register'
+                'Register',
+                'Data Diagnosa',
+                'Data Obat',
+                'Data Pasien',
             ],
             'Rekam Medis' => ['Register','Dashboard', 'Data Antrian Poli', 'Form Pendaftaran', 'Riwayat Pelayanan Pasien', 'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan', 'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'],
             'Apoteker' => ['Dashboard', 'Data Antrian Apotek'],
@@ -63,11 +69,9 @@ class RolesAndPermissionsSeeder extends Seeder
         ];
 
         foreach ($roles as $roleName => $rolePermissions) {
-            // Check if the role already exists
             $existingRole = Role::where('name', $roleName)->first();
             if (!$existingRole) {
                 $role = Role::create(['name' => $roleName]);
-                // Assign permissions to role only if they exist
                 foreach ($rolePermissions as $permissionName) {
                     $permission = Permission::where('name', $permissionName)->first();
                     if ($permission) {

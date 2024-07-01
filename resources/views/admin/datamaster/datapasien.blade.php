@@ -3,164 +3,267 @@
 @section('title', 'Data Pengguna')
 
 @section('content')
-<div class="data-pengguna-container">
-    <div class="container">
-        <div class="data-pengguna-header">
-            <h2>DATA PASIEN</h2>
-        </div>
-        <div class="row mb-3">
-            <div class="col-lg-12">
-                <form id="addPatientForm">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="no_rm">No RM Lama</label>
-                                <input type="text" class="form-control" id="no_rm" name="no_rm">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nama_pengguna">Nama Lengkap Pasien</label>
-                                <input type="text" class="form-control" id="nama_pengguna" name="nama_pengguna">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tanggal_lahir">Tanggal Lahir<span class="required">*</span></label>
-                                <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="alamat">Alamat<span class="required">*</span></label>
-                                <textarea class="form-control" id="alamat" name="alamat"></textarea>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="tanggal_kunjungan">Tanggal Kunjungan</label>
-                                <input type="date" class="form-control" id="tanggal_kunjungan" name="tanggal_kunjungan">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Jenis Kelamin<span class="required">*</span></label><br>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki" value="Laki-Laki">
-                                    <label class="form-check-label" for="laki_laki">Laki-Laki</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="Perempuan">
-                                    <label class="form-check-label" for="perempuan">Perempuan</label>
+    <div class="data-pengguna-container">
+        <div class="container">
+            <div class="data-pengguna-header">
+                <h2>DATA PASIEN</h2>
+            </div>
+            <div class="row mb-3">
+                <div class="col-lg-12">
+                    <form id="addPatientForm" action="{{ route('daftar_pasien_lama') }}" method="POST"
+                        onsubmit="return showModal(event)">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="no_rm">No RM Lama</label>
+                                    <input type="text" id="no_rm" name="no_rm" class="form-control"
+                                        value="{{ old('no_rm') }}" required>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="d-flex">
-                                <div class="form-group flex-grow-1 mr-2">
-                                    <label for="jenis_kunjungan">Jenis Kunjungan</label>
-                                    <select class="form-control" id="jenis_kunjungan" name="jenis_kunjungan">
-                                        <option value="Umum">Umum</option>
-                                        <option value="BPJS">BPJS</option>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nama">Nama Lengkap Pasien</label>
+                                    <input type="text" class="form-control" id="nama" name="nama"
+                                        value="{{ old('nama') }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tanggal_lahir">Tanggal Lahir<span class="required">*</span></label>
+                                    <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir"
+                                        value="{{ old('tanggal_lahir') }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="alamat">Alamat<span class="required">*</span></label>
+                                    <textarea class="form-control" id="alamat" name="alamat" required>{{ old('alamat') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="tanggal_kunjungan">Tanggal Kunjungan</label>
+                                    <input type="date" id="tanggal_kunjungan" name="tanggal_kunjungan"
+                                        class="form-control" value="{{ old('tanggal_kunjungan') }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="jenis_kelamin">Jenis Kelamin</label>
+                                    <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
+                                        <option value="Laki-Laki"
+                                            {{ old('jenis_kelamin') == 'Laki-Laki' ? 'selected' : '' }}>
+                                            Laki-Laki</option>
+                                        <option value="Perempuan"
+                                            {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
+                                            Perempuan</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nik">NIK</label>
+                                    <input type="text" id="nik" name="nik" class="form-control"
+                                        value="{{ old('nik') }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div class="form-group flex-grow-1 mr-2">
+                                        <label for="jenis_pasien">Jenis Pasien</label>
+                                        <select id="jenis_pasien" name="jenis_pasien" class="form-control"
+                                            onchange="toggleBPJSInput()" required>
+                                            <option value="">- Pilih -</option>
+                                            <option value="Umum" {{ old('jenis_pasien') == 'Umum' ? 'selected' : '' }}>
+                                                Umum
+                                            </option>
+                                            <option value="BPJS" {{ old('jenis_pasien') == 'BPJS' ? 'selected' : '' }}>
+                                                BPJS
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group flex-grow-1">
+                                        <label for="nomor_bpjs">Nomor BPJS</label>
+                                        <input type="text" id="nomor_bpjs" name="nomor_bpjs" class="form-control"
+                                            value="{{ old('nomor_bpjs') }}"
+                                            {{ old('jenis_pasien') != 'BPJS' ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="nomor_telepon">Nomor Telepon</label>
+                                    <input type="text" id="nomor_telepon" name="nomor_telepon" class="form-control"
+                                        value="{{ old('nomor_telepon') }}" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="poli_tujuan">Poli Tujuan</label>
+                                    <select id="poli_tujuan" name="poli_tujuan" class="form-control" required>
+                                        <option value="">- Pilih -</option>
+                                        <option value="Poli Umum"
+                                            {{ old('poli_tujuan') == 'Poli Umum' ? 'selected' : '' }}>Poli Umum
+                                        </option>
+                                        <option value="Poli Gigi"
+                                            {{ old('poli_tujuan') == 'Poli Gigi' ? 'selected' : '' }}>Poli Gigi
+                                        </option>
+                                        <option value="Poli KIA" {{ old('poli_tujuan') == 'Poli KIA' ? 'selected' : '' }}>
+                                            Poli KIA</option>
                                     </select>
                                 </div>
-                                <div class="form-group flex-grow-1">
-                                    <label for="bpjs">Nomor BPJS</label>
-                                    <input type="text" class="form-control" id="bpjs" name="bpjs">
-                                </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="no">No. Telp</label>
-                                <input type="text" class="form-control" id="no" name="no">
-                            </div>
+                        <div class="float-right">
+                            <button type="submit" class="btn btn-tambah">Tambah</button>
+                            <button type="reset" class="btn btn-batal">Batal</button>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="jenis_poli">Jenis Poli</label>
-                                <select class="form-control" id="jenis_poli" name="jenis_poli">
-                                    <option value="Poli Umum">Poli Umum</option>
-                                    <option value="Poli Gigi">Poli Gigi</option>
-                                    <option value="Poli KIA">Poli KIA</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="float-right">
-                        <button type="button" class="btn btn-tambah" onclick="addPatient()">Tambah</button> 
-                        <button type="reset" class="btn btn-batal">Batal</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        <div class="d-flex mb-3">
-            <span class="align-self-center">Show</span>
-            <select class="custom-select custom-select-sm form-control form-control-sm mr-2" id="entries" onchange="updateEntries()">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-            </select>
-            <span class="align-self-center mr-2">entries</span>
-            <input type="text" class="form-control form-control-sm ml-2 float-right" placeholder="Cari Data Pasien" id="search" onkeyup="searchPatient()">
-        </div>
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+                aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah Data yang anda isikan sudah sesuai?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Daftar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <div class="row">
-            <div class="col">
-                <table class="table table-bordered mt-3">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>No RM</th>
-                            <th>Nama Pengguna</th>
-                            <th>Jenis Kelamin</th>
-                            <th>Tanggal Lahir</th>
-                            <th>Alamat</th>
-                            <th>Tanggal Kunjungan</th>
-                            <th>Jenis Kunjungan</th>
-                            <th>Jenis Poli</th>
-                            <th>No. Telp</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="patientTable">
-                    </tbody>
-                </table>
+            <div class="d-flex mb-3">
+                <span class="align-self-center">Show</span>
+                <select class="custom-select custom-select-sm form-control form-control-sm mr-2" id="entries"
+                    onchange="updateEntries()">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                </select>
+                <span class="align-self-center mr-2">entries</span>
+                <input type="text" class="form-control form-control-sm ml-2 float-right"
+                    placeholder="Cari Data Pasien" id="search" onkeyup="searchPatient()">
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <table class="table table-bordered mt-3">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>No RM</th>
+                                <th>Nama Pengguna</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Tanggal Lahir</th>
+                                <th>Alamat</th>
+                                <th>Tanggal Kunjungan</th>
+                                <th>Jenis Pasien</th>
+                                <th>Jenis Poli</th>
+                                <th>No. Telp</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientTable">
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+@endsection
 
+@section('scripts')
+    <script>
+        function toggleBPJSInput() {
+            var jenis_pasien = document.getElementById('jenis_pasien').value;
+            var nomor_bpjs_input = document.getElementById('nomor_bpjs');
 
-<script>
-    const patients = [
-        { no_rm: 'ID001', name: 'John Doe', gender: 'Laki-Laki', birthDate: '1990-01-01', address: 'Jakarta', visitType: 'Umum', poliType: 'Poli Umum', phone: '0123456789', visitDate: '2024-07-01' },
-        { no_rm: 'ID002', name: 'Jane Doe', gender: 'Perempuan', birthDate: '1992-02-02', address: 'Bandung', visitType: 'BPJS', poliType: 'Poli Gigi', phone: '0987654321', visitDate: '2024-07-02' },
-    ];
+            if (jenis_pasien === 'BPJS') {
+                nomor_bpjs_input.disabled = false;
+            } else {
+                nomor_bpjs_input.disabled = true;
+            }
+        }
 
-    function addPatient() {
-        const no_rm = document.getElementById('no_rm').value;
-        const name = document.getElementById('nama_pengguna').value;
-        const birthDate = document.getElementById('tanggal_lahir').value;
-        const address = document.getElementById('alamat').value;
-        const gender = document.querySelector('input[name="jenis_kelamin"]:checked').value;
-        const visitType = document.getElementById('jenis_kunjungan').value;
-        const poliType = document.getElementById('jenis_poli').value;
-        const phone = document.getElementById('no').value;
-        const visitDate = document.getElementById('tanggal_kunjungan').value;
+        const patients = [{
+                no_rm: 'ID001',
+                name: 'John Doe',
+                gender: 'Laki-Laki',
+                birthDate: '1990-01-01',
+                address: 'Jakarta',
+                visitType: 'Umum',
+                poliType: 'Poli Umum',
+                phone: '0123456789',
+                visitDate: '2024-07-01'
+            },
+            {
+                no_rm: 'ID002',
+                name: 'Jane Doe',
+                gender: 'Perempuan',
+                birthDate: '1992-02-02',
+                address: 'Bandung',
+                visitType: 'BPJS',
+                poliType: 'Poli Gigi',
+                phone: '0987654321',
+                visitDate: '2024-07-02'
+            },
+        ];
 
-        const patient = { no_rm, name, gender, birthDate, address, visitType, poliType, phone, visitDate };
-        patients.push(patient);
-        renderTable();
-    }
+        function showModal(event) {
+            event.preventDefault();
+            var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            confirmationModal.show();
+            return false;
+        }
 
-    function renderTable() {
-        const table = document.getElementById('patientTable');
-        table.innerHTML = '';
-        patients.forEach((patient, index) => {
-            const row = `<tr>
+        function submitForm() {
+            document.getElementById('addPatientForm').submit();
+        }
+
+        function addPatient() {
+            const no_rm = document.getElementById('no_rm').value;
+            const name = document.getElementById('nama').value;
+            const birthDate = document.getElementById('tanggal_lahir').value;
+            const address = document.getElementById('alamat').value;
+            const gender = document.querySelector('input[name="jenis_kelamin"]:checked').value;
+            const visitType = document.getElementById('jenis_pasien').value;
+            const poliType = document.getElementById('jenis_poli').value;
+            const phone = document.getElementById('no').value;
+            const visitDate = document.getElementById('tanggal_kunjungan').value;
+
+            const patient = {
+                no_rm,
+                name,
+                gender,
+                birthDate,
+                address,
+                visitType,
+                poliType,
+                phone,
+                visitDate
+            };
+            patients.push(patient);
+            renderTable();
+        }
+
+        function renderTable() {
+            const table = document.getElementById('patientTable');
+            table.innerHTML = '';
+            patients.forEach((patient, index) => {
+                const row = `<tr>
                 <td>${index + 1}</td>
                 <td>${patient.no_rm}</td>
                 <td>${patient.name}</td>
@@ -178,60 +281,60 @@
                     </div>
                 </td>
             </tr>`;
-            table.innerHTML += row;
-        });
-    }
+                table.innerHTML += row;
+            });
+        }
 
-    function editPatient(index) {
-        const patient = patients[index];
-        document.getElementById('no_rm').value = patient.no_rm;
-        document.getElementById('nama_pengguna').value = patient.name;
-        document.getElementById('tanggal_lahir').value = patient.birthDate;
-        document.getElementById('alamat').value = patient.address;
-        document.querySelector(`input[name="jenis_kelamin"][value="${patient.gender}"]`).checked = true;
-        document.getElementById('jenis_kunjungan').value = patient.visitType;
-        document.getElementById('jenis_poli').value = patient.poliType;
-        document.getElementById('no').value = patient.phone;
-        document.getElementById('tanggal_kunjungan').value = patient.visitDate;
+        function editPatient(index) {
+            const patient = patients[index];
+            document.getElementById('no_rm').value = patient.no_rm;
+            document.getElementById('nama').value = patient.name;
+            document.getElementById('tanggal_lahir').value = patient.birthDate;
+            document.getElementById('alamat').value = patient.address;
+            document.querySelector(`input[name="jenis_kelamin"][value="${patient.gender}"]`).checked = true;
+            document.getElementById('jenis_pasien').value = patient.visitType;
+            document.getElementById('jenis_poli').value = patient.poliType;
+            document.getElementById('no').value = patient.phone;
+            document.getElementById('tanggal_kunjungan').value = patient.visitDate;
 
-        document.querySelector('.btn-tambah').setAttribute('onclick', `updatePatient(${index})`);
-    }
+            document.querySelector('.btn-tambah').setAttribute('onclick', `updatePatient(${index})`);
+        }
 
-    function updatePatient(index) {
-        patients[index].no_rm = document.getElementById('no_rm').value;
-        patients[index].name = document.getElementById('nama_pengguna').value;
-        patients[index].birthDate = document.getElementById('tanggal_lahir').value;
-        patients[index].address = document.getElementById('alamat').value;
-        patients[index].gender = document.querySelector('input[name="jenis_kelamin"]:checked').value;
-        patients[index].visitType = document.getElementById('jenis_kunjungan').value;
-        patients[index].poliType = document.getElementById('jenis_poli').value;
-        patients[index].phone = document.getElementById('no').value;
-        patients[index].visitDate = document.getElementById('tanggal_kunjungan').value;
+        function updatePatient(index) {
+            patients[index].no_rm = document.getElementById('no_rm').value;
+            patients[index].name = document.getElementById('nama').value;
+            patients[index].birthDate = document.getElementById('tanggal_lahir').value;
+            patients[index].address = document.getElementById('alamat').value;
+            patients[index].gender = document.querySelector('input[name="jenis_kelamin"]:checked').value;
+            patients[index].visitType = document.getElementById('jenis_pasien').value;
+            patients[index].poliType = document.getElementById('jenis_poli').value;
+            patients[index].phone = document.getElementById('no').value;
+            patients[index].visitDate = document.getElementById('tanggal_kunjungan').value;
 
-        renderTable();
-        document.getElementById('addPatientForm').reset();
-        document.querySelector('.btn-tambah').setAttribute('onclick', 'addPatient()');
-    }
+            renderTable();
+            document.getElementById('addPatientForm').reset();
+            document.querySelector('.btn-tambah').setAttribute('onclick', 'addPatient()');
+        }
 
-    function deleteRow(index) {
-        patients.splice(index, 1);
-        renderTable();
-    }
+        function deleteRow(index) {
+            patients.splice(index, 1);
+            renderTable();
+        }
 
-    function searchPatient() {
-        const searchValue = document.getElementById('search').value.toLowerCase();
-        const filteredPatients = patients.filter(patient => 
-            patient.name.toLowerCase().includes(searchValue) ||
-            patient.no_rm.toLowerCase().includes(searchValue)
-        );
-        renderFilteredTable(filteredPatients);
-    }
+        function searchPatient() {
+            const searchValue = document.getElementById('search').value.toLowerCase();
+            const filteredPatients = patients.filter(patient =>
+                patient.name.toLowerCase().includes(searchValue) ||
+                patient.no_rm.toLowerCase().includes(searchValue)
+            );
+            renderFilteredTable(filteredPatients);
+        }
 
-    function renderFilteredTable(filteredPatients) {
-        const table = document.getElementById('patientTable');
-        table.innerHTML = '';
-        filteredPatients.forEach((patient, index) => {
-            const row = `<tr>
+        function renderFilteredTable(filteredPatients) {
+            const table = document.getElementById('patientTable');
+            table.innerHTML = '';
+            filteredPatients.forEach((patient, index) => {
+                const row = `<tr>
                 <td>${index + 1}</td>
                 <td>${patient.no_rm}</td>
                 <td>${patient.name}</td>
@@ -247,10 +350,10 @@
                     <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})">Hapus</button>
                 </td>
             </tr>`;
-            table.innerHTML += row;
-        });
-    }
+                table.innerHTML += row;
+            });
+        }
 
-    renderTable();
-</script>
+        renderTable();
+    </script>
 @endsection
