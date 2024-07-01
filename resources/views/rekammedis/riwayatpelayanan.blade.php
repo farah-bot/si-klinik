@@ -8,18 +8,18 @@
         <div class="data-pengguna-header">
             <h2>RIWAYAT PELAYANAN PASIEN</h2>
         </div>
-       
+
         <div class="row mb-3">
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="cari_pasien">Cari Data Pasien</label>
-                    <input type="text" class="form-control" id="cari_pasien" name="cari_pasien" placeholder="Masukkan nama atau nomor rekam medis">
+                    <input type="text" class="form-control" id="cari_pasien" name="cari_pasien" placeholder="Masukkan nama atau nomor rekam medis" oninput="filterData()">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="filter_tanggal">Filter Tanggal Kunjungan</label>
-                    <input type="date" class="form-control" id="filter_tanggal" name="filter_tanggal">
+                    <input type="date" class="form-control" id="filter_tanggal" name="filter_tanggal" onchange="filterData()">
                 </div>
             </div>
         </div>
@@ -40,13 +40,18 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                 
                 </tbody>
             </table>
+            <div id="noDataFound" style="display: none;" class="alert alert-info mt-3">
+                Data tidak ditemukan.
+            </div>
         </div>
 
         <div class="row mt-3">
-            <div class="col-md-12">
+            <div class="col-md-6">
+                <div id="dataInfo" class="text-start"></div>
+            </div>
+            <div class="col-md-6">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-end">
                         <li class="page-item disabled">
@@ -92,39 +97,42 @@
             tableBody.appendChild(tr);
         });
 
-        // Add event listeners to the edit buttons
         document.querySelectorAll('.btn-edit').forEach(button => {
             button.addEventListener('click', function() {
                 const id = this.getAttribute('data-id');
-                // Implement edit action here, e.g., redirect to edit page or open edit modal
                 alert(`Edit data for no RM: ${id}`);
             });
         });
+
+        updateDataInfo(data.length);
     }
 
     function filterData() {
-        const query = document.getElementById('cari_pasien').value.toLowerCase();
-        const filterDate = document.getElementById('filter_tanggal').value;
-
+        const filterPasien = document.getElementById('cari_pasien').value.toLowerCase();
+        const filterTanggal = document.getElementById('filter_tanggal').value;
         const filteredData = data.filter(row => {
-            const matchQuery = row.nama.toLowerCase().includes(query) || row.no_rm.includes(query);
-            const matchDate = !filterDate || row.tanggal === filterDate.split('-').reverse().join('/');
-            return matchQuery && matchDate;
+            const namaMatch = row.nama.toLowerCase().includes(filterPasien);
+            const tanggalMatch = filterTanggal ? row.tanggal === filterTanggal : true;
+            return namaMatch && tanggalMatch;
         });
 
         renderTable(filteredData);
-        updateEntriesInfo(filteredData.length);
+
+        const noDataFound = document.getElementById('noDataFound');
+        if (filteredData.length > 0) {
+            noDataFound.style.display = 'none';
+        } else {
+            noDataFound.style.display = 'block';
+        }
     }
 
-    function updateEntriesInfo(count) {
-        const entriesInfo = document.getElementById('entries-info');
-        entriesInfo.textContent = `Showing 1 to ${count} of ${count} entries`;
+    function updateDataInfo(totalEntries) {
+        const dataInfo = document.getElementById('dataInfo');
+        const startEntry = 1;
+        const endEntry = totalEntries;
+        dataInfo.textContent = `Showing ${startEntry} to ${endEntry} of ${totalEntries} entries`;
     }
-
-    document.getElementById('cari_pasien').addEventListener('input', filterData);
-    document.getElementById('filter_tanggal').addEventListener('change', filterData);
 
     renderTable(data);
-    updateEntriesInfo(data.length);
 </script>
 @endsection

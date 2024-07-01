@@ -29,7 +29,7 @@
                             <th>No. RM</th>
                             <th>Jenis Kelamin</th>
                             <th>Jenis Kunjungan</th>
-                            <th>Poli</th>
+                            <th>Poli</th> 
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
