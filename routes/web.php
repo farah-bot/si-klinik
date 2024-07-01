@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/datapasien', function () {
             return view('admin.datamaster.datapasien');
         })->name('datapasien');
+        Route::get('/datapasien', [PendaftaranController::class, 'dataPasien'])->name('datapasien');
         Route::post('/daftar_pasien_lama', [PendaftaranController::class, 'daftarPasienLama'])->name('daftar_pasien_lama');
     });
 

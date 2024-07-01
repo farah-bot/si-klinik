@@ -22,6 +22,12 @@ class PendaftaranController extends Controller
         return view('pendaftaran.dataantrianpoli', compact('kunjungans'));
     }
 
+    public function dataPasien()
+    {
+        $kunjungans = Kunjungan::with('pasien')->get();
+        return view('admin.datamaster.datapasien', compact('kunjungans'));
+    }
+
     public function daftarPasien(Request $request)
     {
         $request->validate([

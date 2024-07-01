@@ -198,28 +198,19 @@
             }
         }
 
-        const patients = [{
-                no_rm: 'ID001',
-                name: 'John Doe',
-                gender: 'Laki-Laki',
-                birthDate: '1990-01-01',
-                address: 'Jakarta',
-                visitType: 'Umum',
-                poliType: 'Poli Umum',
-                phone: '0123456789',
-                visitDate: '2024-07-01'
-            },
-            {
-                no_rm: 'ID002',
-                name: 'Jane Doe',
-                gender: 'Perempuan',
-                birthDate: '1992-02-02',
-                address: 'Bandung',
-                visitType: 'BPJS',
-                poliType: 'Poli Gigi',
-                phone: '0987654321',
-                visitDate: '2024-07-02'
-            },
+        const patients = [ @foreach ($kunjungans as $kunjungan)
+                {
+                    no_rm: '{{ $kunjungan->pasien->no_rm }}',
+                    name: '{{ $kunjungan->pasien->nama }}',
+                    birthDate: '{{ $kunjungan->pasien->tanggal_lahir }}',
+                    address: '{{ $kunjungan->pasien->alamat }}',
+                    gender: '{{ $kunjungan->pasien->jenis_kelamin }}',
+                    visitType: '{{ $kunjungan->pasien->jenis_pasien }}',
+                    poliType: '{{ $kunjungan->poli_tujuan }}',
+                    phone: '{{ $kunjungan->pasien->nomor_telepon }}',
+                    visitDate: '{{ $kunjungan->tanggal_kunjungan }}',
+                },
+            @endforeach
         ];
 
         function showModal(event) {
