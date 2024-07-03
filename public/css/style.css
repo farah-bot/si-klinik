@@ -103,6 +103,39 @@ body, html {
   margin-top: 40px; 
 }
 
+.container-welcome {
+  text-align: left;
+  margin-top: 80px; 
+}
+
+.container-welcome .welcome-header {
+    color: #37517E;
+    padding: 0px 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.container-welcome .container h2 {
+    color: #253A5E;
+    font-weight: bold;
+}
+
+.dashboard-header {
+  z-index: 1000;
+  color: #37517E;
+  padding: 0px 0px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+
+
 .dashboard-header {
   z-index: 1000;
   color: #37517E;
@@ -247,7 +280,7 @@ body, html {
 }
 
 .btn-masuk {
-  background-color: #0056b3 !important;
+  background-color: #37517E !important;
   color: white !important;
 }
 

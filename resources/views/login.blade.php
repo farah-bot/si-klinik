@@ -29,24 +29,27 @@
                 <form method="POST" action="{{ route('login.submit') }}">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Username:</label>
-                        <input type="name" class="form-control" id="name" name="name" required>
+                        <label for="username">Username</label>
+                        <input type="username" class="form-control" id="username" name="username" required>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password:</label>
+                        <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-masuk btn-lg">Masuk</button>
+                    <a href="{{ route('welcome') }}" class="btn btn-kembali btn-lg">Kembali</a>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         document.getElementById('backButton').onclick = function() {
             window.location.href = "{{ route('welcome') }}";
         };
-    </script>
+    </script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12F3j1jlrc10+U8I4Hj3RIBs62hpH4FZ5f5MoKlDapKPpmBx"
