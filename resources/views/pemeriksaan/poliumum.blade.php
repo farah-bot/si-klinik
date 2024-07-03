@@ -15,25 +15,25 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nomor RM</label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control" value="{{ $no_rm }}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Tanggal Kunjungan</label>
-                        <input type="date" class="form-control" id="filter_tanggal" name="filter_tanggal">
+                        <input type="date" class="form-control" id="filter_tanggal" name="filter_tanggal" value="{{ $tanggal_kunjungan }}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nama Lengkap Pasien</label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control" value="{{ $nama_pasien }}" readonly>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>Nama Dokter</label>
-                        <input type="text" class="form-control" readonly>
+                        <input type="text" class="form-control" value="{{ $name }}" readonly>
                     </div>
                 </div>
             </div>

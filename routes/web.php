@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\PemeriksaanController;
 
 // lOGIN
 
@@ -13,7 +14,7 @@ Route::get('/datapengguna', [UserController::class, 'index'])->name('datapenggun
 Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 Route::group(['middleware' => ['auth']], function () {
-    
+
     // HANYA ADMIN
     Route::group(['middleware' => ['role:Admin']], function () {
         // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
@@ -33,11 +34,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // ADMIN DAN DOKTER
     Route::group(['middleware' => ['role:Dokter|Admin']], function () {
-
-
-        Route::get('/poligigi', function () {
-            return view('pemeriksaan.poligigi');
-        })->name('poligigi');
+        Route::get('/formpoligigi/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
         Route::get('/datapoligigi', [PendaftaranController::class, 'dataPoliGigi'])->name('datapoligigi');
     });
 
@@ -52,7 +49,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/editpasien/{id}', [PendaftaranController::class, 'edit'])->name('editpasien');
         Route::post('/editpasien/{id}', [PendaftaranController::class, 'update'])->name('updatepasien');
         Route::delete('/deletepasien/{id}', [PendaftaranController::class, 'destroy'])->name('deletePasien');
-        // Route::post('/deletepasien/{id}', [PendaftaranController::class, 'destroy'])->name('deletePasien');
     });
 
     // APOTEKER DAN ADMIN
@@ -64,6 +60,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // BIDAN DAN ADMIN
     Route::group(['middleware' => ['role:Bidan|Admin']], function () {
+        Route::get('/formpolikia/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliKIA'])->name('formulirpolikia');
         Route::get('/datapolikia', [PendaftaranController::class, 'dataPoliKia'])->name('datapolikia');
     });
 
@@ -76,9 +73,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // DOKTER, PERAWAT, DAN ADMIN
     Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin']], function () {
-        Route::get('/poliumum', function () {
-            return view('pemeriksaan.poliumum');
-        })->name('poliumum');
+        Route::get('/formpoliumum/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliUmum'])->name('formulirpolumum');
         Route::get('/datapoliumum', [PendaftaranController::class, 'dataPoliUmum'])->name('datapoliumum');
     });
 
@@ -111,11 +106,6 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-
-Route::get('/formpolikia', function () {
-    return view('pemeriksaan.polikia');
-})->name('polikia');
 
 Route::get('/detailpoliumum', function () {
     return view('pemeriksaan.detailpoliumum');
