@@ -179,8 +179,27 @@
         }
 
         function editData(nomorAntrian) {
-            console.log(`Mengedit data untuk nomor antrian ${nomorAntrian}`);
+            const data = dataAntrian.find(item => item.nomorAntrian === nomorAntrian);
+
+            let editUrl;
+            switch (data.poli) {
+                case 'Poli Gigi':
+                    editUrl = '/formpoligigi/' + nomorAntrian;
+                    break;
+                case 'Poli Umum':
+                    editUrl = '/formpoliumum/' + nomorAntrian; 
+                    break;
+                case 'Poli KIA':
+                    editUrl = '/formpolikia/' + nomorAntrian; 
+                    break;
+                default:
+                    console.error('Poli tidak dikenali:', data.poli);
+                    return;
+            }
+
+            window.location.href = editUrl;
         }
+
 
         function deleteData(nomorAntrian) {
             console.log(`Menghapus data untuk nomor antrian ${nomorAntrian}`);

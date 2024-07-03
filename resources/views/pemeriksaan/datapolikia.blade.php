@@ -179,8 +179,27 @@
         }
 
         function editData(nomorAntrian) {
-            console.log(`Mengedit data untuk nomor antrian ${nomorAntrian}`);
+            const data = dataAntrian.find(item => item.nomorAntrian === nomorAntrian);
+
+            let editUrl;
+            switch (data.poli) {
+                case 'Poli Gigi':
+                    editUrl = '/formpoligigi/' + nomorAntrian;
+                    break;
+                case 'Poli Umum':
+                    editUrl = '/formpoliumum/' + nomorAntrian;
+                    break;
+                case 'Poli KIA':
+                    editUrl = '/formpolikia/' + nomorAntrian;
+                    break;
+                default:
+                    console.error('Poli tidak dikenali:', data.poli);
+                    return;
+            }
+
+            window.location.href = editUrl;
         }
+
 
         function deleteData(nomorAntrian) {
             console.log(`Menghapus data untuk nomor antrian ${nomorAntrian}`);
@@ -190,9 +209,9 @@
             const audioPath = '/audio/';
             const audioQueue = ['nomor-urut.wav'];
             const digits = nomorAntrian.split('').map(digit => `${digit}.wav`);
-        
+
             const nomor = parseInt(nomorAntrian, 10);
-        
+
             if (nomor === 10) {
                 audioQueue.push('sepuluh.wav');
             } else if (nomor === 11) {
@@ -243,9 +262,9 @@
             } else {
                 audioQueue.push(...digits);
             }
-        
+
             console.log('Audio Queue:', audioQueue);
-        
+
             let delay = 0;
             audioQueue.forEach(file => {
                 setTimeout(() => {

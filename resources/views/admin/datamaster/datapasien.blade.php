@@ -116,6 +116,12 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="nama_dokter">Nama Dokter</label>
+                                <input type="text" id="nama_dokter" name="nama_dokter" class="form-control">
+                            </div>
+                        </div>
                         <div class="float-right">
                             <button type="submit" class="btn btn-tambah">Tambah</button>
                             <button type="reset" class="btn btn-batal">Batal</button>
@@ -198,7 +204,8 @@
             }
         }
 
-        const patients = [ @foreach ($kunjungans as $kunjungan)
+        const patients = [
+            @foreach ($kunjungans as $kunjungan)
                 {
                     no_rm: '{{ $kunjungan->pasien->no_rm }}',
                     name: '{{ $kunjungan->pasien->nama }}',

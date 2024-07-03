@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\PemeriksaanController;
 
 // lOGIN
@@ -19,9 +20,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:Admin']], function () {
         // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
         // Route::post('/users', [UserController::class, 'store'])->name('users.store');
-        Route::get('/datadiagnosa', function () {
-            return view('admin.datamaster.datadiagnosa');
-        })->name('datadiagnosa');
+        Route::get('/datadiagnosa', [DiagnosaController::class, 'index'])->name('datadiagnosa');
+        Route::post('/diagnosis', [DiagnosaController::class, 'store'])->name('diagnosis.store');
         Route::get('/dataobat', function () {
             return view('admin.datamaster.dataobat');
         })->name('dataobat');

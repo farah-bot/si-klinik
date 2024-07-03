@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('kunjungans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pasien_id')->constrained('pasiens');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->nullable()->constrained('users');
             $table->date('tanggal_kunjungan');
             $table->string('poli_tujuan');
             $table->string('status')->default('Belum Terlayani');

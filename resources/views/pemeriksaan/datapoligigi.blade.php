@@ -198,11 +198,6 @@
             window.location.href = editUrl;
         }
 
-
-        function deleteData(nomorAntrian) {
-            console.log(`Menghapus data untuk nomor antrian ${nomorAntrian}`);
-        }
-
         function playAudioAntrian(nomorAntrian) {
             const audioPath = '/audio/';
             const audioQueue = ['nomor-urut.wav'];
