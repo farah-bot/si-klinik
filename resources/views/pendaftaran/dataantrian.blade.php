@@ -49,8 +49,11 @@
                                 <td>
                                     <button class="btn btn-warning" onclick="editPasien({{ $data->id }})"><i
                                             class="fas fa-edit"></i></button>
-                                    <button class="btn btn-danger" onclick="hapusPasien({{ $data->id }})"><i
-                                            class="fas fa-trash"></i></button>
+                                    <form action="{{ route('deletePasien', $data->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -94,14 +97,10 @@
         }
 
         function editPasien(id) {
-            alert('Edit data pasien dengan ID: ' + id);
-
+            window.location.href = `/editpasien/${id}`;
         }
 
-        function hapusPasien(id) {
-            alert('Hapus data pasien dengan ID: ' + id);
 
-        }
 
         function filterData(event) {
             const filterNama = document.getElementById('filterNama').value.toLowerCase();

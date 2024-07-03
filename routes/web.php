@@ -49,6 +49,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/formpendaftaran', function () {
             return view('pendaftaran.formpendaftaran');
         })->name('formpendaftaran');
+        Route::get('/editpasien/{id}', [PendaftaranController::class, 'edit'])->name('editpasien');
+        Route::post('/editpasien/{id}', [PendaftaranController::class, 'update'])->name('updatepasien');
+        Route::delete('/deletepasien/{id}', [PendaftaranController::class, 'destroy'])->name('deletePasien');
+        // Route::post('/deletepasien/{id}', [PendaftaranController::class, 'destroy'])->name('deletePasien');
     });
 
     // APOTEKER DAN ADMIN

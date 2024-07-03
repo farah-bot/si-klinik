@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
-use App\Models\User; 
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class PendaftaranController extends Controller
@@ -129,6 +129,52 @@ class PendaftaranController extends Controller
 
         return redirect()->back()->with('success', 'Pendaftaran pasien berhasil.');
     }
+
+    public function edit($id)
+    {
+        $pasien = Pasien::with('kunjungans.user')->findOrFail($id);
+        $dokters = User::whereHas('roles', function ($query) {
+            $query->where('name', 'Dokter');
+        })->get();
+        return view('pendaftaran.editpasien', compact('pasien', 'dokters'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'no_rm' => 'required',
+            'nama' => 'required',
+            'nik' => 'required',
+            'alamat' => 'required',
+            'jenis_kelamin' => 'required',
+            'tanggal_lahir' => 'required',
+            'jenis_pasien' => 'required',
+            'kunjungans.*.tanggal_kunjungan' => 'required|date',
+            'kunjungans.*.poli_tujuan' => 'required',
+            'kunjungans.*.jenis_kunjungan' => 'required',
+            'kunjungans.*.user_id' => 'required|exists:users,id',
+        ]);
+
+        $pasien = Pasien::findOrFail($id);
+        $pasien->update($request->only(['no_rm', 'nama', 'nik', 'alamat', 'jenis_kelamin', 'tanggal_lahir', 'jenis_pasien', 'nomor_bpjs']));
+
+        foreach ($request->kunjungans as $kunjunganData) {
+            $kunjungan = Kunjungan::findOrFail($kunjunganData['id']);
+            $kunjungan->update($kunjunganData);
+        }
+
+        return redirect()->route('dataantrian')->with('success', 'Data pasien dan kunjungan berhasil diperbarui');
+    }
+
+    public function destroy($id)
+    {
+        $pasien = Pasien::findOrFail($id);
+        $pasien->kunjungans()->delete();
+        $pasien->delete();
+
+        return redirect()->route('dataantrian')->with('success', 'Data pasien dan kunjungannya berhasil dihapus');
+    }
+
 
     public function dataPoliGigi()
     {
