@@ -10,6 +10,7 @@ use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PemeriksaanController;
 
+
 // lOGIN
 
 Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
@@ -32,6 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
     // ADMIN DAN DOKTER
     Route::group(['middleware' => ['role:Dokter|Admin']], function () {
         Route::get('/formpoligigi/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
+        Route::post('/pemeriksaan', [PemeriksaanController::class, 'storePoliGigi'])->name('pemeriksaan.storePoliGigi');
+        // Route::get('/pemeriksaan', [PemeriksaanController::class, 'fetchICD10'])->name('pemeriksaan.fetchICD10');
+        Route::get('/fetch-diagnosa', [PemeriksaanController::class, 'fetchDiagnosa']);
         Route::get('/datapoligigi', [PendaftaranController::class, 'dataPoliGigi'])->name('datapoligigi');
     });
 
@@ -116,6 +120,4 @@ Route::get('/detailpolikia', function () {
     return view('pemeriksaan.detailpolikia');
 })->name('detailpolikia');
 
-Route::get('/formlama', function () {
-    return view('pendaftaran.formpasienlama');
-})->name('formlama');
+

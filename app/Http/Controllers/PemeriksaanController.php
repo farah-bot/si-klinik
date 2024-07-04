@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
 use App\Models\User;
+use App\Models\PemeriksaanGigi;
+use App\Models\Diagnosa;
+use App\Models\ResepObat;
 
 class PemeriksaanController extends Controller
 {
@@ -27,6 +30,64 @@ class PemeriksaanController extends Controller
             'nama_pasien' => $pasien->nama,
             'name' => $dokter->name,
         ]);
+    }
+
+    public function fetchDiagnosa(Request $request)
+    {
+        $kodeIcd = $request->input('kode_icd10');
+        $diagnosa = Diagnosa::where('kode_icd', $kodeIcd)->first();
+
+        if ($diagnosa) {
+            return response()->json($diagnosa->diagnosis);
+        }
+
+        return response()->json('Diagnosa not found', 404);
+    }
+
+    public function storePoliGigi(Request $request)
+    {
+        $request->validate([
+            'keluhan_pasien' => 'required|string',
+            'kode_icd10' => 'required|string|exists:diagnosas,kode_icd',
+            'rencana_tindaklanjut' => 'required|string',
+            'tanda_tangan' => 'required|string',
+            'nama_obat' => 'required|array',
+            'nama_obat.*' => 'required|string|exists:resep_obats,nama_obat',
+            'satuan' => 'required|string',
+            'jumlah_obat' => 'required|integer',
+            'catatan_resep' => 'nullable|string',
+        ]);
+
+        $diagnosa = Diagnosa::where('kode_icd', $request->kode_icd10)->first();
+        $pasien = Pasien::where('no_rm', $request->no_rm)->first();
+        $kunjungan = Kunjungan::where('tanggal_kunjungan', $request->tanggal_kunjungan)->first();
+        $user = User::where('name', $request->name)->first();
+
+        $resep_obat_ids = [];
+        foreach ($request->nama_obat as $nama_obat) {
+            $resep = ResepObat::where('nama_obat', $nama_obat)->first();
+            $resep_obat_ids[] = $resep->id;
+        }
+
+        PemeriksaanGigi::create([
+            'pasien_id' => $pasien->id,
+            'kunjungan_id' => $kunjungan->id,
+            'user_id' => $user->id,
+            'diagnosa_id' => $diagnosa->id,
+            'subject_keluhan' => $request->keluhan_pasien,
+            'riwayat_alergi' => $request->riwayat_alergi,
+            'catatan_assessment' => $request->catatan_assessment,
+            'rencana_tindaklanjut' => $request->rencana_tindaklanjut,
+            'tindakan' => $request->tindakan,
+            'rujukan' => $request->rujukan,
+            'resep_obat_id' => $resep_obat_ids[0],
+            'tanda_tangan' => $request->tanda_tangan,
+            'satuan' => $request->satuan,
+            'jumlah_obat' => $request->jumlah_obat,
+            'catatan_resep' => $request->catatan_resep,
+        ]);
+
+        return redirect()->back()->with('success', 'Pemeriksaan berhasil disimpan.');
     }
 
     public function showFormulirPoliUmum($nomorAntrian)
