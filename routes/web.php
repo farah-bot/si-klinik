@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\DiagnosaController;
+use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PemeriksaanController;
 
 // lOGIN
@@ -22,12 +23,8 @@ Route::group(['middleware' => ['auth']], function () {
         // Route::post('/users', [UserController::class, 'store'])->name('users.store');
         Route::get('/datadiagnosa', [DiagnosaController::class, 'index'])->name('datadiagnosa');
         Route::post('/diagnosis', [DiagnosaController::class, 'store'])->name('diagnosis.store');
-        Route::get('/dataobat', function () {
-            return view('admin.datamaster.dataobat');
-        })->name('dataobat');
-        Route::get('/datapasien', function () {
-            return view('admin.datamaster.datapasien');
-        })->name('datapasien');
+        Route::get('/dataobat', [ObatController::class, 'index'])->name('dataobat');
+        Route::post('/obat', [ObatController::class, 'store'])->name('obat.store');
         Route::get('/datapasien', [PendaftaranController::class, 'dataPasien'])->name('datapasien');
         Route::post('/daftar_pasien_lama', [PendaftaranController::class, 'daftarPasienLama'])->name('daftar_pasien_lama');
     });

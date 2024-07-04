@@ -7,7 +7,6 @@ use App\Models\Diagnosa;
 
 class DiagnosaController extends Controller
 {
-
     public function index()
     {
         $diagnosas = Diagnosa::all();
