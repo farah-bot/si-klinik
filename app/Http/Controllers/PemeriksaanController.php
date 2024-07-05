@@ -33,6 +33,7 @@ class PemeriksaanController extends Controller
             'tanggal_kunjungan' => $kunjungan->tanggal_kunjungan,
             'nama_pasien' => $pasien->nama,
             'name' => $dokter->name,
+            'kunjungan' => $kunjungan,
         ]);
     }
 
@@ -112,8 +113,22 @@ class PemeriksaanController extends Controller
         }
 
         PemeriksaanGigiObat::insert($obatData);
+        $kunjungan = Kunjungan::findOrFail($request->kunjungan_id);
+        $kunjungan->status = 'Sudah Dilayani';
+        $kunjungan->save();
 
         return redirect()->back()->with('success', 'Pemeriksaan berhasil disimpan.');
+    }
+
+    public function updateStatus($id, Request $request)
+    {
+        $kunjungan = Kunjungan::findOrFail($id);
+        $kunjungan->status = $request->input('status');
+        if ($kunjungan->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 
     public function showFormulirPoliUmum($nomorAntrian)
@@ -155,7 +170,7 @@ class PemeriksaanController extends Controller
             'name' => $dokter->name,
         ]);
     }
-    
+
     public function storePoliKia(Request $request)
     {
         $request->validate([
@@ -223,5 +238,4 @@ class PemeriksaanController extends Controller
 
         return redirect()->back()->with('success', 'Pemeriksaan berhasil disimpan.');
     }
-
 }

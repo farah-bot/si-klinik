@@ -14,6 +14,7 @@
                     @method('POST')
                     <div class="row">
                         <div class="col-md-6">
+                            <!-- Form fields for patient's data -->
                             <div class="form-group">
                                 <label for="no_rm">No RM</label>
                                 <input type="text" id="no_rm" name="no_rm" class="form-control"
@@ -78,102 +79,126 @@
                     <hr>
                     <h4>Data Kunjungan Pasien</h4>
                     <div id="kunjungan-container">
-                        @foreach ($pasien->kunjungans as $kunjungan)
+                        @if ($pasien->kunjungans->isEmpty())
+                            <!-- Create New Kunjungan -->
                             <div class="form-group kunjungan-group">
-                                <input type="hidden" name="kunjungans[{{ $loop->index }}][id]"
-                                    value="{{ $kunjungan->id }}">
                                 <div class="row">
                                     <div class="col-md-3">
-                                        <label for="kunjungans[{{ $loop->index }}][tanggal_kunjungan]">Tanggal
-                                            Kunjungan</label>
-                                        <input type="date" id="kunjungans[{{ $loop->index }}][tanggal_kunjungan]"
-                                            name="kunjungans[{{ $loop->index }}][tanggal_kunjungan]" class="form-control"
-                                            value="{{ $kunjungan->tanggal_kunjungan }}" required>
+                                        <label for="kunjungans[0][tanggal_kunjungan]">Tanggal Kunjungan</label>
+                                        <input type="date" id="kunjungans[0][tanggal_kunjungan]"
+                                            name="kunjungans[0][tanggal_kunjungan]" class="form-control" required>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="kunjungans[{{ $loop->index }}][poli_tujuan]">Poli Tujuan</label>
-                                        <select id="kunjungans[{{ $loop->index }}][poli_tujuan]"
-                                            name="kunjungans[{{ $loop->index }}][poli_tujuan]" class="form-control"
-                                            required>
-                                            <option value="Poli Umum"
-                                                {{ $kunjungan->poli_tujuan == 'Poli Umum' ? 'selected' : '' }}>Poli Umum
-                                            </option>
-                                            <option value="Poli Gigi"
-                                                {{ $kunjungan->poli_tujuan == 'Poli Gigi' ? 'selected' : '' }}>Poli Gigi
-                                            </option>
-                                            <option value="Poli KIA"
-                                                {{ $kunjungan->poli_tujuan == 'Poli KIA' ? 'selected' : '' }}>Poli KIA
-                                            </option>
+                                        <label for="kunjungans[0][poli_tujuan]">Poli Tujuan</label>
+                                        <select id="kunjungans[0][poli_tujuan]" name="kunjungans[0][poli_tujuan]"
+                                            class="form-control" required>
+                                            <option value="Poli Umum">Poli Umum</option>
+                                            <option value="Poli Gigi">Poli Gigi</option>
+                                            <option value="Poli KIA">Poli KIA</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="kunjungans[{{ $loop->index }}][jenis_kunjungan]">Jenis
-                                            Kunjungan</label>
-                                        <select id="kunjungans[{{ $loop->index }}][jenis_kunjungan]"
-                                            name="kunjungans[{{ $loop->index }}][jenis_kunjungan]" class="form-control"
-                                            required>
-                                            <option value="Baru"
-                                                {{ $kunjungan->jenis_kunjungan == 'Baru' ? 'selected' : '' }}>Baru</option>
-                                            <option value="Lama"
-                                                {{ $kunjungan->jenis_kunjungan == 'Lama' ? 'selected' : '' }}>Lama</option>
+                                        <label for="kunjungans[0][jenis_kunjungan]">Jenis Kunjungan</label>
+                                        <select id="kunjungans[0][jenis_kunjungan]" name="kunjungans[0][jenis_kunjungan]"
+                                            class="form-control" required>
+                                            <option value="Baru">Baru</option>
+                                            <option value="Lama">Lama</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="kunjungans[{{ $loop->index }}][user_id]">Nama Dokter</label>
-                                        <select id="kunjungans[{{ $loop->index }}][user_id]"
-                                            name="kunjungans[{{ $loop->index }}][user_id]" class="form-control"
-                                            required>
+                                        <label for="kunjungans[0][user_id]">Nama Dokter</label>
+                                        <select id="kunjungans[0][user_id]" name="kunjungans[0][user_id]"
+                                            class="form-control" required>
                                             @foreach ($dokters as $dokter)
-                                                <option value="{{ $dokter->id }}"
-                                                    {{ $kunjungan->user_id == $dokter->id ? 'selected' : '' }}>
-                                                    {{ $dokter->name }}</option>
+                                                <option value="{{ $dokter->id }}">{{ $dokter->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
+                        @else
+                            @foreach ($pasien->kunjungans as $kunjungan)
+                                <div class="form-group kunjungan-group">
+                                    <input type="hidden" name="kunjungans[{{ $loop->index }}][id]"
+                                        value="{{ $kunjungan->id }}">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label for="kunjungans[{{ $loop->index }}][tanggal_kunjungan]">Tanggal
+                                                Kunjungan</label>
+                                            <input type="date" id="kunjungans[{{ $loop->index }}][tanggal_kunjungan]"
+                                                name="kunjungans[{{ $loop->index }}][tanggal_kunjungan]"
+                                                class="form-control" value="{{ $kunjungan->tanggal_kunjungan }}"
+                                                required>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="kunjungans[{{ $loop->index }}][poli_tujuan]">Poli Tujuan</label>
+                                            <select id="kunjungans[{{ $loop->index }}][poli_tujuan]"
+                                                name="kunjungans[{{ $loop->index }}][poli_tujuan]" class="form-control"
+                                                required>
+                                                <option value="Poli Umum"
+                                                    {{ $kunjungan->poli_tujuan == 'Poli Umum' ? 'selected' : '' }}>Poli
+                                                    Umum
+                                                </option>
+                                                <option value="Poli Gigi"
+                                                    {{ $kunjungan->poli_tujuan == 'Poli Gigi' ? 'selected' : '' }}>Poli
+                                                    Gigi
+                                                </option>
+                                                <option value="Poli KIA"
+                                                    {{ $kunjungan->poli_tujuan == 'Poli KIA' ? 'selected' : '' }}>Poli KIA
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="kunjungans[{{ $loop->index }}][jenis_kunjungan]">Jenis
+                                                Kunjungan</label>
+                                            <select id="kunjungans[{{ $loop->index }}][jenis_kunjungan]"
+                                                name="kunjungans[{{ $loop->index }}][jenis_kunjungan]"
+                                                class="form-control" required>
+                                                <option value="Baru"
+                                                    {{ $kunjungan->jenis_kunjungan == 'Baru' ? 'selected' : '' }}>Baru
+                                                </option>
+                                                <option value="Lama"
+                                                    {{ $kunjungan->jenis_kunjungan == 'Lama' ? 'selected' : '' }}>Lama
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label for="kunjungans[{{ $loop->index }}][user_id]">Nama Dokter</label>
+                                            <select id="kunjungans[{{ $loop->index }}][user_id]"
+                                                name="kunjungans[{{ $loop->index }}][user_id]" class="form-control"
+                                                required>
+                                                @foreach ($dokters as $dokter)
+                                                    <option value="{{ $dokter->id }}"
+                                                        {{ $kunjungan->user_id == $dokter->id ? 'selected' : '' }}>
+                                                        {{ $dokter->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
-                    <button type="submit" class="btn btn-tambah" data-bs-toggle="modal" data-bs-target="#updateModal">Update Pasien</button>
-                    <a href="{{ route('dataantrian') }}" class="btn btn-batal">Batal Edit</a>
+                    <hr>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ route('datapengguna') }}" class="btn btn-secondary">Batal</a>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Konfirmasi Update -->
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">Konfirmasi Update</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Apakah Anda yakin ingin mengupdate data pasien ini?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" onclick="document.getElementById('pendaftaranForm').submit();">Ya, Update</button>
-                </div>
             </div>
         </div>
     </div>
 @endsection
 
-<script>
-    function toggleBPJSInput() {
-        var jenisPasien = document.getElementById('jenis_pasien').value;
-        var nomorBPJS = document.getElementById('nomor_bpjs');
-        nomorBPJS.disabled = jenisPasien !== 'BPJS';
-    }
+@push('scripts')
+    <script>
+        function toggleBPJSInput() {
+            var jenisPasien = document.getElementById('jenis_pasien').value;
+            var nomorBPJSInput = document.getElementById('nomor_bpjs');
 
-    document.addEventListener('DOMContentLoaded', function () {
-        var submitButton = document.querySelector('button[type="submit"]');
-        var modalButton = document.querySelector('.modal-footer button.btn-primary');
-
-        modalButton.addEventListener('click', function () {
-            submitButton.click();
-        });
-    });
-</script>
+            if (jenisPasien === 'BPJS') {
+                nomorBPJSInput.removeAttribute('disabled');
+            } else {
+                nomorBPJSInput.setAttribute('disabled', 'disabled');
+            }
+        }
+    </script>
+@endpush

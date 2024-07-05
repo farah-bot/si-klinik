@@ -10,6 +10,7 @@
             </div>
             <form action="{{ route('pemeriksaan.storePoliGigi') }}" method="POST" id="form-pemeriksaan">
                 @csrf
+                <input type="hidden" name="kunjungan_id" value="{{ $kunjungan->id }}">
 
                 <!-- Patient Information Section -->
                 <div class="border border-primary rounded p-3 mb-3">
@@ -145,7 +146,7 @@
                         <textarea class="form-control" name="catatan_resep" placeholder="Inputkan catatan resep" rows="3"></textarea>
                     </div>
                 </div>
-                
+
                 <!-- Authentication -->
                 <div class="border rounded p-3 mb-3">
                     <div class="row">
@@ -205,6 +206,25 @@
                         }
                     });
                 }
+            });
+            $('#form-pemeriksaan').submit(function(event) {
+                event.preventDefault(); 
+
+                $.ajax({
+                    url: '{{ route('updateStatus', $kunjungan->id) }}',
+                    type: 'PUT',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        status: 'Sudah Terlayani' 
+                    },
+                    success: function(response) {
+                        console.log('Status Kunjungan berhasil diupdate.');
+                        $('#form-pemeriksaan').unbind('submit').submit();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating status Kunjungan:', error);
+                    }
+                });
             });
 
             var canvas = document.querySelector("canvas");

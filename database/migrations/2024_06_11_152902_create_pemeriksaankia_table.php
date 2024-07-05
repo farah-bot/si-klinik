@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('pemeriksaan_kias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pasien_id')->constrained('pasiens');
-            $table->foreignId('kunjungan_id')->constrained('kunjungans');
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('diagnosa_id')->constrained('diagnosas');
+            $table->foreignId('pasien_id')->constrained('pasiens')->onDelete('cascade');
+            $table->foreignId('kunjungan_id')->constrained('kunjungans')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('diagnosa_id')->constrained('diagnosas')->onDelete('cascade');
             $table->text('subject_keluhan');
             $table->text('riwayat_alergi')->nullable();
             $table->text('catatan_assessment')->nullable();

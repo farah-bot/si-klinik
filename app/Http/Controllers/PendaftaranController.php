@@ -158,9 +158,33 @@ class PendaftaranController extends Controller
         $pasien = Pasien::findOrFail($id);
         $pasien->update($request->only(['no_rm', 'nama', 'nik', 'alamat', 'jenis_kelamin', 'tanggal_lahir', 'jenis_pasien', 'nomor_bpjs']));
 
-        foreach ($request->kunjungans as $kunjunganData) {
-            $kunjungan = Kunjungan::findOrFail($kunjunganData['id']);
-            $kunjungan->update($kunjunganData);
+        foreach ($request->kunjungans as $index => $kunjunganData) {
+            $nomor_antrian_terakhir = Kunjungan::whereDate('tanggal_kunjungan', $kunjunganData['tanggal_kunjungan'])
+            ->where('poli_tujuan', $kunjunganData['poli_tujuan'])
+            ->max('nomor_antrian');
+
+            $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
+
+            if (isset($kunjunganData['id'])) {
+                $kunjungan = Kunjungan::findOrFail($kunjunganData['id']);
+                $kunjungan->update([
+                    'tanggal_kunjungan' => $kunjunganData['tanggal_kunjungan'],
+                    'poli_tujuan' => $kunjunganData['poli_tujuan'],
+                    'jenis_kunjungan' => $kunjunganData['jenis_kunjungan'],
+                    'user_id' => $kunjunganData['user_id'],
+                    'nomor_antrian' => $nomor_antrian_baru,
+                ]);
+            } else {
+                $kunjungan = new Kunjungan([
+                    'tanggal_kunjungan' => $kunjunganData['tanggal_kunjungan'],
+                    'poli_tujuan' => $kunjunganData['poli_tujuan'],
+                    'jenis_kunjungan' => $kunjunganData['jenis_kunjungan'],
+                    'user_id' => $kunjunganData['user_id'],
+                    'nomor_antrian' => $nomor_antrian_baru,
+                ]);
+                $kunjungan->pasien()->associate($pasien);
+                $kunjungan->save();
+            }
         }
 
         return redirect()->route('dataantrian')->with('success', 'Data pasien dan kunjungan berhasil diperbarui');
@@ -201,5 +225,37 @@ class PendaftaranController extends Controller
             ->get();
 
         return view('pemeriksaan.datapoliumum', compact('kunjungans'));
+    }
+
+    public function updateStatus($id, Request $request)
+    {
+        $kunjungan = Kunjungan::findOrFail($id);
+        $kunjungan->status = $request->input('status');
+        if ($kunjungan->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
+    public function skipStatus($id, Request $request)
+    {
+        $kunjungan = Kunjungan::findOrFail($id);
+        $kunjungan->status = 'Belum Terlayani';
+        if ($kunjungan->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
+    public function deleteKunjungan($id)
+    {
+        $kunjungan = Kunjungan::findOrFail($id);
+        if ($kunjungan->delete()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
     }
 }

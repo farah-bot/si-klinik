@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('nomor_telepon', 15);
             $table->string('nik', 20)->unique();
             $table->string('jenis_pasien');
-            $table->string('nomor_bpjs')->nullable();
+            $table->string('nomor_bpjs')->nullable()->unique();
             $table->timestamps();
         });
     }

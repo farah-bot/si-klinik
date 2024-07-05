@@ -32,9 +32,15 @@ Route::group(['middleware' => ['auth']], function () {
 
     // ADMIN DAN DOKTER
     Route::group(['middleware' => ['role:Dokter|Admin']], function () {
-        Route::post('/pemeriksaan', [PemeriksaanController::class, 'storePoliGigi'])->name('pemeriksaan.storePoliGigi');
+        Route::post('/updatestatusgigi/{id}', [PendaftaranController::class, 'updateStatus'])->name('update-status');
+        Route::post('/skipstatusgigi/{id}', [PendaftaranController::class, 'skipStatus'])->name('skip-status');
+        Route::delete('/deletekunjungangigi/{id}', [PendaftaranController::class, 'deleteKunjungan'])->name('delete-kunjungan');
+        // Route::post('/updatestatusgigi', [PendaftaranController::class, 'updateStatus'])->name('updateStatus');
+        Route::post('/pemeriksaangigi', [PemeriksaanController::class, 'storePoliGigi'])->name('pemeriksaan.storePoliGigi');
+        // Route::post('/pemeriksaangigi/{id}', [PemeriksaanController::class, 'storePoliGigi'])->name('pemeriksaan.storePoliGigi');
         Route::get('/formpoligigi/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
         Route::get('/datapoligigi', [PendaftaranController::class, 'dataPoliGigi'])->name('datapoligigi');
+        Route::put('/update-status/{id}', [PemeriksaanController::class, 'updateStatus'])->name('updateStatus');
     });
 
     // REKAM MEDIS DAN ADMIN
@@ -59,7 +65,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // BIDAN DAN ADMIN
     Route::group(['middleware' => ['role:Bidan|Admin']], function () {
-        Route::post('/pemeriksaan', [PemeriksaanController::class, 'storePoliKia'])->name('pemeriksaan.storePoliKia');
+        Route::post('/pemeriksaankia', [PemeriksaanController::class, 'storePoliKia'])->name('pemeriksaan.storePoliKia');
         Route::get('/formpolikia/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliKIA'])->name('formulirpolikia');
         Route::get('/datapolikia', [PendaftaranController::class, 'dataPoliKia'])->name('datapolikia');
     });
