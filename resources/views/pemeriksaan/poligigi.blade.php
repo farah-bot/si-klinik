@@ -145,17 +145,7 @@
                         <textarea class="form-control" name="catatan_resep" placeholder="Inputkan catatan resep" rows="3"></textarea>
                     </div>
                 </div>
-
-                <!-- Signature Section -->
-                {{-- <div class="border rounded p-3 mb-3">
-                    <h4>TANDA TANGAN</h4>
-                    <div class="form-group">
-                        <label for="tanda_tangan">Tanda Tangan<span class="required">*</span></label>
-                        <textarea class="form-control" id="tanda_tangan" placeholder="Tanda Tangan" name="tanda_tangan" rows="3"
-                            required></textarea>
-                    </div>
-                </div> --}}
-
+                
                 <!-- Authentication -->
                 <div class="border rounded p-3 mb-3">
                     <div class="row">

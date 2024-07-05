@@ -11,8 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemeriksaankia', function (Blueprint $table) {
+        Schema::create('pemeriksaan_kias', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pasien_id')->constrained('pasiens');
+            $table->foreignId('kunjungan_id')->constrained('kunjungans');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('diagnosa_id')->constrained('diagnosas');
+            $table->text('subject_keluhan');
+            $table->text('riwayat_alergi')->nullable();
+            $table->text('catatan_assessment')->nullable();
+            $table->text('rencana_tindaklanjut');
+            $table->text('tindakan')->nullable();
+            $table->text('rujukan')->nullable();
+            $table->text('tanda_tangan')->nullable();
+            $table->text('catatan_resep')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemeriksaankia');
+        Schema::dropIfExists('pemeriksaan_kias');
     }
 };

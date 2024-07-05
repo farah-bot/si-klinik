@@ -32,10 +32,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     // ADMIN DAN DOKTER
     Route::group(['middleware' => ['role:Dokter|Admin']], function () {
-        Route::get('/formpoligigi/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
         Route::post('/pemeriksaan', [PemeriksaanController::class, 'storePoliGigi'])->name('pemeriksaan.storePoliGigi');
-        // Route::get('/pemeriksaan', [PemeriksaanController::class, 'fetchICD10'])->name('pemeriksaan.fetchICD10');
-        Route::get('/fetch-diagnosa', [PemeriksaanController::class, 'fetchDiagnosa']);
+        Route::get('/formpoligigi/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
         Route::get('/datapoligigi', [PendaftaranController::class, 'dataPoliGigi'])->name('datapoligigi');
     });
 
@@ -61,6 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // BIDAN DAN ADMIN
     Route::group(['middleware' => ['role:Bidan|Admin']], function () {
+        Route::post('/pemeriksaan', [PemeriksaanController::class, 'storePoliKia'])->name('pemeriksaan.storePoliKia');
         Route::get('/formpolikia/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliKIA'])->name('formulirpolikia');
         Route::get('/datapolikia', [PendaftaranController::class, 'dataPoliKia'])->name('datapolikia');
     });
@@ -76,6 +75,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin']], function () {
         Route::get('/formpoliumum/{nomorAntrian}', [PemeriksaanController::class, 'showFormulirPoliUmum'])->name('formulirpolumum');
         Route::get('/datapoliumum', [PendaftaranController::class, 'dataPoliUmum'])->name('datapoliumum');
+    });
+    
+    // DOKTER, PERAWAT, BIDAN, DAN ADMIN
+    Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin|Bidan']], function () {
+        Route::get('/fetch-diagnosa', [PemeriksaanController::class, 'fetchDiagnosa']);
     });
 
     // KEPALA KLINIK, REKAM MEDIS, DAN ADMIN
