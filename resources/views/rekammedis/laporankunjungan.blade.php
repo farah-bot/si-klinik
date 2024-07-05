@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <button class="btn btn-primary mt-4" id="cari_pasien">Cari</button>
+                        <button class="btn btn-cari mt-4" id="cari_pasien">Cari</button>
                     </div>
                 </div>
 

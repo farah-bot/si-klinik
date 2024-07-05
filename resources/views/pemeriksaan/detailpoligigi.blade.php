@@ -108,6 +108,7 @@
         </div>
         </div>
         </div>
+        </div>
 
         <!-- Medication Prescription -->
         <div class="border rounded p-3 mb-3">
@@ -168,10 +169,10 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="#" class="btn btn-secondary">Batal</a>
+            <button type="submit" class="btn btn-tambah">Simpan</button>
+            <a href="#" class="btn btn-batal">Batal</a>
         </div>
-    </div>
+    
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

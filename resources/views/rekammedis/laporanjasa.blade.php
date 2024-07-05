@@ -36,7 +36,7 @@
                 <input type="text" id="filterDokter" class="form-control" placeholder="Nama Dokter/Bidan">
             </div>
             <div class="col-md-3">
-                <button id="btnCari" class="btn btn-primary">Cari</button>
+                <button id="btnCari" class="btn btn-cari mt-4">Cari</button>
             </div>
         </div>
 
