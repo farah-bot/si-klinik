@@ -22,12 +22,14 @@ class PemeriksaanGigi extends Model
         'tindakan',
         'rujukan',
         'tanda_tangan',
-        'satuan',
-        'jumlah_obat',
         'catatan_resep'
     ];
 
-    // Define relationships
+    public function obat()
+    {
+        return $this->hasMany(PemeriksaanGigiObat::class);
+    }
+
     public function pasien()
     {
         return $this->belongsTo(Pasien::class);

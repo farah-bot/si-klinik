@@ -124,14 +124,14 @@
                                 <div class="form-group">
                                     <label>Satuan</label>
                                     <input type="text" class="form-control" placeholder="Inputkan satuan"
-                                        name="satuan" id="satuan">
+                                        name="satuan[]" id="satuan">
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Jumlah Obat</label>
                                     <input type="text" class="form-control" placeholder="Inputkan jumlah obat"
-                                        name="jumlah_obat" id="jumlah_obat">
+                                        name="jumlah_obat[]" id="jumlah_obat">
                                 </div>
                             </div>
                             <div class="col-md-3 d-flex align-items-end">
@@ -147,14 +147,14 @@
                 </div>
 
                 <!-- Signature Section -->
-                <div class="border rounded p-3 mb-3">
+                {{-- <div class="border rounded p-3 mb-3">
                     <h4>TANDA TANGAN</h4>
                     <div class="form-group">
                         <label for="tanda_tangan">Tanda Tangan<span class="required">*</span></label>
                         <textarea class="form-control" id="tanda_tangan" placeholder="Tanda Tangan" name="tanda_tangan" rows="3"
                             required></textarea>
                     </div>
-                </div>
+                </div> --}}
 
                 <!-- Authentication -->
                 <div class="border rounded p-3 mb-3">
@@ -168,7 +168,7 @@
                                 <div id="nama_dokter_suggestions" class="list-group"></div>
                             </div>
                         </div>
-                        {{-- <div class="col-md-6">
+                        <div class="col-md-6">
                             <h3>&nbsp;</h3>
                             <div class="form-group">
                                 <label for="tanda_tangan">Tanda Tangan<span class="required">*</span></label>
@@ -181,7 +181,7 @@
                                     <input type="hidden" id="tanda_tangan" name="tanda_tangan">
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
 
@@ -194,13 +194,12 @@
 
 @section('scripts')
     <script>
-        // AJAX for fetching diagnosa_icd10
         $(document).ready(function() {
             $('#kode_icd10').on('input', function() {
                 var kodeIcd = $(this).val();
                 if (kodeIcd.length > 0) {
                     $.ajax({
-                        url: '/fetch-diagnosa', 
+                        url: '/fetch-diagnosa',
                         method: 'GET',
                         data: {
                             kode_icd10: kodeIcd
@@ -225,7 +224,54 @@
 
             $('#form-pemeriksaan').submit(function() {
                 if (!signaturePad.isEmpty()) {
-                    $('#tanda_tangan').val(signaturePad.toDataURL());
+                    $('#tanda_tangan').val(signaturePad.toDataURL('image/png'));
+                }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const prescriptionContainer = document.getElementById('prescription-container');
+            const addPrescriptionRow = document.querySelector('.add-prescription-row');
+
+            addPrescriptionRow.addEventListener('click', function() {
+                const newPrescriptionRow = document.createElement('div');
+                newPrescriptionRow.classList.add('row', 'prescription-row');
+                newPrescriptionRow.innerHTML = `
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="nama_obat">Nama Obat<span class="required">*</span></label>
+                            <input type="text" class="form-control" name="nama_obat[]" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Satuan</label>
+                            <input type="text" class="form-control" placeholder="Inputkan satuan" name="satuan[]" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Jumlah Obat</label>
+                            <input type="text" class="form-control" placeholder="Inputkan jumlah obat" name="jumlah_obat[]" required>
+                        </div>
+                    </div>
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="button" class="btn btn-success add-prescription-row">+</button>
+                        <button type="button" class="btn btn-danger remove-prescription-row ml-2">-</button>
+                    </div>
+                `;
+                prescriptionContainer.appendChild(newPrescriptionRow);
+
+                newPrescriptionRow.querySelector('.remove-prescription-row').addEventListener('click',
+                    function() {
+                        newPrescriptionRow.remove();
+                    });
+            });
+
+            prescriptionContainer.addEventListener('click', function(event) {
+                if (event.target.classList.contains('remove-prescription-row')) {
+                    const row = event.target.closest('.prescription-row');
+                    row.remove();
                 }
             });
         });

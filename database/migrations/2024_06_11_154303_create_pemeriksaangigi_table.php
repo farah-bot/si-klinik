@@ -23,11 +23,8 @@ return new class extends Migration
             $table->text('rencana_tindaklanjut');
             $table->text('tindakan')->nullable();
             $table->text('rujukan')->nullable();
-            $table->string('satuan')->nullable();
-            $table->integer('jumlah_obat')->nullable();
-            $table->text('catatan_resep')->nullable();
             $table->text('tanda_tangan')->nullable();
-            $table->foreignId('resep_obat_id')->constrained('resep_obats');
+            $table->text('catatan_resep')->nullable();
             $table->timestamps();
         });
     }
@@ -37,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemeriksaangigis');
+        Schema::dropIfExists('pemeriksaan_gigis');
     }
 };
