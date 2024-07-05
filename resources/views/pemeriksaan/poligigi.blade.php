@@ -207,11 +207,12 @@
                     });
                 }
             });
+
             $('#form-pemeriksaan').submit(function(event) {
                 event.preventDefault(); 
 
                 $.ajax({
-                    url: '{{ route('updateStatus', $kunjungan->id) }}',
+                    url: '{{ route('updateStatusGigi', $kunjungan->id) }}',
                     type: 'PUT',
                     data: {
                         _token: '{{ csrf_token() }}',

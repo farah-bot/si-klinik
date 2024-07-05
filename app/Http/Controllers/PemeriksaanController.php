@@ -37,6 +37,17 @@ class PemeriksaanController extends Controller
         ]);
     }
 
+    public function updateStatus($id, Request $request)
+    {
+        $kunjungan = Kunjungan::findOrFail($id);
+        $kunjungan->status = $request->input('status');
+        if ($kunjungan->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
     public function fetchDiagnosa(Request $request)
     {
         $kodeIcd = $request->input('kode_icd10');
@@ -114,22 +125,12 @@ class PemeriksaanController extends Controller
 
         PemeriksaanGigiObat::insert($obatData);
         $kunjungan = Kunjungan::findOrFail($request->kunjungan_id);
-        $kunjungan->status = 'Sudah Dilayani';
+        $kunjungan->status = 'Sudah Terlayani';
         $kunjungan->save();
 
         return redirect()->back()->with('success', 'Pemeriksaan berhasil disimpan.');
     }
 
-    public function updateStatus($id, Request $request)
-    {
-        $kunjungan = Kunjungan::findOrFail($id);
-        $kunjungan->status = $request->input('status');
-        if ($kunjungan->save()) {
-            return response()->json(['success' => true]);
-        } else {
-            return response()->json(['success' => false]);
-        }
-    }
 
     public function showFormulirPoliUmum($nomorAntrian)
     {
@@ -148,6 +149,7 @@ class PemeriksaanController extends Controller
             'tanggal_kunjungan' => $kunjungan->tanggal_kunjungan,
             'nama_pasien' => $pasien->nama,
             'name' => $dokter->name,
+            'kunjungan' => $kunjungan,
         ]);
     }
 
@@ -168,6 +170,7 @@ class PemeriksaanController extends Controller
             'tanggal_kunjungan' => $kunjungan->tanggal_kunjungan,
             'nama_pasien' => $pasien->nama,
             'name' => $dokter->name,
+            'kunjungan' => $kunjungan,
         ]);
     }
 
@@ -235,6 +238,10 @@ class PemeriksaanController extends Controller
         }
 
         PemeriksaanKiaObat::insert($obatData);
+
+        $kunjungan = Kunjungan::findOrFail($request->kunjungan_id);
+        $kunjungan->status = 'Sudah Terlayani';
+        $kunjungan->save();
 
         return redirect()->back()->with('success', 'Pemeriksaan berhasil disimpan.');
     }

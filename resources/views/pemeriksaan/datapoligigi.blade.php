@@ -74,6 +74,7 @@
                 <div class="modal-body text-center">
                     <i class="fas fa-bullhorn fa-3x"></i>
                     <p>Nomor Antrian: <span id="nomorAntrianPanggil"></span></p>
+                    <input type="hidden" id="tanggalPeriksaPanggil">
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button type="button" class="btn btn-success ms-2" onclick="updateStatus('Proses Pelayanan')"
@@ -115,7 +116,7 @@
                     statusClass = 'bg-secondary text-white';
                 }
                 tableHTML += `
-                <tr data-id="${item.id}" data-nomor-antrian="${item.nomorAntrian}">
+                <tr data-id="${item.id}" data-nomor-antrian="${item.nomorAntrian}" data-tanggal-periksa="${item.tanggalPeriksa}">
                     <td>${item.nomorAntrian}</td>
                     <td>${item.tanggalPeriksa}</td>
                     <td>${item.namaPasien}</td>
@@ -126,7 +127,7 @@
                     <td class="${statusClass}">${item.status}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Aksi">
-                            <button class="btn btn-success btn-sm" onclick="openPanggilModal('${item.nomorAntrian}')"><i class="fas fa-volume-up"></i></button>
+                            <button class="btn btn-success btn-sm" onclick="openPanggilModal('${item.nomorAntrian}', '${item.tanggalPeriksa}')"><i class="fas fa-volume-up"></i></button>
                             <button class="btn btn-primary btn-sm mx-1" onclick="editData('${item.nomorAntrian}')"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="deleteData('${item.nomorAntrian}')"><i class="fas fa-trash-alt"></i></button>
                         </div>
@@ -164,8 +165,10 @@
             }
         }
 
-        function openPanggilModal(nomorAntrian) {
+        function openPanggilModal(nomorAntrian, tanggalPeriksa) {
             document.getElementById('nomorAntrianPanggil').textContent = nomorAntrian;
+            document.getElementById('tanggalPeriksaPanggil').textContent = tanggalPeriksa;
+
             const panggilAntrianModal = new bootstrap.Modal(document.getElementById('panggilAntrianModal'), {
                 keyboard: false
             });
@@ -271,86 +274,122 @@
 
         function skipAntrian() {
             const nomorAntrian = document.getElementById('nomorAntrianPanggil').textContent;
-            const row = document.querySelector(`tr[data-nomor-antrian="${nomorAntrian}"]`);
-            const statusCell = row.querySelector('td:nth-child(8)');
-            const kunjunganId = row.getAttribute('data-id');
+            const tanggalPeriksa = document.getElementById('tanggalPeriksaPanggil')
+                .textContent;
+            const rows = document.querySelectorAll(
+                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"]`);
+            if (rows.length > 0) {
+                const row = rows[0];
 
-            fetch(`/skipstatusgigi/${kunjunganId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ status: 'Belum Terlayani' })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    statusCell.textContent = 'Belum Terlayani';
-                    statusCell.className = 'bg-secondary text-white';
-                } else {
-                    alert('Gagal skip antrian');
-                }
-            });
+                const statusCell = row.querySelector('td:nth-child(8)');
+                const kunjunganId = row.getAttribute('data-id');
+
+                fetch(`/skipstatusgigi/${kunjunganId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            status: 'Belum Terlayani'
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            statusCell.textContent = 'Belum Terlayani';
+                            statusCell.className = 'bg-secondary text-white';
+                        } else {
+                            alert('Gagal skip antrian');
+                        }
+                    });
+            } else {
+                alert('Data tidak ditemukan untuk nomor antrian ' + nomorAntrian + ' dan tanggal periksa ' +
+                    tanggalPeriksa);
+            }
         }
 
         function updateStatus(status) {
             const nomorAntrian = document.getElementById('nomorAntrianPanggil').textContent;
-            const row = document.querySelector(`tr[data-nomor-antrian="${nomorAntrian}"]`);
-            const statusCell = row.querySelector('td:nth-child(8)');
-            const kunjunganId = row.getAttribute('data-id');
+            const tanggalPeriksa = document.getElementById('tanggalPeriksaPanggil')
+                .textContent;
 
-            fetch(`/updatestatusgigi/${kunjunganId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ status })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    statusCell.textContent = status;
-                    switch (status) {
-                        case 'Proses Pelayanan':
-                            statusCell.className = 'bg-primary text-white';
-                            break;
-                        case 'Belum Terlayani':
-                            statusCell.className = 'bg-secondary text-white';
-                            break;
-                        default:
-                            statusCell.className = '';
-                    }
-                } else {
-                    alert('Gagal memperbarui status');
-                }
-            });
-        }
-        function deleteData(nomorAntrian) {
-            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-                const row = document.querySelector(`tr[data-nomor-antrian="${nomorAntrian}"]`);
+            const rows = document.querySelectorAll(
+                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"]`);
+            if (rows.length > 0) {
+                const row = rows[0];
+
+                const statusCell = row.querySelector('td:nth-child(8)');
                 const kunjunganId = row.getAttribute('data-id');
 
-                fetch(`/deletekunjungangigi/${kunjunganId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        row.remove();
-                        alert('Data dengan nomor antrian ' + nomorAntrian + ' telah dihapus.');
-                    } else {
-                        alert('Gagal menghapus data');
-                    }
-                });
+                fetch(`/updatestatusgigi/${kunjunganId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            status
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            statusCell.textContent = status;
+                            switch (status) {
+                                case 'Proses Pelayanan':
+                                    statusCell.className = 'bg-primary text-white';
+                                    break;
+                                case 'Belum Terlayani':
+                                    statusCell.className = 'bg-secondary text-white';
+                                    break;
+                                default:
+                                    statusCell.className = '';
+                            }
+                        } else {
+                            alert('Gagal memperbarui status');
+                        }
+                    });
+            } else {
+                alert('Data tidak ditemukan untuk nomor antrian ' + nomorAntrian + ' dan tanggal periksa ' +
+                    tanggalPeriksa);
             }
         }
 
+        function deleteData(nomorAntrian) {
+            if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+                const rows = document.querySelectorAll(
+                    `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"]`);
+                if (rows.length > 0) {
+                    const row = rows[0];
+
+                    const statusCell = row.querySelector('td:nth-child(8)');
+                    const kunjunganId = row.getAttribute('data-id');
+
+
+                    fetch(`/deletekunjungangigi/${kunjunganId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                row.remove();
+                                alert('Data dengan nomor antrian ' + nomorAntrian + ' telah dihapus.');
+                            } else {
+                                alert('Gagal menghapus data');
+                            }
+                        });
+                } else {
+                    alert('Data tidak ditemukan untuk nomor antrian ' + nomorAntrian + ' dan tanggal periksa ' +
+                        tanggalPeriksa);
+                }
+            }
+
+        }
     </script>
 
 @endsection
