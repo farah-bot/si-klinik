@@ -15,7 +15,7 @@
                 <input type="text" id="filterPenyakit" class="form-control" placeholder="Nama Penyakit">
             </div>
             <div class="col-md-3">
-                <button id="btnCari" class="btn btn-primary mt-4">Cari</button>
+                <button id="btnCari" class="btn btn-cari mt-4">Cari</button>
             </div>
         </div>
 

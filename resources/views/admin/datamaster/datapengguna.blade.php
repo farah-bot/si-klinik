@@ -147,8 +147,10 @@
                                     <td>{{ $user->alamat }}</td>
                                     <td>{{ $user->jabatan }}</td>
                                     <td>
-                                        <button class="btn btn-warning btn-sm">Edit</button>
-                                        <button class="btn btn-danger btn-sm">Hapus</button>
+                                        <div class="btn-group" role="group" aria-label="Aksi">
+                                            <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

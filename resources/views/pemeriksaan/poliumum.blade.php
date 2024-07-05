@@ -66,19 +66,19 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Tekanan Darah<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="tekanan_darah" placeholder="135 / 90 mm/Hg" required>
+                        <input type="text" class="form-control" name="tekanan_darah" placeholder="mm/Hg" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Suhu Tubuh<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="suhu_tubuh" placeholder="45 C" required>
+                        <input type="text" class="form-control" name="suhu_tubuh" placeholder="C" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>BB<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="bb" placeholder="65 kg" required>
+                        <input type="text" class="form-control" name="bb" placeholder="kg" required>
                     </div>
                 </div>
             </div>
@@ -86,19 +86,25 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>Nadi<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="nadi" placeholder="60 x/menit" required>
+                        <input type="text" class="form-control" name="nadi" placeholder="x/menit" required>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>RR<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="rr" placeholder="Normal" required>
+                        <select class="form-control" id="rr" name="rr" required>
+                        <option value="">--Pilih--</option>
+                        <option value="Normal">Normal</option>
+                        <option value="Tidak Normal">Tidak Normal</option>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label>KU<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="ku" placeholder="Sakit Ringan" required>
+                        <select class="form-control" id="ku" name="ku" required>
+                        <option value="">--Pilih--</option>
+                        <option value="Sakit Ringan">Sakit Ringan</option>
+                        <option value="Sakit Berat">Sakit Berat</option>
                     </div>
                 </div>
             </div>
@@ -108,76 +114,104 @@
         <!-- Detailed Objective Examination -->
         <div class="border rounded p-3 mb-3">
             <h4>PEMERIKSAAN DETIL</h4>
-            <div class="row">
+                <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>A. Kepala dan Leher</label>
-                        <label>Sakit pada bagian Kepala/Leher?</label>
-                        <div>
-                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Normal"> Kepala</label>
-                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Abnormal"> Leher</label>
-                        </div>
-                        <label>Apakah bagian leher terdapat limfadenopati?</label>
-                        <div>
-                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Normal"> Kepala</label>
-                            <label class="radio-inline"><input type="radio" name="kepala_leher" value="Abnormal"> Leher</label>
-                        </div>
+                            <label>A. Kepala dan Leher</label>
+                            <div>
+                            <label>Sakit pada bagian Kepala/Leher?</label>
+                            </div>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="sakit_kepala_leher" value="Kepala"> Kepala</label>
+                                <label class="radio-inline"><input type="radio" name="sakit_kepala_leher" value="Leher"> Leher</label>
+                            </div>
+                            <label>Apakah bagian leher terdapat limfadenopati?</label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="limfadenopati_leher" value="Positive"> Positive</label>
+                                <label class="radio-inline"><input type="radio" name="limfadenopati_leher" value="Negative"> Negative</label>
+                            </div>
                     </div>
                     <div class="form-group">
-                        <label>B. Mata</label>
-                        <div>
-                            <label class="radio-inline"><input type="radio" name="mata" value="Normal"> Normal</label>
-                            <label class="radio-inline"><input type="radio" name="mata" value="Abnormal"> Abnormal</label>
-                        </div>
+                            <label>B. Mata</label>
+                            <div>
+                            <label>Anemis pada bagian mata?</label>
+                            </div>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="anemis_mata" value="Positive"> Positive</label>
+                                <label class="radio-inline"><input type="radio" name="anemis_mata" value="Negative"> Negative</label>
+                            </div>
+                            <label>Hiperemia pada bagian mata?</label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="hiperemia_mata" value="Positive"> Positive</label>
+                                <label class="radio-inline"><input type="radio" name="hiperemia_mata" value="Negative"> Negative</label>
+                            </div>
                     </div>
                     <div class="form-group">
                         <label>C. Telinga</label>
-                        <div>
-                            <label class="radio-inline"><input type="radio" name="telinga" value="Normal"> Normal</label>
-                            <label class="radio-inline"><input type="radio" name="telinga" value="Abnormal"> Abnormal</label>
-                        </div>
+                            <label>Apakah pendengaran berfungsi dengan baik?</label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="fungsi_pendengaran" value="Normal"> Normal</label>
+                                <label class="radio-inline"><input type="radio" name="fungsi_pendengaran" value="Tidak"> Tidak</label>
+                            </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label>D. Hidung</label>
                         <div>
-                            <label class="radio-inline"><input type="radio" name="hidung" value="Normal"> Normal</label>
-                            <label class="radio-inline"><input type="radio" name="hidung" value="Abnormal"> Abnormal</label>
-                        </div>
+                            <label>Apakah bagian hidung simetris?</label>
+                            </div>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="simetris_hidung" value="Positive"> Positive</label>
+                                <label class="radio-inline"><input type="radio" name="simetris_hidung" value="Negative"> Negative</label>
+                            </div>
+                            <label>Apakah bagian konka normal?</label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="konka_hidung" value="Normal"> Normal</label>
+                                <label class="radio-inline"><input type="radio" name="konka_hidung" value="Tidak"> Tidak</label>
+                            </div>
                     </div>
                     <div class="form-group">
                         <label>E. Gigi dan Mulut</label>
-                        <div>
-                            <label class="radio-inline"><input type="radio" name="gigi_mulut" value="Normal"> Normal</label>
-                            <label class="radio-inline"><input type="radio" name="gigi_mulut" value="Abnormal"> Abnormal</label>
-                        </div>
+                            <label>Apakah gigi dan mulut normal?</label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="normal_gigi_mulut" value="Normal"> Normal</label>
+                                <label class="radio-inline"><input type="radio" name="normal_gigi_mulut" value="Tidak"> Tidak</label>
+                            </div>
                     </div>
                     <div class="form-group">
                         <label>F. Faring dan Orofaring</label>
-                        <div>
-                            <label class="radio-inline"><input type="radio" name="faring_orofaring" value="Normal"> Normal</label>
-                            <label class="radio-inline"><input type="radio" name="faring_orofaring" value="Abnormal"> Abnormal</label>
+                            <label>Hiperemia pada bagian faring/orofaring?</label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="hiperemia_faring" value="Positive"> Positive</label>
+                                <label class="radio-inline"><input type="radio" name="hiperemia_faring" value="Negative"> Negative</label>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                             <label>G. Urogenital</label>
+                            <label>Apakah pada bagian urogenital normal?</label>
+                            <div>
+                                <label class="radio-inline"><input type="radio" name="normal_urogenital" value="Normal"> Normal</label>
+                                <label class="radio-inline"><input type="radio" name="normal_urogenital" value="Tidak"> Tidak</label>
+                            </div>
+                    </div>
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>H. Pemeriksaan Penunjang (Upload jika perlu)</label>
+                            <input type="file" class="form-control" id="pemeriksaan_penunjang" name="pemeriksaan_penunjang">
                         </div>
                     </div>
                 </div>
-            </div>
-        
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>G. Pemeriksaan Penunjang (Upload jika perlu)</label>
-                        <input type="file" class="form-control" id="pemeriksaan_penunjang" name="pemeriksaan_penunjang">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>I. Lainnya</label>
+                            <input type="text" class="form-control" name="lainnya">
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>H. Lainnya</label>
-                        <input type="text" class="form-control" name="lainnya">
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Assessment -->
         <div class="border rounded p-3 mb-3">
@@ -224,6 +258,7 @@
         <div class="form-group">
             <label for="rujukan">Rujukan</label>
             <input type="text" class="form-control" id="rujukan" name="rujukan">
+        </div>
         </div>
         </div>
         </div>
@@ -291,10 +326,9 @@
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="#" class="btn btn-secondary">Batal</a>
+            <button type="submit" class="btn btn-tambah">Simpan</button>
+            <a href="#" class="btn btn-batal">Batal</a>
         </div>
-    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

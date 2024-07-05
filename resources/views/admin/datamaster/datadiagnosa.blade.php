@@ -65,10 +65,12 @@
                                     <td>{{ $diagnosa->kode_icd }}</td>
                                     <td>{{ $diagnosa->diagnosis }}</td>
                                     <td>
+                                        <div class="btn-group" role="group" aria-label="Aksi">
                                         <button class="btn btn-warning btn-sm"
-                                            onclick="editDiagnosis('{{ $diagnosa->id }}')">Edit</button>
+                                            onclick="editDiagnosis('{{ $diagnosa->id }}')"><i class="fas fa-edit"></i></button>
                                         <button class="btn btn-danger btn-sm"
-                                            onclick="deleteDiagnosis('{{ $diagnosa->id }}')">Hapus</button>
+                                            onclick="deleteDiagnosis('{{ $diagnosa->id }}')"><i class="fas fa-trash-alt"></i></button>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

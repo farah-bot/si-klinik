@@ -89,10 +89,10 @@
                                     <td>{{ $data_obat->harga }}</td>
                                     <td>{{ $data_obat->tanggal_masuk }}</td>
                                     <td>
-                                        <button class="btn btn-warning btn-sm"
-                                            onclick="editObat('{{ $data_obat->id }}')">Edit</button>
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="deleteObat('{{ $data_obat->id }}')">Hapus</button>
+                                        <div class="btn-group" role="group" aria-label="Aksi">
+                                            <button class="btn btn-warning btn-sm" onclick="editObat('{{ $data_obat->id }}')"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger btn-sm" onclick="deleteObat('{{ $data_obat->id }}')"><i class="fas fa-trash-alt"></i></button>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

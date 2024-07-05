@@ -186,7 +186,10 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-tambah">Simpan</button>
+                    <a href="#" class="btn btn-batal">Batal</a>
+                </div>
             </form>
         </div>
     </div>

@@ -47,6 +47,7 @@
                                 <td>{{ $data->tanggal_lahir }}</td>
                                 <td>{{ $data->jenis_pasien }}</td>
                                 <td>
+                                    <div class="btn-group" role="group" aria-label="Aksi">
                                     <button class="btn btn-warning" onclick="editPasien({{ $data->id }})"><i
                                             class="fas fa-edit"></i></button>
                                     <form action="{{ route('deletePasien', $data->id) }}" method="POST">
@@ -54,6 +55,7 @@
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

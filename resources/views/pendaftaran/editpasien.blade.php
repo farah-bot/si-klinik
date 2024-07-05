@@ -67,9 +67,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="nomor_bpjs">Nomor BPJS</label>
-                                <input type="text" id="nomor_bpjs" name="nomor_bpjs" class="form-control"
-                                    value="{{ $pasien->nomor_bpjs }}"
-                                    {{ $pasien->jenis_pasien == 'BPJS' ? '' : 'disabled' }}>
+                                <div class="input-group">
+                                    <input type="text" id="nomor_bpjs" name="nomor_bpjs" class="form-control"
+                                        value="{{ $pasien->nomor_bpjs }}"
+                                        {{ $pasien->jenis_pasien == 'BPJS' ? '' : 'disabled' }}>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -132,8 +134,28 @@
                             </div>
                         @endforeach
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Pasien</button>
+                    <button type="submit" class="btn btn-tambah" data-bs-toggle="modal" data-bs-target="#updateModal">Update Pasien</button>
+                    <a href="{{ route('dataantrian') }}" class="btn btn-batal">Batal Edit</a>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Konfirmasi Update -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateModalLabel">Konfirmasi Update</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Apakah Anda yakin ingin mengupdate data pasien ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" onclick="document.getElementById('pendaftaranForm').submit();">Ya, Update</button>
+                </div>
             </div>
         </div>
     </div>
@@ -145,4 +167,13 @@
         var nomorBPJS = document.getElementById('nomor_bpjs');
         nomorBPJS.disabled = jenisPasien !== 'BPJS';
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var submitButton = document.querySelector('button[type="submit"]');
+        var modalButton = document.querySelector('.modal-footer button.btn-primary');
+
+        modalButton.addEventListener('click', function () {
+            submitButton.click();
+        });
+    });
 </script>
