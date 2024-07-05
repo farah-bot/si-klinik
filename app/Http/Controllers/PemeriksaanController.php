@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PemeriksaanController extends Controller
 {
-    public function showFormulirPoliGigi($nomorAntrian)
+    public function showFormulirPoliGigi($nomorAntrian, $tanggalPeriksa)
     {
-        $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)->first();
+        $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)
+            ->where('tanggal_kunjungan', $tanggalPeriksa)
+            ->first();
 
         if (!$kunjungan) {
             abort(404, 'Nomor antrian tidak valid.');
@@ -132,9 +134,11 @@ class PemeriksaanController extends Controller
     }
 
 
-    public function showFormulirPoliUmum($nomorAntrian)
+    public function showFormulirPoliUmum($nomorAntrian, $tanggalPeriksa)
     {
-        $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)->first();
+        $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)
+            ->where('tanggal_kunjungan', $tanggalPeriksa)
+            ->first();
 
         if (!$kunjungan) {
             abort(404, 'Nomor antrian tidak valid.');
@@ -153,9 +157,11 @@ class PemeriksaanController extends Controller
         ]);
     }
 
-    public function showFormulirPoliKIA($nomorAntrian)
+    public function showFormulirPoliKIA($nomorAntrian, $tanggalPeriksa)
     {
-        $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)->first();
+        $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)
+            ->where('tanggal_kunjungan', $tanggalPeriksa)
+            ->first();
 
         if (!$kunjungan) {
             abort(404, 'Nomor antrian tidak valid.');

@@ -128,7 +128,7 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="Aksi">
                             <button class="btn btn-success btn-sm" onclick="openPanggilModal('${item.nomorAntrian}', '${item.tanggalPeriksa}')"><i class="fas fa-volume-up"></i></button>
-                            <button class="btn btn-primary btn-sm mx-1" onclick="editData('${item.nomorAntrian}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-primary btn-sm mx-1" onclick="editData('${item.nomorAntrian}', '${item.tanggalPeriksa}')"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="deleteData('${item.nomorAntrian}')"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </td>
@@ -177,19 +177,20 @@
         }
 
 
-        function editData(nomorAntrian) {
-            const data = dataAntrian.find(item => item.nomorAntrian === nomorAntrian);
+        function editData(nomorAntrian, tanggalPeriksa) {
+            // const data = dataAntrian.find(item => item.tanggalPeriksa === tanggalPeriksa);
+            const data = dataAntrian.find(item => item.nomorAntrian === nomorAntrian & item.tanggalPeriksa === tanggalPeriksa);
 
             let editUrl;
             switch (data.poli) {
                 case 'Poli Gigi':
-                    editUrl = '/formpoligigi/' + nomorAntrian;
+                    editUrl = '/formpoligigi/' + nomorAntrian + '/' + tanggalPeriksa;
                     break;
                 case 'Poli Umum':
-                    editUrl = '/formpoliumum/' + nomorAntrian;
+                    editUrl = '/formpoliumum/' + nomorAntrian + '/' + tanggalPeriksa;
                     break;
                 case 'Poli KIA':
-                    editUrl = '/formpolikia/' + nomorAntrian;
+                    editUrl = '/formpolikia/' + nomorAntrian + '/' + tanggalPeriksa;
                     break;
                 default:
                     console.error('Poli tidak dikenali:', data.poli);
