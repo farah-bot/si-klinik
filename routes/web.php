@@ -9,7 +9,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PemeriksaanController;
-
+use App\Http\Controllers\RiwayatPelayanan;
 
 // lOGIN
 
@@ -74,9 +74,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // DOKTER, PERAWAT, REKAM MEDIS, DAN ADMIN
     Route::group(['middleware' =>  ['role:Dokter|Perawat|Rekam Medis|Admin']], function () {
-        Route::get('/riwayatpelayananpasien', function () {
-            return view('rekammedis.riwayatpelayanan');
-        })->name('riwayatpelayananpasien');
+        Route::get('/riwayatpelayananpasien', [RiwayatPelayanan::class, 'riwayatPelayananPasien'])->name('riwayatpelayananpasien');
     });
 
     // DOKTER, PERAWAT, DAN ADMIN
