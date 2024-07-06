@@ -116,6 +116,14 @@
             tableBody.innerHTML = '';
             data.forEach(row => {
                 const tr = document.createElement('tr');
+                let statusClass = '';
+                if (row.status === 'Sudah Terlayani') {
+                    statusClass = 'bg-success text-white';
+                } else if (row.status === 'Proses Pelayanan') {
+                    statusClass = 'bg-primary text-white';
+                } else {
+                    statusClass = 'bg-secondary text-white';
+                }
                 tr.innerHTML = `
                 <td>${row.nomor}</td>
                 <td>${row.tanggal_periksa}</td>
@@ -124,7 +132,7 @@
                 <td>${row.jk}</td>
                 <td>${row.jenis_kunjungan}</td>
                 <td>${row.poli}</td>
-                <td>${row.status}</td>
+                <td class="${statusClass}">${row.status}</td>                
                 <td>
                     <div class="btn-group" role="group">
                         <button type="button" class="btn btn-info btn-sm" onclick="viewPatient('${row.nomor}')" data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye"></i></button>
@@ -200,7 +208,7 @@
             }
         }
 
-        // document.getElementById('search_pasien').addEventListener('input', filterData);
+        document.getElementById('search_pasien').addEventListener('input', filterData);
         // document.getElementById('prevPage').addEventListener('click', () => paginate('prev'));
         // document.getElementById('nextPage').addEventListener('click', () => paginate('next'));
 
