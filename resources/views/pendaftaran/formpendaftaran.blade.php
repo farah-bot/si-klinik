@@ -109,10 +109,9 @@
                         <label for="nama_dokter">Nama Dokter</label>
                         <input type="text" id="nama_dokter" name="nama_dokter" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <hr>
                         <button type="submit" class="btn btn-tambah">Daftar</button>
                         <a href="#" class="btn btn-batal">Batal</a>
-                    </div>
                 </form>
             </div>
         </div>

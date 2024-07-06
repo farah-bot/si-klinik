@@ -66,10 +66,10 @@
                                     <td>{{ $diagnosa->diagnosis }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Aksi">
-                                        <button class="btn btn-warning btn-sm"
-                                            onclick="editDiagnosis('{{ $diagnosa->id }}')"><i class="fas fa-edit"></i></button>
-                                        <button class="btn btn-danger btn-sm"
-                                            onclick="deleteDiagnosis('{{ $diagnosa->id }}')"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-warning btn-sm"
+                                                onclick="editDiagnosis('{{ $diagnosa->id }}', '{{ $diagnosa->kode_icd }}', '{{ $diagnosa->diagnosis }}')"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-danger btn-sm"
+                                                onclick="deleteDiagnosis('{{ $diagnosa->id }}')"><i class="fas fa-trash-alt"></i></button>
                                         </div>
                                     </td>
                                 </tr>
@@ -86,57 +86,124 @@
         </div>
     </div>
 
+    <div class="modal fade" id="editDiagnosisModal" tabindex="-1" role="dialog" aria-labelledby="editDiagnosisModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editDiagnosisModalLabel">Edit Diagnosis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editDiagnosisForm">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" id="editDiagnosisId" name="id">
+                        <div class="form-group">
+                            <label for="editKodeICD">Kode ICD X</label>
+                            <input type="text" class="form-control" id="editKodeICD" name="kodeICD" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editDiagnosis">Diagnosis</label>
+                            <input type="text" class="form-control" id="editDiagnosis" name="diagnosis" required>
+                        </div>
+                        <button type="button" class="btn btn-tambah" onclick="updateDiagnosis()">Simpan</button>
+                        <button type="button" class="btn btn-batal" data-bs-dismiss="modal">Batal</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function addDiagnosis() {
             const kodeICD = document.getElementById('kodeICD').value;
             const diagnosis = document.getElementById('diagnosis').value;
 
             fetch('/diagnosis', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    },
-                    body: JSON.stringify({
-                        kodeICD: kodeICD,
-                        diagnosis: diagnosis
-                    })
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    kodeICD: kodeICD,
+                    diagnosis: diagnosis
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Gagal menambahkan diagnosis');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Sukses:', data);
-                    location.reload();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Gagal menambahkan diagnosis');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Sukses:', data);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
 
         function deleteDiagnosis(id) {
             fetch(`/diagnosis/${id}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                    }
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Gagal menghapus diagnosis');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Sukses:', data);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function editDiagnosis(id, kodeICD, diagnosis) {
+            document.getElementById('editDiagnosisId').value = id;
+            document.getElementById('editKodeICD').value = kodeICD;
+            document.getElementById('editDiagnosis').value = diagnosis;
+            var editDiagnosisModal = new bootstrap.Modal(document.getElementById('editDiagnosisModal'));
+            editDiagnosisModal.show();
+        }
+
+        function updateDiagnosis() {
+            const id = document.getElementById('editDiagnosisId').value;
+            const kodeICD = document.getElementById('editKodeICD').value;
+            const diagnosis = document.getElementById('editDiagnosis').value;
+
+            fetch(`/diagnosis/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    kodeICD: kodeICD,
+                    diagnosis: diagnosis
                 })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Gagal menghapus diagnosis');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Sukses:', data);
-                    fetchData();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Gagal mengupdate diagnosis');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Sukses:', data);
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
 
         function updateEntries() {
@@ -162,10 +229,6 @@
                 }
                 rows[i].style.display = match ? '' : 'none';
             }
-        }
-
-        function editDiagnosis(id) {
-            console.log('Edit diagnosis with ID:', id);
         }
     </script>
 @endsection

@@ -143,8 +143,8 @@
                             Apakah Data yang anda isikan sudah sesuai?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                            <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Daftar</button>
+                            <button type="button" class="btn btn-batal" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-tambah" onclick="submitForm()">Ya, Daftar</button>
                         </div>
                     </div>
                 </div>

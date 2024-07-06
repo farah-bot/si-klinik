@@ -9,12 +9,11 @@
                 <h2>Edit Pasien</h2>
             </div>
             <div class="card-body">
-                <form id="pendaftaranForm" action="{{ route('updatepasien', $pasien->id) }}" method="POST">
+                <form id="pendaftaranForm" action="{{ route('updatepasien', $pasien->id) }}" method="POST" onsubmit="showModal(event)">
                     @csrf
                     @method('POST')
                     <div class="row">
                         <div class="col-md-6">
-                            <!-- Form fields for patient's data -->
                             <div class="form-group">
                                 <label for="no_rm">No RM</label>
                                 <input type="text" id="no_rm" name="no_rm" class="form-control"
@@ -80,7 +79,6 @@
                     <h4>Data Kunjungan Pasien</h4>
                     <div id="kunjungan-container">
                         @if ($pasien->kunjungans->isEmpty())
-                            <!-- Create New Kunjungan -->
                             <div class="form-group kunjungan-group">
                                 <div class="row">
                                     <div class="col-md-3">
@@ -180,25 +178,57 @@
                         @endif
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ route('datapengguna') }}" class="btn btn-secondary">Batal</a>
+                    <button type="submit" class="btn btn-tambah">Simpan</button>
+                    <a href="{{ route('datapengguna') }}" class="btn btn-batal">Batal</a>
                 </form>
             </div>
+
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Apakah Data yang anda isikan sudah sesuai?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-batal" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-tambah" onclick="submitForm()">Ya, Daftar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 @endsection
 
 @push('scripts')
-    <script>
-        function toggleBPJSInput() {
-            var jenisPasien = document.getElementById('jenis_pasien').value;
-            var nomorBPJSInput = document.getElementById('nomor_bpjs');
+<script>
+    function toggleBPJSInput() {
+        var jenisPasien = document.getElementById('jenis_pasien').value;
+        var nomorBPJSInput = document.getElementById('nomor_bpjs');
 
-            if (jenisPasien === 'BPJS') {
-                nomorBPJSInput.removeAttribute('disabled');
-            } else {
-                nomorBPJSInput.setAttribute('disabled', 'disabled');
-            }
+        if (jenisPasien === 'BPJS') {
+            nomorBPJSInput.removeAttribute('disabled');
+        } else {
+            nomorBPJSInput.setAttribute('disabled', 'disabled');
         }
-    </script>
+    }
+
+    function showModal(event) {
+        event.preventDefault();
+        var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+        confirmationModal.show();
+        return false;
+    }
+
+    function submitForm() {
+        document.getElementById('pendaftaranForm').submit();
+    }
+</script>
 @endpush
+
