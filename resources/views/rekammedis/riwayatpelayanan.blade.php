@@ -49,10 +49,10 @@
             </div>
 
             <div class="row mt-3">
-                <div class="col-md-6">
+                <!-- <div class="col-md-6">
                     <div id="dataInfo" class="text-start"></div>
-                </div>
-                <div class="col-md-6">
+                </div> -->
+                 <div class="col-md-12">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                             <li class="page-item disabled">
