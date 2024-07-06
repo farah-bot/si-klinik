@@ -50,8 +50,4 @@ class PemeriksaanGigi extends Model
         return $this->belongsTo(Diagnosa::class);
     }
 
-    public function resepObat()
-    {
-        return $this->belongsTo(ResepObat::class);
-    }
 }

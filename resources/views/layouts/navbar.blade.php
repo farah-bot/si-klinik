@@ -80,7 +80,7 @@
                     <a class="nav-link dropdown-toggle text-white d-flex align-items-center" href="#"
                         id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-user"></i>
-                        <span class="ml-2">{{ auth()->user()->name }}</span>
+                        {{-- <span class="ml-2">{{ auth()->user()->name }}</span> --}}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                         aria-labelledby="userDropdown">

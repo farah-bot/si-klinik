@@ -24,15 +24,15 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             $user = User::find(Auth::user()->id);
-            if ($user->hasRole('Dokter')) {
+            if ($user->hasRole('Dokter Gigi')) {
+                return redirect()->intended(route('dashboard'));
+            } elseif($user->hasRole('Dokter Umum')) {
                 return redirect()->intended(route('dashboard'));
             } elseif($user->hasRole('Rekam Medis')) {
                 return redirect()->intended(route('dashboard'));
             } elseif($user->hasRole('Bidan')) {
                 return redirect()->intended(route('dashboard'));
             } elseif($user->hasRole('Perawat')) {
-                return redirect()->intended(route('dashboard'));
-            } elseif($user->hasRole('Dokter Gigi')) {
                 return redirect()->intended(route('dashboard'));
             } elseif($user->hasRole('Admin')) {
                 return redirect()->intended(route('dashboard'));

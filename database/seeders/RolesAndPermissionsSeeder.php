@@ -15,6 +15,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'Poli Gigi',
             'Poli Umum',
             'Data Poli Umum',
+            'Data Poli Gigi',
             'Riwayat Pelayanan Pasien',
             'Data Antrian Poli',
             'Form Pendaftaran',
@@ -40,7 +41,7 @@ class RolesAndPermissionsSeeder extends Seeder
         }
 
         $roles = [
-            'Dokter' => ['Dashboard', 'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum'],
+            'Dokter Umum' => ['Dashboard', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum'],
             'Admin' => [
                 'Dashboard',
                 'Poli Gigi',
@@ -61,6 +62,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'Data Obat',
                 'Data Pasien',
             ],
+            'Dokter Gigi' => ['Dashboard', 'Poli Gigi', 'Riwayat Pelayanan Pasien', 'Data Poli Gigi'],
             'Rekam Medis' => ['Register','Dashboard', 'Data Antrian Poli', 'Form Pendaftaran', 'Riwayat Pelayanan Pasien', 'Laporan Kunjungan', 'Laporan Surveilens Mingguan', 'Laporan Surveilens Bulanan', 'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter'],
             'Apoteker' => ['Dashboard', 'Data Antrian Apotek'],
             'Bidan' => ['Dashboard', 'Poli KIA'],

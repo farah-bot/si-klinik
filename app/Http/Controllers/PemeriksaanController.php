@@ -11,7 +11,8 @@ use App\Models\PemeriksaanKia;
 use App\Models\PemeriksaanGigiObat;
 use App\Models\PemeriksaanKiaObat;
 use App\Models\Diagnosa;
-use App\Models\ResepObat;
+use App\Models\PemeriksaanUmum;
+use App\Models\PemeriksaanUmumObat;
 use Illuminate\Support\Facades\Storage;
 
 class PemeriksaanController extends Controller
@@ -77,13 +78,6 @@ class PemeriksaanController extends Controller
             'catatan_resep' => 'nullable|string',
         ]);
 
-        foreach ($request->nama_obat as $nama_obat) {
-            $exists = ResepObat::where('nama_obat', $nama_obat)->exists();
-            if (!$exists) {
-                return redirect()->back()->with('error', 'Obat dengan nama ' . $nama_obat . ' tidak tersedia dalam daftar resep obat.');
-            }
-        }
-
         if ($request->has('tanda_tangan')) {
             $signature = $request->input('tanda_tangan');
             $signature = str_replace('data:image/png;base64,', '', $signature);
@@ -116,10 +110,8 @@ class PemeriksaanController extends Controller
 
         $obatData = [];
         foreach ($request->nama_obat as $key => $nama_obat) {
-            $resepObat = ResepObat::where('nama_obat', $nama_obat)->first();
             $obatData[] = [
                 'pemeriksaan_gigi_id' => $pemeriksaan->id,
-                'resep_obat_id' => $resepObat->id,
                 'nama_obat' => $nama_obat,
                 'satuan' => $request->satuan[$key],
                 'jumlah_obat' => $request->jumlah_obat[$key],
@@ -163,8 +155,6 @@ class PemeriksaanController extends Controller
     {
         $request->validate([
             'keluhan_pasien' => 'required|string',
-            'kode_icd10' => 'required|string|exists:diagnosas,kode_icd',
-            'rencana_tindaklanjut' => 'required|string',
             'riwayat_alergi' => 'nullable',
             'tekanan_darah' => 'required',
             'suhu_tubuh' => 'required',
@@ -172,6 +162,20 @@ class PemeriksaanController extends Controller
             'nadi' => 'required',
             'rr' => 'required',
             'ku' => 'required',
+            'sakit_kepala_leher' => 'required',
+            'limfadenopati_leher' => 'required',
+            'anemis_mata' => 'required',
+            'hiperemia_mata' => 'required',
+            'fungsi_pendengaran' => 'required',
+            'simetris_hidung' => 'required',
+            'konka_hidung' => 'required',
+            'normal_gigi_mulut' => 'required',
+            'hiperemia_faring' => 'required',
+            'normal_urogenital' => 'required',
+            'pemeriksaan_penunjang' => 'nullable',
+            'lainnya' => 'nullable',
+            'kode_icd10' => 'required|string|exists:diagnosas,kode_icd',
+            'rencana_tindaklanjut' => 'required|string',
             'tanda_tangan' => 'required',
             'nama_obat' => 'required|array',
             'nama_obat.*' => 'required|string',
@@ -179,13 +183,6 @@ class PemeriksaanController extends Controller
             'jumlah_obat.*' => 'nullable|integer',
             'catatan_resep' => 'nullable|string',
         ]);
-
-        foreach ($request->nama_obat as $nama_obat) {
-            $exists = ResepObat::where('nama_obat', $nama_obat)->exists();
-            if (!$exists) {
-                return redirect()->back()->with('error', 'Obat dengan nama ' . $nama_obat . ' tidak tersedia dalam daftar resep obat.');
-            }
-        }
 
         if ($request->has('tanda_tangan')) {
             $signature = $request->input('tanda_tangan');
@@ -202,13 +199,30 @@ class PemeriksaanController extends Controller
         $kunjungan = Kunjungan::where('tanggal_kunjungan', $request->tanggal_kunjungan)->first();
         $user = User::where('name', $request->name)->first();
 
-        $pemeriksaan = PemeriksaanKia::create([
+        $pemeriksaan = PemeriksaanUmum::create([
             'pasien_id' => $pasien->id,
             'kunjungan_id' => $kunjungan->id,
             'user_id' => $user->id,
             'diagnosa_id' => $diagnosa->id,
             'subject_keluhan' => $request->keluhan_pasien,
             'riwayat_alergi' => $request->riwayat_alergi,
+            'tekanan_darah' => $request->tekanan_darah,
+            'suhu_tubuh' => $request->suhu_tubuh,
+            'berat_badan' => $request->bb,
+            'nadi' => $request->nadi,
+            'respiratory_rate' => $request->rr,
+            'sakit_kepala_leher' => $request->sakit_kepala_leher,
+            'limfadenopati_leher' => $request->limfadenopati_leher,
+            'anemis_mata' => $request->anemis_mata,
+            'hiperemia_mata' => $request->hiperemia_mata,
+            'fungsi_pendengaran' => $request->fungsi_pendengaran,
+            'simetris_hidung' => $request->simetris_hidung,
+            'konka_hidung' => $request->konka_hidung,
+            'normal_gigi_mulut' => $request->normal_gigi_mulut,
+            'hiperemia_faring' => $request->hiperemia_faring,
+            'normal_urogenital' => $request->normal_urogenital,
+            'pemeriksaan_penunjang' => $request->pemeriksaan_penunjang,
+            'lainnya' => $request->lainnya,
             'catatan_assessment' => $request->catatan_assessment,
             'rencana_tindaklanjut' => $request->rencana_tindaklanjut,
             'tindakan' => $request->tindakan,
@@ -219,18 +233,15 @@ class PemeriksaanController extends Controller
 
         $obatData = [];
         foreach ($request->nama_obat as $key => $nama_obat) {
-            $resepObat = ResepObat::where('nama_obat', $nama_obat)->first();
             $obatData[] = [
-                'pemeriksaan_kia_id' => $pemeriksaan->id,
-                'resep_obat_id' => $resepObat->id,
+                'pemeriksaan_umum_id' => $pemeriksaan->id,
                 'nama_obat' => $nama_obat,
                 'satuan' => $request->satuan[$key],
                 'jumlah_obat' => $request->jumlah_obat[$key],
             ];
         }
 
-        PemeriksaanKiaObat::insert($obatData);
-
+        PemeriksaanUmumObat::insert($obatData);
         $kunjungan = Kunjungan::findOrFail($request->kunjungan_id);
         $kunjungan->status = 'Sudah Terlayani';
         $kunjungan->save();
@@ -276,13 +287,6 @@ class PemeriksaanController extends Controller
             'catatan_resep' => 'nullable|string',
         ]);
 
-        foreach ($request->nama_obat as $nama_obat) {
-            $exists = ResepObat::where('nama_obat', $nama_obat)->exists();
-            if (!$exists) {
-                return redirect()->back()->with('error', 'Obat dengan nama ' . $nama_obat . ' tidak tersedia dalam daftar resep obat.');
-            }
-        }
-
         if ($request->has('tanda_tangan')) {
             $signature = $request->input('tanda_tangan');
             $signature = str_replace('data:image/png;base64,', '', $signature);
@@ -315,10 +319,8 @@ class PemeriksaanController extends Controller
 
         $obatData = [];
         foreach ($request->nama_obat as $key => $nama_obat) {
-            $resepObat = ResepObat::where('nama_obat', $nama_obat)->first();
             $obatData[] = [
                 'pemeriksaan_kia_id' => $pemeriksaan->id,
-                'resep_obat_id' => $resepObat->id,
                 'nama_obat' => $nama_obat,
                 'satuan' => $request->satuan[$key],
                 'jumlah_obat' => $request->jumlah_obat[$key],
