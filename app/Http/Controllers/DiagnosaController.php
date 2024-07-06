@@ -9,7 +9,7 @@ class DiagnosaController extends Controller
 {
     public function index()
     {
-        $diagnosas = Diagnosa::all();
+        $diagnosas = Diagnosa::paginate(10);
 
         return view('admin.datamaster.datadiagnosa', compact('diagnosas'));
     }

@@ -61,7 +61,7 @@
                         <tbody id="diagnosisTable">
                             @foreach ($diagnosas as $diagnosa)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $diagnosa->id }}</td>
                                     <td>{{ $diagnosa->kode_icd }}</td>
                                     <td>{{ $diagnosa->diagnosis }}</td>
                                     <td>
@@ -76,6 +76,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    {{ $diagnosas->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
         </div>
