@@ -16,11 +16,11 @@ use Illuminate\Support\Facades\Storage;
 
 class PemeriksaanController extends Controller
 {
-    public function showFormulirPoliGigi($nomorAntrian, $tanggalPeriksa, $poli)
+    public function showFormulirPoliGigi($nomorAntrian, $tanggalPeriksa, $pasien_id)
     {
         $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)
             ->where('tanggal_kunjungan', $tanggalPeriksa)
-            ->where('poli_tujuan', $poli)
+            ->where('pasien_id', $pasien_id)
             ->first();
 
         if (!$kunjungan) {
@@ -135,10 +135,11 @@ class PemeriksaanController extends Controller
     }
 
 
-    public function showFormulirPoliUmum($nomorAntrian, $tanggalPeriksa)
+    public function showFormulirPoliUmum($nomorAntrian, $tanggalPeriksa, $pasien_id)
     {
         $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)
             ->where('tanggal_kunjungan', $tanggalPeriksa)
+            ->where('pasien_id', $pasien_id)
             ->first();
 
         if (!$kunjungan) {
@@ -237,11 +238,11 @@ class PemeriksaanController extends Controller
         return redirect()->back()->with('success', 'Pemeriksaan berhasil disimpan.');
     }
 
-    public function showFormulirPoliKIA($nomorAntrian, $tanggalPeriksa, $poli)
+    public function showFormulirPoliKIA($nomorAntrian, $tanggalPeriksa, $pasien_id)
     {
         $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)
             ->where('tanggal_kunjungan', $tanggalPeriksa)
-            ->where('poli_tujuan', $poli)
+            ->where('pasien_id', $pasien_id)
             ->first();
 
         if (!$kunjungan) {
