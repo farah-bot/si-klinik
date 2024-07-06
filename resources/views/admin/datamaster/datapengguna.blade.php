@@ -77,7 +77,8 @@
                                 <div class="form-group">
                                     <label for="jabatan">Jabatan</label>
                                     <select class="form-control" id="jabatan" name="jabatan" required>
-                                        <option value="Dokter">Dokter</option>
+                                        <option value="Dokter Umum">Dokter Umum</option>
+                                        <option value="Dokter Gigi">Dokter Gigi</option>
                                         <option value="Rekam Medis">Rekam Medis</option>
                                         <option value="Apoteker">Apoteker</option>
                                         <option value="Bidan">Bidan</option>

@@ -66,8 +66,11 @@ class UserController extends Controller
                     'Laporan 10 Besar Penyakit', 'Laporan Jumlah Jasa Pelayanan Dokter', 'Register', 'Data Diagnosa', 'Data Obat', 'Data Pasien',
                 ];
                 break;
-            case 'Dokter':
-                $permissions = ['Dashboard', 'Poli Gigi', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum'];
+            case 'Dokter Umum':
+                $permissions = ['Dashboard', 'Poli Umum', 'Riwayat Pelayanan Pasien', 'Data Poli Umum'];
+                break;
+            case 'Dokter Gigi':
+                $permissions = ['Dashboard', 'Poli Gigi', 'Riwayat Pelayanan Pasien', 'Data Poli Gigi'];
                 break;
             case 'Rekam Medis':
                 $permissions = [

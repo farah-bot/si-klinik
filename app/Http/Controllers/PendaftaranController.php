@@ -65,8 +65,11 @@ class PendaftaranController extends Controller
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
         $dokter = User::where('name', $request->nama_dokter)
-        ->where('jabatan', 'Dokter')
-        ->orWhere('jabatan','Bidan')
+        ->where(function ($query) {
+            $query->where('jabatan', 'Dokter Gigi')
+            ->orWhere('jabatan', 'Dokter Umum')
+            ->orWhere('jabatan', 'Bidan');
+        })
         ->first();
         $user_id = $dokter ? $dokter->id : null;
 
@@ -118,8 +121,11 @@ class PendaftaranController extends Controller
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
         $dokter = User::where('name', $request->nama_dokter)
-        ->where('jabatan', 'Dokter')
-        ->orWhere('jabatan','Bidan')
+        ->where(function ($query) {
+            $query->where('jabatan', 'Dokter Gigi')
+            ->orWhere('jabatan', 'Dokter Umum')
+            ->orWhere('jabatan', 'Bidan');
+        })
         ->first();
         $user_id = $dokter ? $dokter->id : null;
 
@@ -140,7 +146,8 @@ class PendaftaranController extends Controller
     {
         $pasien = Pasien::with('kunjungans.user')->findOrFail($id);
         $dokters = User::whereHas('roles', function ($query) {
-            $query->where('name', 'Dokter');
+            $query->where('name', 'Dokter Umum')
+            ->orWhere('name', 'Dokter Gigi');
         })->get();
         return view('pendaftaran.editpasien', compact('pasien', 'dokters'));
     }

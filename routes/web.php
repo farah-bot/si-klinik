@@ -28,8 +28,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/daftar_pasien_lama', [PendaftaranController::class, 'daftarPasienLama'])->name('daftar_pasien_lama');
     });
 
-    // ADMIN DAN DOKTER
-    Route::group(['middleware' => ['role:Dokter|Admin']], function () {
+    // ADMIN DAN DOKTER GIGI
+    Route::group(['middleware' => ['role:Dokter Gigi|Admin']], function () {
         Route::post('/updatestatusgigi/{id}', [PendaftaranController::class, 'updateStatus'])->name('update-status');
         Route::post('/skipstatusgigi/{id}', [PendaftaranController::class, 'skipStatus'])->name('skip-status');
         Route::delete('/deletekunjungangigi/{id}', [PendaftaranController::class, 'deleteKunjungan'])->name('delete-kunjungan');
@@ -37,6 +37,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/formpoligigi/{nomorAntrian}/{tanggalPeriksa}/{pasien_id}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
         Route::get('/datapoligigi', [PendaftaranController::class, 'dataPoliGigi'])->name('datapoligigi');
         Route::put('/updatestatusgigi/{id}', [PemeriksaanController::class, 'updateStatus'])->name('updateStatusGigi');
+    });
+
+    // ADMIN DAN DOKTER UMUM
+    Route::group(['middleware' => ['role:Dokter Umum|Admin']], function () {
+        Route::post('/updatestatusumum/{id}', [PendaftaranController::class, 'updateStatus'])->name('update-status');
+        Route::post('/skipstatusumum/{id}', [PendaftaranController::class, 'skipStatus'])->name('skip-status');
+        Route::delete('/deletekunjunganumum/{id}', [PendaftaranController::class, 'deleteKunjungan'])->name('delete-kunjungan');
+        Route::post('/pemeriksaanumum', [PemeriksaanController::class, 'storePoliUmum'])->name('pemeriksaan.storePoliUmum');
+        Route::get('/formpoliumum/{nomorAntrian}/{tanggalPeriksa}/{pasien_id}', [PemeriksaanController::class, 'showFormulirPoliUmum'])->name('formulirpoliumum');
+        Route::get('/datapoliumum', [PendaftaranController::class, 'dataPoliUmum'])->name('datapoliumum');
+        Route::put('/updatestatusumum/{id}', [PemeriksaanController::class, 'updateStatus'])->name('updateStatusUmum');
     });
 
     // REKAM MEDIS DAN ADMIN
@@ -68,24 +79,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/datapolikia', [PendaftaranController::class, 'dataPoliKia'])->name('datapolikia');
     });
 
-    // DOKTER, PERAWAT, REKAM MEDIS, DAN ADMIN
-    Route::group(['middleware' =>  ['role:Dokter|Perawat|Rekam Medis|Admin']], function () {
+    // DOKTER UMUM, KEPALA KLINIK, PERAWAT, REKAM MEDIS, DAN ADMIN
+    Route::group(['middleware' =>  ['role:Dokter Umum|Kepala Klinik|Perawat|Rekam Medis|Admin']], function () {
         Route::get('/riwayatpelayananpasien', [RiwayatPelayanan::class, 'riwayatPelayananPasien'])->name('riwayatpelayananpasien');
     });
 
-    // DOKTER, PERAWAT, DAN ADMIN
-    Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin']], function () {
-        Route::post('/updatestatusumum/{id}', [PendaftaranController::class, 'updateStatus'])->name('update-status');
-        Route::post('/skipstatusumum/{id}', [PendaftaranController::class, 'skipStatus'])->name('skip-status');
-        Route::delete('/deletekunjunganumum/{id}', [PendaftaranController::class, 'deleteKunjungan'])->name('delete-kunjungan');
-        Route::put('/updatestatusumum/{id}', [PemeriksaanController::class, 'updateStatus'])->name('updateStatusUmum');
-        Route::post('/pemeriksaanumum', [PemeriksaanController::class, 'storePoliUmum'])->name('pemeriksaan.storePoliUmum');
-        Route::get('/formpoliumum/{nomorAntrian}/{tanggalPeriksa}/{pasien_id}', [PemeriksaanController::class, 'showFormulirPoliUmum'])->name('formulirpolumum');
-        Route::get('/datapoliumum', [PendaftaranController::class, 'dataPoliUmum'])->name('datapoliumum');
-    });
-
-    // DOKTER, PERAWAT, BIDAN, DAN ADMIN
-    Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin|Bidan']], function () {
+    // DOKTER UMUM, DOKTER GIGI, PERAWAT, BIDAN, DAN ADMIN
+    Route::group(['middleware' =>  ['role:Dokter Umum|Dokter Gigi|Perawat|Admin|Bidan']], function () {
         Route::get('/fetch-diagnosa', [PemeriksaanController::class, 'fetchDiagnosa']);
     });
 
@@ -97,7 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     // SEMUA ROLE
-    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis|Admin|Dokter|Perawat|Bidan|Apoteker']], function () {
+    Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis|Admin|Dokter Umum|Dokter Gigi|Perawat|Bidan|Apoteker']], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 });

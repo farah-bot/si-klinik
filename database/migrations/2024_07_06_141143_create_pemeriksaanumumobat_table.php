@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('resep_obats', function (Blueprint $table) {
+        Schema::create('pemeriksaan_umum_obats', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_obat');
+            $table->foreignId('pemeriksaan_umum_id')->constrained('pemeriksaan_umums')->onDelete('cascade');
             $table->string('nama_obat');
-            $table->integer('stok');
-            $table->string('harga');
-            $table->date('tanggal_masuk');
+            $table->string('satuan')->nullable();
+            $table->integer('jumlah_obat')->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('resep_obats');
+        Schema::dropIfExists('pemeriksaan_umum_obats');
     }
 };

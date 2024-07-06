@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('pemeriksaan_kia_obats', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pemeriksaan_kia_id')->constrained('pemeriksaan_kias')->onDelete('cascade');
-            $table->foreignId('resep_obat_id')->constrained('resep_obats')->onDelete('cascade');
             $table->string('nama_obat');
             $table->string('satuan')->nullable();
             $table->integer('jumlah_obat')->nullable();
