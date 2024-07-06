@@ -109,8 +109,10 @@
                         <label for="nama_dokter">Nama Dokter</label>
                         <input type="text" id="nama_dokter" name="nama_dokter" class="form-control">
                     </div>
-                    <button type="submit" class="btn btn-primary">Daftar</button>
-                    <a href="#" class="btn btn-secondary">Batal</a>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-tambah">Daftar</button>
+                        <a href="#" class="btn btn-batal">Batal</a>
+                    </div>
                 </form>
             </div>
         </div>
@@ -128,8 +130,8 @@
                     Apakah Data yang anda isikan sudah sesuai?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                    <button type="button" class="btn btn-primary" onclick="submitForm()">Ya, Daftar</button>
+                    <button type="button" class="btn btn-batal" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-tambah" onclick="submitForm()">Ya, Daftar</button>
                 </div>
             </div>
         </div>

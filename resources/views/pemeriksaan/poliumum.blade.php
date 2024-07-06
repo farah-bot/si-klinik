@@ -96,6 +96,7 @@
                         <option value="">--Pilih--</option>
                         <option value="Normal">Normal</option>
                         <option value="Tidak Normal">Tidak Normal</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -105,6 +106,7 @@
                         <option value="">--Pilih--</option>
                         <option value="Sakit Ringan">Sakit Ringan</option>
                         <option value="Sakit Berat">Sakit Berat</option>
+                        </select>
                     </div>
                 </div>
             </div>
