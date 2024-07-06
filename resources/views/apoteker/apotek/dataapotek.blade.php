@@ -41,9 +41,7 @@
                 </table>
             </div>
 
-                <div id="noDataFound" style="display: none;" class="alert alert-info mt-3">
-                    Data tidak ditemukan.
-                </div>
+
 
         <div class="row mt-3">
             <div class="col-md-12">
