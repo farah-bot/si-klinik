@@ -9,6 +9,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\PemeriksaanController;
+use App\Http\Controllers\ApotekerController;
 use App\Http\Controllers\RiwayatPelayanan;
 
 // lOGIN
@@ -53,12 +54,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/editpasien/{id}', [PendaftaranController::class, 'update'])->name('updatepasien');
         Route::delete('/deletepasien/{id}', [PendaftaranController::class, 'destroy'])->name('deletePasien');
     });
-
+    
     // APOTEKER DAN ADMIN
     Route::group(['middleware' => ['role:Apoteker|Admin']], function () {
-        Route::get('/dataapotek', function () {
-            return view('apoteker.apotek.dataapotek');
-        })->name('dataapotek');
+        Route::get('/dataapotek', [ApotekerController::class, 'index'])->name('dataapotek');
     });
 
     // BIDAN DAN ADMIN
