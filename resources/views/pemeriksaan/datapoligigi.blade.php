@@ -75,6 +75,7 @@
                     <i class="fas fa-bullhorn fa-3x"></i>
                     <p>Nomor Antrian: <span id="nomorAntrianPanggil"></span></p>
                     <input type="hidden" id="tanggalPeriksaPanggil">
+                    <input type="hidden" id="poliPeriksaPanggil">
                 </div>
                 <div class="modal-footer d-flex justify-content-center">
                     <button type="button" class="btn btn-success ms-2" onclick="updateStatus('Proses Pelayanan')"
@@ -116,7 +117,7 @@
                     statusClass = 'bg-secondary text-white';
                 }
                 tableHTML += `
-                <tr data-id="${item.id}" data-nomor-antrian="${item.nomorAntrian}" data-tanggal-periksa="${item.tanggalPeriksa}">
+                <tr data-id="${item.id}" data-nomor-antrian="${item.nomorAntrian}" data-tanggal-periksa="${item.tanggalPeriksa}" data-poli-periksa="${item.poli}">
                     <td>${item.nomorAntrian}</td>
                     <td>${item.tanggalPeriksa}</td>
                     <td>${item.namaPasien}</td>
@@ -127,8 +128,8 @@
                     <td class="${statusClass}">${item.status}</td>
                     <td>
                         <div class="btn-group" role="group" aria-label="Aksi">
-                            <button class="btn btn-success btn-sm" onclick="openPanggilModal('${item.nomorAntrian}', '${item.tanggalPeriksa}')"><i class="fas fa-volume-up"></i></button>
-                            <button class="btn btn-primary btn-sm mx-1" onclick="editData('${item.nomorAntrian}')"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-success btn-sm" onclick="openPanggilModal('${item.nomorAntrian}', '${item.tanggalPeriksa}', '${item.poli}')"><i class="fas fa-volume-up"></i></button>
+                            <button class="btn btn-primary btn-sm mx-1" onclick="editData('${item.nomorAntrian}', '${item.tanggalPeriksa}', '${item.poli}')"><i class="fas fa-edit"></i></button>
                             <button class="btn btn-danger btn-sm" onclick="deleteData('${item.nomorAntrian}')"><i class="fas fa-trash-alt"></i></button>
                         </div>
                     </td>
@@ -165,9 +166,10 @@
             }
         }
 
-        function openPanggilModal(nomorAntrian, tanggalPeriksa) {
+        function openPanggilModal(nomorAntrian, tanggalPeriksa, poli) {
             document.getElementById('nomorAntrianPanggil').textContent = nomorAntrian;
             document.getElementById('tanggalPeriksaPanggil').textContent = tanggalPeriksa;
+            document.getElementById('poliPeriksaPanggil').textContent = poli;
 
             const panggilAntrianModal = new bootstrap.Modal(document.getElementById('panggilAntrianModal'), {
                 keyboard: false
@@ -176,19 +178,21 @@
             playAudioAntrian(nomorAntrian);
         }
 
-        function editData(nomorAntrian) {
-            const data = dataAntrian.find(item => item.nomorAntrian === nomorAntrian);
+
+        function editData(nomorAntrian, tanggalPeriksa, poli) {
+            const data = dataAntrian.find(item => item.nomorAntrian === nomorAntrian & item.tanggalPeriksa ===
+                tanggalPeriksa & item.poli === poli);
 
             let editUrl;
             switch (data.poli) {
                 case 'Poli Gigi':
-                    editUrl = '/formpoligigi/' + nomorAntrian;
+                    editUrl = '/formpoligigi/' + nomorAntrian + '/' + tanggalPeriksa + '/' + poli;
                     break;
                 case 'Poli Umum':
-                    editUrl = '/formpoliumum/' + nomorAntrian;
+                    editUrl = '/formpoliumum/' + nomorAntrian + '/' + tanggalPeriksa + '/' + poli;
                     break;
                 case 'Poli KIA':
-                    editUrl = '/formpolikia/' + nomorAntrian;
+                    editUrl = '/formpolikia/' + nomorAntrian + '/' + tanggalPeriksa + '/' + poli;
                     break;
                 default:
                     console.error('Poli tidak dikenali:', data.poli);
@@ -274,10 +278,11 @@
 
         function skipAntrian() {
             const nomorAntrian = document.getElementById('nomorAntrianPanggil').textContent;
+            const poli = document.getElementById('poliPeriksaPanggil').textContent;
             const tanggalPeriksa = document.getElementById('tanggalPeriksaPanggil')
                 .textContent;
             const rows = document.querySelectorAll(
-                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"]`);
+                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-poli-periksa="${poli}"]`);
             if (rows.length > 0) {
                 const row = rows[0];
 
@@ -311,11 +316,12 @@
 
         function updateStatus(status) {
             const nomorAntrian = document.getElementById('nomorAntrianPanggil').textContent;
+            const poli = document.getElementById('poliPeriksaPanggil').textContent;
             const tanggalPeriksa = document.getElementById('tanggalPeriksaPanggil')
                 .textContent;
 
             const rows = document.querySelectorAll(
-                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"]`);
+                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-poli-periksa="${poli}"]`);
             if (rows.length > 0) {
                 const row = rows[0];
 
@@ -352,20 +358,19 @@
                     });
             } else {
                 alert('Data tidak ditemukan untuk nomor antrian ' + nomorAntrian + ' dan tanggal periksa ' +
-                    tanggalPeriksa);
+                    tanggalPeriksa + ' dan poli tujuan ' + poli);
             }
         }
 
         function deleteData(nomorAntrian) {
             if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
                 const rows = document.querySelectorAll(
-                    `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"]`);
+                    `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-poli-periksa="${poli}"]`);
                 if (rows.length > 0) {
                     const row = rows[0];
 
                     const statusCell = row.querySelector('td:nth-child(8)');
                     const kunjunganId = row.getAttribute('data-id');
-
 
                     fetch(`/deletekunjungangigi/${kunjunganId}`, {
                             method: 'DELETE',
@@ -388,7 +393,6 @@
                         tanggalPeriksa);
                 }
             }
-
         }
     </script>
 

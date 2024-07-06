@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/skipstatusgigi/{id}', [PendaftaranController::class, 'skipStatus'])->name('skip-status');
         Route::delete('/deletekunjungangigi/{id}', [PendaftaranController::class, 'deleteKunjungan'])->name('delete-kunjungan');
         Route::post('/pemeriksaangigi', [PemeriksaanController::class, 'storePoliGigi'])->name('pemeriksaan.storePoliGigi');
-        Route::get('/formpoligigi/{nomorAntrian}/{tanggalPeriksa}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
+        Route::get('/formpoligigi/{nomorAntrian}/{tanggalPeriksa}/{poli}', [PemeriksaanController::class, 'showFormulirPoliGigi'])->name('formulirpoligigi');
         Route::get('/datapoligigi', [PendaftaranController::class, 'dataPoliGigi'])->name('datapoligigi');
         Route::put('/updatestatusgigi/{id}', [PemeriksaanController::class, 'updateStatus'])->name('updateStatusGigi');
     });
@@ -68,7 +68,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/deletekunjungankia/{id}', [PendaftaranController::class, 'deleteKunjungan'])->name('delete-kunjungan');
         Route::put('/updatestatuskia/{id}', [PemeriksaanController::class, 'updateStatus'])->name('updateStatusKia');
         Route::post('/pemeriksaankia', [PemeriksaanController::class, 'storePoliKia'])->name('pemeriksaan.storePoliKia');
-        Route::get('/formpolikia/{nomorAntrian}/{tanggalPeriksa}', [PemeriksaanController::class, 'showFormulirPoliKIA'])->name('formulirpolikia');
+        Route::get('/formpolikia/{nomorAntrian}/{tanggalPeriksa}/{poli}', [PemeriksaanController::class, 'showFormulirPoliKIA'])->name('formulirpolikia');
         Route::get('/datapolikia', [PendaftaranController::class, 'dataPoliKia'])->name('datapolikia');
     });
 
@@ -79,7 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // DOKTER, PERAWAT, DAN ADMIN
     Route::group(['middleware' =>  ['role:Dokter|Perawat|Admin']], function () {
-        Route::get('/formpoliumum/{nomorAntrian}/{tanggalPeriksa}', [PemeriksaanController::class, 'showFormulirPoliUmum'])->name('formulirpolumum');
+        Route::get('/formpoliumum/{nomorAntrian}/{tanggalPeriksa}/{poli}', [PemeriksaanController::class, 'showFormulirPoliUmum'])->name('formulirpolumum');
         Route::get('/datapoliumum', [PendaftaranController::class, 'dataPoliUmum'])->name('datapoliumum');
     });
 
@@ -90,12 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // KEPALA KLINIK, REKAM MEDIS, DAN ADMIN
     Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis|Admin']], function () {
-        Route::get('/laporan10besarpenyakit', function () {
-            return view('rekammedis.laporanpenyakit');
-        })->name('laporan10besarpenyakit');
-        Route::get('/laporankunjungan', function () {
-            return view('rekammedis.laporankunjungan');
-        })->name('laporankunjungan');
+        Route::get('/laporan10besarpenyakit', [LaporanController::class, 'laporan10BesarPenyakit'])->name('laporan10besarpenyakit');
         Route::get('/laporankunjungan', [LaporanController::class, 'index'])->name('laporankunjungan');
         Route::get('/laporanjumlahjasapelayanandokter', function () {
             return view('rekammedis.laporanjasa');
