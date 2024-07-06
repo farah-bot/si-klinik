@@ -241,29 +241,26 @@
         </div>
 
         <!-- Plan -->
-        <div class="border rounded p-3 mb-3">
-        <h4>PLAN</h4>
-        <div class="row">
-        <div class="col-md-6">
-        <div class="form-group">
-            <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
-            <textarea class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" rows="3" required></textarea>
-        </div>
-        </div>
-        <div class="col-md-6">
-        <div class="form-group">
-            <label for="tindakan">Tindakan</label>
-            <input type="text" class="form-control" id="tindakan" name="tindakan">
-        </div>
-        </div>
-        <div class="col-md-6">
-        <div class="form-group">
-            <label for="rujukan">Rujukan</label>
-            <input type="text" class="form-control" id="rujukan" name="rujukan">
-        </div>
-        </div>
-        </div>
-        </div>
+                <div class="border rounded p-3 mb-3">
+                    <h4>PLAN</h4>
+                    <div class="form-group">
+                        <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
+                        <select class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" required>
+                        <option value="">--Pilih--</option>
+                        <option value="Medikamentosa">Medikamentosa</option>
+                        <option value="Tindakan">Tindakan</option>
+                        <option value="Rujukan">Rujukan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tindakan">Tindakan</label>
+                        <textarea class="form-control" id="tindakan" placeholder="Tindakan" name="tindakan" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="rujukan">Rujukan</label>
+                        <textarea class="form-control" id="rujukan" placeholder="Rujukan" name="rujukan" rows="3"></textarea>
+                    </div>
+                </div>
 
         <!-- Medication Prescription -->
         <div class="border rounded p-3 mb-3">

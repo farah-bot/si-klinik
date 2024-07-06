@@ -95,9 +95,13 @@
                 <div class="border rounded p-3 mb-3">
                     <h4>PLAN</h4>
                     <div class="form-group">
-                        <label for="rencana_tindaklanjut">Rencana Tindak Lanjut<span class="required">*</span></label>
-                        <textarea class="form-control" id="rencana_tindaklanjut" placeholder="Rencana tindak lanjut" name="rencana_tindaklanjut"
-                            rows="3" required></textarea>
+                        <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
+                        <select class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" required>
+                        <option value="">--Pilih--</option>
+                        <option value="Medikamentosa">Medikamentosa</option>
+                        <option value="Tindakan">Tindakan</option>
+                        <option value="Rujukan">Rujukan</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="tindakan">Tindakan</label>

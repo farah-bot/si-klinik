@@ -12,7 +12,7 @@ class PendaftaranController extends Controller
 {
     public function index()
     {
-        $pasien = Pasien::all();
+        $pasien = Pasien::paginate(10);
         return view('pendaftaran.dataantrian', compact('pasien'));
     }
 
@@ -64,7 +64,10 @@ class PendaftaranController extends Controller
 
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
-        $dokter = User::where('name', $request->nama_dokter)->where('jabatan', 'Dokter')->first();
+        $dokter = User::where('name', $request->nama_dokter)
+        ->where('jabatan', 'Dokter')
+        ->orWhere('jabatan','Bidan')
+        ->first();
         $user_id = $dokter ? $dokter->id : null;
 
         $kunjungan = Kunjungan::create([
@@ -114,7 +117,10 @@ class PendaftaranController extends Controller
 
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
-        $dokter = User::where('name', $request->nama_dokter)->where('jabatan', 'Dokter')->first();
+        $dokter = User::where('name', $request->nama_dokter)
+        ->where('jabatan', 'Dokter')
+        ->orWhere('jabatan','Bidan')
+        ->first();
         $user_id = $dokter ? $dokter->id : null;
 
         $kunjungan = Kunjungan::create([
