@@ -18,9 +18,9 @@
                 <label for="filterPoli">Filter Poli</label>
                 <select id="filterPoli" class="form-control">
                     <option value="">Semua</option>
-                    <option value="Umum">Umum</option>
-                    <option value="Gigi">Gigi</option>
-                    <option value="KIA">KIA</option>
+                    <option value="Poli Umum">Umum</option>
+                    <option value="Poli Gigi">Gigi</option>
+                    <option value="Poli KIA">KIA</option>
                 </select>
             </div>
             <div class="col-md-3">
@@ -65,7 +65,17 @@
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-
+                    @foreach($results as $result)
+                        <tr>
+                            <td>{{ $result['tanggal'] }}</td>
+                            <td>{{ $result['waktu'] }}</td>
+                            <td>{{ $result['poli'] }}</td>
+                            <td>{{ $result['dokter'] }}</td>
+                            <td>{{ $result['bpjs'] }}</td>
+                            <td>{{ $result['umum'] }}</td>
+                            <td>{{ $result['total'] }}</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -107,83 +117,19 @@
 </style>
 
 <script>
-    const data = [
-        { tanggal: '12/12/2023', waktu: 'Pagi', poli: 'Umum', dokter: 'dr. Dina', bpjs: 60, umum: 10, total: 70 },
-        { tanggal: '12/12/2023', waktu: 'Sore', poli: 'Umum', dokter: 'dr. Tiara', bpjs: 30, umum: 5, total: 35 },
-        { tanggal: '12/12/2023', waktu: 'Pagi', poli: 'Gigi', dokter: 'drg. Yuni', bpjs: 40, umum: 5, total: 45 },
-        { tanggal: '12/12/2023', waktu: 'Sore', poli: 'Gigi', dokter: 'drg. Lala', bpjs: 20, umum: 10, total: 30 },
-        { tanggal: '12/12/2023', waktu: 'Pagi', poli: 'KIA', dokter: 'Aisyah., S.Keb', bpjs: 20, umum: 0, total: 20 },
-        { tanggal: '12/12/2023', waktu: 'Sore', poli: 'KIA', dokter: 'Sinta., S.Keb', bpjs: 10, umum: 5, total: 15 },
-    ];
-
-    let currentPage = 1;
-    const entriesPerPage = 5;
-
-    function renderTable(data) {
-        const tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = '';
-        data.forEach(row => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${row.tanggal}</td>
-                <td>${row.waktu}</td>
-                <td>${row.poli}</td>
-                <td>${row.dokter}</td>
-                <td>${row.bpjs}</td>
-                <td>${row.umum}</td>
-                <td>${row.total}</td>
-            `;
-            tableBody.appendChild(tr);
-        });
-    }
-
-    function updateEntriesInfo(count) {
-        const entriesInfo = document.getElementById('entries-info');
-        entriesInfo.textContent = `Showing ${Math.min((currentPage - 1) * entriesPerPage + 1, count)} to ${Math.min(currentPage * entriesPerPage, count)} of ${count} entries`;
-    }
-
-    function filterData() {
+    document.getElementById('btnCari').addEventListener('click', function() {
         const filterTanggal = document.getElementById('filterTanggal').value;
         const filterPoli = document.getElementById('filterPoli').value;
         const filterWaktu = document.getElementById('filterWaktu').value;
-        const filterDokter = document.getElementById('filterDokter').value.toLowerCase();
+        const filterDokter = document.getElementById('filterDokter').value;
 
-        const filteredData = data.filter(row => {
-            return (
-                (filterTanggal === '' || row.tanggal === filterTanggal.split('-').reverse().join('/')) &&
-                (filterPoli === '' || row.poli === filterPoli) &&
-                (filterWaktu === '' || row.waktu === filterWaktu) &&
-                (filterDokter === '' || row.dokter.toLowerCase().includes(filterDokter))
-            );
-        });
-
-        renderTable(filteredData.slice((currentPage - 1) * entriesPerPage, currentPage * entriesPerPage));
-        updateEntriesInfo(filteredData.length);
-        updatePaginationButtons(filteredData.length);
-    }
-
-    function paginate(direction) {
-        if (direction === 'next') {
-            currentPage++;
-        } else {
-            currentPage--;
-        }
-
-        filterData();
-    }
-
-    function updatePaginationButtons(totalEntries) {
-        const prevPageButton = document.getElementById('prevPage');
-        const nextPageButton = document.getElementById('nextPage');
-
-        prevPageButton.disabled = currentPage === 1;
-        nextPageButton.disabled = currentPage * entriesPerPage >= totalEntries;
-    }
-
-    document.getElementById('btnCari').addEventListener('click', filterData);
-    document.getElementById('prevPage').addEventListener('click', () => paginate('prev'));
-    document.getElementById('nextPage').addEventListener('click', () => paginate('next'));
-
+        const url = new URL(window.location.href);
+        url.searchParams.set('filterTanggal', filterTanggal);
+        url.searchParams.set('filterPoli', filterPoli);
+        url.searchParams.set('filterWaktu', filterWaktu);
+        url.searchParams.set('filterDokter', filterDokter);
+        window.location.href = url.toString();
+    });
 
     document.getElementById('btnCetakExcel').addEventListener('click', () => {
         const wb = XLSX.utils.book_new();
@@ -192,21 +138,11 @@
         XLSX.writeFile(wb, 'LaporanJasaPelayanan.xlsx');
     });
 
-    
     document.getElementById('btnCetakPDF').addEventListener('click', () => {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        doc.autoTable({
-            html: '#reportTable',
-            startY: 10,
-            theme: 'grid',
-            headStyles: { fillColor: [22, 160, 133] },
-        });
+        doc.autoTable({ html: '#reportTable' });
         doc.save('LaporanJasaPelayanan.pdf');
     });
-
-    window.onload = function() {
-        filterData();
-    };
 </script>
 @endsection

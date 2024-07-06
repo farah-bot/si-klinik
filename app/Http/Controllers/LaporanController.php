@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pasien;
 use Illuminate\Support\Facades\DB;
+use App\Models\Kunjungan;
+use Carbon\Carbon;
+
 
 class LaporanController extends Controller
 {
@@ -49,5 +52,66 @@ class LaporanController extends Controller
         return view('rekammedis.laporanpenyakit', [
             'laporanPenyakit' => $laporanPenyakit
         ]);
+    }
+
+    public function laporanJasa(Request $request)
+    {
+        $query = Kunjungan::with('user', 'pasien');
+
+        if ($request->has('filterTanggal') && $request->filterTanggal != '') {
+            $query->whereDate('tanggal_kunjungan', $request->filterTanggal);
+        }
+
+        if ($request->has('filterPoli') && $request->filterPoli != '') {
+            $query->where('poli_tujuan', $request->filterPoli);
+        }
+
+        if ($request->has('filterWaktu') && $request->filterWaktu != '') {
+            if ($request->filterWaktu == 'Pagi') {
+                $query->whereTime('updated_at', '>=', '08:00:00')
+                ->whereTime('updated_at', '<=', '14:00:00');
+            } else {
+                $query->whereTime('updated_at', '>=', '15:00:00')
+                ->whereTime('updated_at', '<=', '20:00:00');
+            }
+        }
+
+        if ($request->has('filterDokter') && $request->filterDokter != '') {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->filterDokter . '%');
+            });
+        }
+
+        $data = $query->where('status', 'Sudah Terlayani')
+        ->get()
+            ->groupBy(['tanggal_kunjungan', function ($item) {
+                return Carbon::parse($item->updated_at)->format('H:i') < '15:00' ? 'Pagi' : 'Sore';
+            }, 'poli_tujuan', 'user_id']);
+
+        $results = [];
+        foreach ($data as $tanggal => $waktuGroups) {
+            foreach ($waktuGroups as $waktu => $poliGroups) {
+                foreach ($poliGroups as $poli => $dokterGroups) {
+                    foreach ($dokterGroups as $dokterId => $kunjungans) {
+                        $dokterName = $kunjungans->first()->user->name;
+                        $bpjsCount = $kunjungans->where('pasien.jenis_pasien', 'BPJS')->count();
+                        $umumCount = $kunjungans->where('pasien.jenis_pasien', 'Umum')->count();
+                        $totalCount = $kunjungans->count();
+
+                        $results[] = [
+                            'tanggal' => Carbon::parse($tanggal)->format('d/m/Y'),
+                            'waktu' => $waktu,
+                            'poli' => $poli,
+                            'dokter' => $dokterName,
+                            'bpjs' => $bpjsCount,
+                            'umum' => $umumCount,
+                            'total' => $totalCount,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return view('rekammedis.laporanjasa', compact('results'));
     }
 }

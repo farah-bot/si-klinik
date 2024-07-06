@@ -97,9 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis|Admin']], function () {
         Route::get('/laporan10besarpenyakit', [LaporanController::class, 'laporan10BesarPenyakit'])->name('laporan10besarpenyakit');
         Route::get('/laporankunjungan', [LaporanController::class, 'index'])->name('laporankunjungan');
-        Route::get('/laporanjumlahjasapelayanandokter', function () {
-            return view('rekammedis.laporanjasa');
-        })->name('laporanjumlahjasapelayanandokter');
+        Route::get('/laporanjumlahjasapelayanandokter', [LaporanController::class, 'laporanJasa'])->name('laporanjumlahjasapelayanandokter');
     });
 
     // SEMUA ROLE
