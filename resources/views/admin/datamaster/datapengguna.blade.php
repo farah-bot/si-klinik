@@ -77,7 +77,8 @@
                                 <div class="form-group">
                                     <label for="jabatan">Jabatan</label>
                                     <select class="form-control" id="jabatan" name="jabatan" required>
-                                        <option value="Dokter">Dokter</option>
+                                        <option value="Dokter Umum">Dokter Umum</option>
+                                        <option value="Dokter Gigi">Dokter Gigi</option>
                                         <option value="Rekam Medis">Rekam Medis</option>
                                         <option value="Apoteker">Apoteker</option>
                                         <option value="Bidan">Bidan</option>
@@ -148,8 +149,12 @@
                                     <td>{{ $user->jabatan }}</td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Aksi">
-                                            <button class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button>
-                                            <button class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-warning btn-sm" onclick="editUser('{{ $user->id }}', '{{ $user->id_pengguna }}', '{{ $user->jenis_kelamin }}', '{{ $user->nama_pengguna }}', '{{ $user->tanggal_lahir }}', '{{ $user->alamat }}', '{{ $user->jabatan }}', '{{ $user->username }}')">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -160,4 +165,98 @@
             </div>
         </div>
     </div>
+
+
+<div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit Pengguna</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editUserForm">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <input type="hidden" id="editUserId" name="id">
+                    <div class="form-group">
+                        <label for="editIdPengguna">ID Pengguna</label>
+                        <input type="text" class="form-control" id="editIdPengguna" name="id_pengguna" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editJenisKelamin">Jenis Kelamin</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="editLakiLaki" value="Laki-Laki" required>
+                            <label class="form-check-label" for="editLakiLaki">Laki-Laki</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="jenis_kelamin" id="editPerempuan" value="Perempuan" required>
+                            <label class="form-check-label" for="editPerempuan">Perempuan</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="editNamaPengguna">Nama Pengguna</label>
+                        <input type="text" class="form-control" id="editNamaPengguna" name="nama_pengguna" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editTanggalLahir">Tanggal Lahir</label>
+                        <input type="date" class="form-control" id="editTanggalLahir" name="tanggal_lahir" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editAlamat">Alamat</label>
+                        <textarea class="form-control" id="editAlamat" name="alamat" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editJabatan">Jabatan</label>
+                        <select class="form-control" id="editJabatan" name="jabatan" required>
+                            <option value="Dokter Umum">Dokter Umum</option>
+                            <option value="Dokter Gigi">Dokter Gigi</option>
+                            <option value="Rekam Medis">Rekam Medis</option>
+                            <option value="Apoteker">Apoteker</option>
+                            <option value="Bidan">Bidan</option>
+                            <option value="Perawat">Perawat</option>
+                            <option value="Kepala Klinik">Kepala Klinik</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="editUsername">Username</label>
+                        <input type="text" class="form-control" id="editUsername" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editPassword">Password</label>
+                        <input type="password" class="form-control" id="editPassword" name="password" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-batal" data-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-tambah">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function editUser(id, id_pengguna, jenis_kelamin, nama_pengguna, tanggal_lahir, alamat, jabatan, username) {
+        document.getElementById('editUserId').value = id;
+        document.getElementById('editIdPengguna').value = id_pengguna;
+        document.getElementById('editNamaPengguna').value = nama_pengguna;
+        document.getElementById('editTanggalLahir').value = tanggal_lahir;
+        document.getElementById('editAlamat').value = alamat;
+        document.getElementById('editUsername').value = username;
+
+        if (jenis_kelamin === 'Laki-Laki') {
+            document.getElementById('editLakiLaki').checked = true;
+        } else {
+            document.getElementById('editPerempuan').checked = true;
+        }
+
+        document.getElementById('editJabatan').value = jabatan;
+
+        var editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+        editUserModal.show();
+    }
+</script>
 @endsection

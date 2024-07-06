@@ -206,7 +206,7 @@
     </div>
 @endsection
 
-@push('scripts')
+@section('scripts')
 <script>
     function toggleBPJSInput() {
         var jenisPasien = document.getElementById('jenis_pasien').value;
@@ -230,5 +230,5 @@
         document.getElementById('pendaftaranForm').submit();
     }
 </script>
-@endpush
+@endsection
 
