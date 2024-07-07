@@ -104,6 +104,7 @@ Route::group(['middleware' => ['auth']], function () {
     // SEMUA ROLE
     Route::group(['middleware' =>  ['role:Kepala Klinik|Rekam Medis|Admin|Dokter Umum|Dokter Gigi|Perawat|Bidan|Apoteker']], function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::post('/delete-unattended-visits', [PemeriksaanController::class, 'deleteUnattendedVisits']);
     });
 });
 

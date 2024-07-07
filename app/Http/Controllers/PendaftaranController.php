@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pasien;
 use App\Models\Kunjungan;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class PendaftaranController extends Controller
 {
@@ -18,10 +18,13 @@ class PendaftaranController extends Controller
 
     public function dataAntrianPoli()
     {
-        $kunjungans = Kunjungan::with('pasien')->get();
+        $today = Carbon::today();
+        $kunjungans = Kunjungan::with('pasien')
+            ->whereDate('tanggal_kunjungan', $today)
+            ->get();
+
         return view('pendaftaran.dataantrianpoli', compact('kunjungans'));
     }
-
     public function dataPasien()
     {
         $kunjungans = Kunjungan::with('pasien')->get();
@@ -65,12 +68,12 @@ class PendaftaranController extends Controller
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
         $dokter = User::where('name', $request->nama_dokter)
-        ->where(function ($query) {
-            $query->where('jabatan', 'Dokter Gigi')
-            ->orWhere('jabatan', 'Dokter Umum')
-            ->orWhere('jabatan', 'Bidan');
-        })
-        ->first();
+            ->where(function ($query) {
+                $query->where('jabatan', 'Dokter Gigi')
+                    ->orWhere('jabatan', 'Dokter Umum')
+                    ->orWhere('jabatan', 'Bidan');
+            })
+            ->first();
         $user_id = $dokter ? $dokter->id : null;
 
         $kunjungan = Kunjungan::create([
@@ -121,12 +124,12 @@ class PendaftaranController extends Controller
         $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
         $dokter = User::where('name', $request->nama_dokter)
-        ->where(function ($query) {
-            $query->where('jabatan', 'Dokter Gigi')
-            ->orWhere('jabatan', 'Dokter Umum')
-            ->orWhere('jabatan', 'Bidan');
-        })
-        ->first();
+            ->where(function ($query) {
+                $query->where('jabatan', 'Dokter Gigi')
+                    ->orWhere('jabatan', 'Dokter Umum')
+                    ->orWhere('jabatan', 'Bidan');
+            })
+            ->first();
         $user_id = $dokter ? $dokter->id : null;
 
         $kunjungan = Kunjungan::create([
@@ -147,7 +150,7 @@ class PendaftaranController extends Controller
         $pasien = Pasien::with('kunjungans.user')->findOrFail($id);
         $dokters = User::whereHas('roles', function ($query) {
             $query->where('name', 'Dokter Umum')
-            ->orWhere('name', 'Dokter Gigi');
+                ->orWhere('name', 'Dokter Gigi');
         })->get();
         return view('pendaftaran.editpasien', compact('pasien', 'dokters'));
     }
@@ -173,8 +176,8 @@ class PendaftaranController extends Controller
 
         foreach ($request->kunjungans as $index => $kunjunganData) {
             $nomor_antrian_terakhir = Kunjungan::whereDate('tanggal_kunjungan', $kunjunganData['tanggal_kunjungan'])
-            ->where('poli_tujuan', $kunjunganData['poli_tujuan'])
-            ->max('nomor_antrian');
+                ->where('poli_tujuan', $kunjunganData['poli_tujuan'])
+                ->max('nomor_antrian');
 
             $nomor_antrian_baru = $nomor_antrian_terakhir ? $nomor_antrian_terakhir + 1 : 1;
 
@@ -262,7 +265,7 @@ class PendaftaranController extends Controller
         }
     }
 
-    
+
     public function deleteKunjungan($id)
     {
         $kunjungan = Kunjungan::findOrFail($id);

@@ -14,6 +14,7 @@ use App\Models\Diagnosa;
 use App\Models\PemeriksaanUmum;
 use App\Models\PemeriksaanUmumObat;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class PemeriksaanController extends Controller
 {
@@ -39,6 +40,21 @@ class PemeriksaanController extends Controller
             'name' => $dokter->name,
             'kunjungan' => $kunjungan,
         ]);
+    }
+
+    public static function deleteUnattendedVisits()
+    {
+        $today = Carbon::now()->toDateString();
+
+        $unattendedVisits = Kunjungan::where('status', 'Belum Terlayani')
+            ->whereDate('tanggal_kunjungan', '<', $today)
+            ->get();
+
+        foreach ($unattendedVisits as $visit) {
+            $visit->delete();
+        }
+
+        return response()->json(['success' => true, 'message' => 'Kunjungan yang belum terlayani hari ini telah dihapus.']);
     }
 
     public function updateStatus($id, Request $request)
