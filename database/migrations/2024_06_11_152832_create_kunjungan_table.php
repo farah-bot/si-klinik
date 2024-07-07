@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('tanggal_kunjungan');
             $table->string('poli_tujuan');
             $table->string('status')->default('Belum Terlayani');
+            $table->string('status_antrian')->default('Dalam Antrian');
             $table->integer('nomor_antrian')->nullable();
             $table->string('jenis_kunjungan');
             $table->timestamps();

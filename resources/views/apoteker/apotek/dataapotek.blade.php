@@ -43,22 +43,22 @@
 
 
 
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-end">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
-        </div>
 
         </div>
     </div>
@@ -95,6 +95,7 @@
         const data = [
             @foreach ($kunjungans as $kunjungan)
                 {
+                    id : '{{ $kunjungan->id }}',
                     nomor: '{{ $kunjungan->nomor_antrian }}',
                     tanggal_periksa: '{{ $kunjungan->tanggal_kunjungan }}',
                     nama: '{{ $kunjungan->pasien->nama }}',
@@ -102,7 +103,7 @@
                     jk: '{{ $kunjungan->pasien->jenis_kelamin }}',
                     jenis_kunjungan: '{{ $kunjungan->jenis_kunjungan }}',
                     poli: '{{ $kunjungan->poli_tujuan }}',
-                    status: '{{ $kunjungan->status }}'
+                    status: '{{ $kunjungan->status_antrian }}'
                 },
             @endforeach
         ];
@@ -118,8 +119,6 @@
                 let statusClass = '';
                 if (row.status === 'Sudah Terlayani') {
                     statusClass = 'bg-success text-white';
-                } else if (row.status === 'Proses Pelayanan') {
-                    statusClass = 'bg-primary text-white';
                 } else {
                     statusClass = 'bg-secondary text-white';
                 }
@@ -134,8 +133,7 @@
                 <td class="${statusClass}">${row.status}</td>                
                 <td>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-info btn-sm" onclick="viewPatient('${row.nomor}')" data-toggle="modal" data-target="#viewModal"><i class="fas fa-eye"></i></button>
-                        <button type="button" class="btn btn-danger btn-sm" onclick="deletePatient('${row.nomor}')"><i class="fas fa-trash"></i></button>
+                        <button type="button" class="btn btn-info btn-sm" onclick="viewPatient('${row.id}','${row.poli}')"><i class="fas fa-eye"></i></button>
                     </div>
                 </td>
             `;
@@ -180,20 +178,24 @@
             nextPageButton.disabled = currentPage * entriesPerPage >= data.length;
         }
 
-        function viewPatient(nomorAntrian) {
-            const patient = data.find(row => row.nomor === nomorAntrian);
-            if (patient) {
-                document.getElementById('modalNomorAntrian').innerText = patient.nomor;
-                document.getElementById('modalTanggalPeriksa').innerText = patient.tanggal_periksa;
-                document.getElementById('modalNamaPasien').innerText = patient.nama;
-                document.getElementById('modalNoRM').innerText = patient.no_rm;
-                document.getElementById('modalJK').innerText = patient.jk;
-                document.getElementById('modalJenisKunjungan').innerText = patient.jenis_kunjungan;
-                document.getElementById('modalPoliTujuan').innerText = patient.poli;
-                document.getElementById('modalStatus').innerText = patient.status;
-                $('#viewModal').modal('show');
+        function viewPatient(id, poli) {
+            let detailUrl = '';
+            switch (poli) {
+                case 'Poli Umum':
+                    detailUrl = `/detailpoliumumapotek/${id}`;
+                    break;
+                case 'Poli Gigi':
+                    detailUrl = `/detailpoligigiapotek/${id}`;
+                    break;
+                case 'Poli KIA':
+                    detailUrl = `/detailpolikiaapotek/${id}`;
+                    break;
+                default:
+                    detailUrl = `/detailpoliumumapotek/${id}`;
             }
+            window.location.href = detailUrl;
         }
+
 
         function deletePatient(nomorAntrian) {
             if (confirm(`Apakah Anda yakin ingin menghapus pasien dengan nomor antrian ${nomorAntrian}?`)) {

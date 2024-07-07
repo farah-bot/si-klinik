@@ -68,6 +68,17 @@ class PemeriksaanController extends Controller
         }
     }
 
+    public function updateStatusAntrian($id, Request $request)
+    {
+        $kunjungan = Kunjungan::findOrFail($id);
+        $kunjungan->status_antrian = $request->input('status_antrian');
+        if ($kunjungan->save()) {
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false]);
+        }
+    }
+
     public function fetchDiagnosa(Request $request)
     {
         $kodeIcd = $request->input('kode_icd10');

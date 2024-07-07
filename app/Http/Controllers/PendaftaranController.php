@@ -83,6 +83,7 @@ class PendaftaranController extends Controller
             'poli_tujuan' => $request->poli_tujuan,
             'jenis_kunjungan' => $request->jenis_kunjungan,
             'status' => 'Belum Terlayani',
+            'status_antrian' => 'Dalam Antrian',
             'nomor_antrian' => $nomor_antrian_baru,
         ]);
 
@@ -139,6 +140,7 @@ class PendaftaranController extends Controller
             'poli_tujuan' => $request->poli_tujuan,
             'jenis_kunjungan' => 'Lama',
             'status' => 'Sudah Terlayani',
+            'status_antrian' => 'Dalam Antrian',
             'nomor_antrian' => $nomor_antrian_baru,
         ]);
 

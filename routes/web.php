@@ -71,6 +71,12 @@ Route::group(['middleware' => ['auth']], function () {
     // APOTEKER DAN ADMIN
     Route::group(['middleware' => ['role:Apoteker|Admin']], function () {
         Route::get('/dataapotek', [ApotekerController::class, 'index'])->name('dataapotek');
+        Route::get('/detailpoliumumapotek/{id}', [ApotekerController::class, 'showDetailPoliUmum'])->name('showDetailPoliUmum');
+        Route::get('/detailpoligigiapotek/{id}', [ApotekerController::class, 'showDetailPoliGigi'])->name('showDetailPoliGigi');
+        Route::get('/detailpolikiaapotek/{id}', [ApotekerController::class, 'showDetailPoliKia'])->name('showDetailPoliKia');
+        Route::put('/updatestatusgigiantrian/{id}', [PemeriksaanController::class, 'updateStatusAntrian'])->name('updateStatusGigiAntrian');
+        Route::put('/updatestatuskiaantrian/{id}', [PemeriksaanController::class, 'updateStatusAntrian'])->name('updateStatusKiaAntrian');
+        Route::put('/updatestatusumumantrian/{id}', [PemeriksaanController::class, 'updateStatusAntrian'])->name('updateStatusUmumAntrian');
     });
 
     // BIDAN DAN ADMIN
