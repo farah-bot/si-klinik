@@ -44,10 +44,10 @@ class PemeriksaanController extends Controller
 
     public static function deleteUnattendedVisits()
     {
-        $today = Carbon::now()->toDateString();
+        $today = Carbon::now()->format('d-m-Y');
 
         $unattendedVisits = Kunjungan::where('status', 'Belum Terlayani')
-            ->whereDate('tanggal_kunjungan', '<', $today)
+            ->whereDate('tanggal_kunjungan', '<', Carbon::createFromFormat('d-m-Y', $today))
             ->get();
 
         foreach ($unattendedVisits as $visit) {

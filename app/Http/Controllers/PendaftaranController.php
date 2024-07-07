@@ -25,6 +25,7 @@ class PendaftaranController extends Controller
 
         return view('pendaftaran.dataantrianpoli', compact('kunjungans'));
     }
+
     public function dataPasien()
     {
         $kunjungans = Kunjungan::with('pasien')->get();
@@ -220,8 +221,11 @@ class PendaftaranController extends Controller
 
     public function dataPoliGigi()
     {
+        $today = now()->format('Y-m-d');
+
         $kunjungans = Kunjungan::with('pasien')
             ->where('poli_tujuan', 'Poli Gigi')
+            ->whereDate('tanggal_kunjungan', $today)
             ->get();
 
         return view('pemeriksaan.datapoligigi', compact('kunjungans'));
@@ -229,8 +233,11 @@ class PendaftaranController extends Controller
 
     public function dataPoliKia()
     {
+        $today = now()->format('Y-m-d');
+
         $kunjungans = Kunjungan::with('pasien')
             ->where('poli_tujuan', 'Poli KIA')
+            ->whereDate('tanggal_kunjungan', $today)
             ->get();
 
         return view('pemeriksaan.datapolikia', compact('kunjungans'));
@@ -238,12 +245,16 @@ class PendaftaranController extends Controller
 
     public function dataPoliUmum()
     {
+        $today = now()->format('Y-m-d');
+
         $kunjungans = Kunjungan::with('pasien')
             ->where('poli_tujuan', 'Poli Umum')
+            ->whereDate('tanggal_kunjungan', $today)
             ->get();
 
         return view('pemeriksaan.datapoliumum', compact('kunjungans'));
     }
+
 
     public function updateStatus($id, Request $request)
     {
