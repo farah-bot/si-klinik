@@ -38,6 +38,7 @@
                             <th>Jenis Kunjungan</th>
                             <th>Poli Tujuan</th>
                             <th>Nama Dokter</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="tableBody">
@@ -49,10 +50,8 @@
             </div>
 
             <div class="row mt-3">
-                <!-- <div class="col-md-6">
-                    <div id="dataInfo" class="text-start"></div>
-                </div> -->
-                 <div class="col-md-12">
+
+                <div class="col-md-12">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
                             <li class="page-item disabled">
@@ -75,6 +74,8 @@
 
             @foreach ($riwayatPelayanan as $riwayat)
                 {
+                    
+                    id: '{{ $riwayat->id }}',
                     tanggal: '{{ $riwayat->tanggal_kunjungan }}',
                     no_rm: '{{ $riwayat->pasien->no_rm }}',
                     nama: '{{ $riwayat->pasien->nama }}',
@@ -84,7 +85,7 @@
                     poli: '{{ $riwayat->poli_tujuan }}',
                     dokter: '{{ $riwayat->user->name }}',
                 },
-            @endforeach 
+            @endforeach
         ];
 
         function renderTable(data) {
@@ -101,11 +102,22 @@
                 <td>${row.jenis_kunjungan}</td>
                 <td>${row.poli}</td>
                 <td>${row.dokter}</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-info btn-sm" onclick="viewPatient('${row.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </td>
             `;
                 tableBody.appendChild(tr);
             });
 
             updateDataInfo(data.length);
+        }
+
+        function viewPatient(id) {
+            window.location.href = '/detailpoliumum/' + id;
         }
 
         function filterData() {

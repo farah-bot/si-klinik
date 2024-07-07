@@ -8,7 +8,7 @@
             <div class="data-pengguna-header">
                 <h2>FORMULIR PEMERIKSAAN POLI UMUM</h2>
             </div>
-            <form action="{{ route('pemeriksaan.storePoliUmum') }}" method="POST" id="form-pemeriksaan">
+            <form action="{{ route('pemeriksaan.storePoliUmum') }}" method="POST" id="form-pemeriksaan" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="kunjungan_id" value="{{ $kunjungan->id }}">
                 <!-- Patient Information Section -->
@@ -430,31 +430,7 @@
                     }
                 });
             });
-
-            // function searchDoctor() {
-            //     const input = document.getElementById('nama_dokter_search');
-            //     const filter = input.value.toLowerCase();
-            //     const suggestions = document.getElementById('nama_dokter_suggestions');
-
-            //     const doctors = ['dr. Dania Eka Susila', 'dr. Budi Setiawan', 'dr. Siti Nurhaliza'];
-
-            //     suggestions.innerHTML = '';
-
-            //     if (filter.length > 0) {
-            //         const filteredDoctors = doctors.filter(doctor => doctor.toLowerCase().includes(filter));
-            //         filteredDoctors.forEach(doctor => {
-            //             const suggestionItem = document.createElement('a');
-            //             suggestionItem.className = 'list-group-item list-group-item-action';
-            //             suggestionItem.innerText = doctor;
-            //             suggestionItem.onclick = () => {
-            //                 document.getElementById('nama_dokter_search').value = doctor;
-            //                 suggestions.innerHTML = '';
-            //             };
-            //             suggestions.appendChild(suggestionItem);
-            //         });
-            //     }
-            // }
-
+            
             document.addEventListener('DOMContentLoaded', function() {
                 const prescriptionContainer = document.getElementById('prescription-container');
                 const addPrescriptionRow = document.querySelector('.add-prescription-row');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kunjungan;
+use App\Models\PemeriksaanUmum;
 
 class RiwayatPelayanan extends Controller
 {
@@ -12,9 +13,8 @@ class RiwayatPelayanan extends Controller
         $riwayatPelayanan = Kunjungan::where('status', 'Sudah Terlayani')
             ->with(['user', 'pasien'])
             ->get();
-
         return view('rekammedis.riwayatpelayanan', [
-            'riwayatPelayanan' => $riwayatPelayanan
+            'riwayatPelayanan' => $riwayatPelayanan,
         ]);
     }
 }

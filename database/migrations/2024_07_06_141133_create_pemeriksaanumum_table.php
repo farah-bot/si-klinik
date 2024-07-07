@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('berat_badan')->nullable();
             $table->text('nadi')->nullable();
             $table->text('respiratory_rate')->nullable();
+            $table->text('keadaan_umum')->nullable();
             $table->text('sakit_kepala_leher')->nullable();
             $table->text('limfadenopati_leher')->nullable();
             $table->text('anemis_mata')->nullable();

@@ -80,6 +80,30 @@ class PemeriksaanController extends Controller
         return response()->json('Diagnosa not found', 404);
     }
 
+    public function showDetailPoliGigi($id)
+    {
+        $pemeriksaan = PemeriksaanGigi::with(['diagnosa', 'pasien', 'kunjungan', 'user', 'obat'])->where('kunjungan_id', $id)
+            ->firstOrFail();
+        $kunjungan = Kunjungan::find($pemeriksaan->kunjungan_id);
+        $obat = PemeriksaanGigiObat::where('pemeriksaan_gigi_id', $pemeriksaan->id)->get();
+
+        if (!$pemeriksaan || !$kunjungan) {
+            abort(404, 'Data pemeriksaan atau kunjungan tidak ditemukan.');
+        }
+
+        $tandaTangan = null;
+        if ($pemeriksaan->tanda_tangan) {
+            $tandaTangan = asset('storage/' . $pemeriksaan->tanda_tangan);
+        }
+
+        return view('pemeriksaan.detailpoligigi', [
+            'pemeriksaan' => $pemeriksaan,
+            'kunjungan' => $kunjungan,
+            'tanda_tangan' => $tandaTangan,
+            'obat' => $obat
+        ]);
+    }
+
     public function storePoliGigi(Request $request)
     {
         $request->validate([
@@ -167,6 +191,30 @@ class PemeriksaanController extends Controller
         ]);
     }
 
+    public function showDetailPoliUmum($id)
+    {
+        $pemeriksaan = PemeriksaanUmum::with(['diagnosa', 'pasien', 'kunjungan', 'user', 'obat'])->where('kunjungan_id', $id)
+            ->firstOrFail();
+        $kunjungan = Kunjungan::find($pemeriksaan->kunjungan_id);
+        $obat = PemeriksaanUmumObat::where('pemeriksaan_umum_id', $pemeriksaan->id)->get();
+
+        if (!$pemeriksaan || !$kunjungan) {
+            abort(404, 'Data pemeriksaan atau kunjungan tidak ditemukan.');
+        }
+
+        $tandaTangan = null;
+        if ($pemeriksaan->tanda_tangan) {
+            $tandaTangan = asset('storage/' . $pemeriksaan->tanda_tangan);
+        }
+
+        return view('pemeriksaan.detailpoliumum', [
+            'pemeriksaan' => $pemeriksaan,
+            'kunjungan' => $kunjungan,
+            'tanda_tangan' => $tandaTangan,
+            'obat' => $obat,
+        ]);
+    }
+
     public function storePoliUmum(Request $request)
     {
         $request->validate([
@@ -188,7 +236,7 @@ class PemeriksaanController extends Controller
             'normal_gigi_mulut' => 'required',
             'hiperemia_faring' => 'required',
             'normal_urogenital' => 'required',
-            'pemeriksaan_penunjang' => 'nullable',
+            'pemeriksaan_penunjang' => 'nullable|file|mimes:pdf,doc,docx',
             'lainnya' => 'nullable',
             'kode_icd10' => 'required|string|exists:diagnosas,kode_icd',
             'rencana_tindaklanjut' => 'required|string',
@@ -210,9 +258,17 @@ class PemeriksaanController extends Controller
             Storage::disk('public')->put($fileName, $signatureData);
         }
 
+        if ($request->hasFile('pemeriksaan_penunjang')) {
+            $file = $request->file('pemeriksaan_penunjang');
+            $fileName = $file->getClientOriginalName();
+            $filePath = $file->storeAs('file_support', $fileName, 'public');
+        } else {
+            $filePath = null;
+        }
+
         $diagnosa = Diagnosa::where('kode_icd', $request->kode_icd10)->first();
         $pasien = Pasien::where('no_rm', $request->no_rm)->first();
-        $kunjungan = Kunjungan::where('tanggal_kunjungan', $request->tanggal_kunjungan)->first();
+        $kunjungan = Kunjungan::where('id', $request->kunjungan_id)->first();
         $user = User::where('name', $request->name)->first();
 
         $pemeriksaan = PemeriksaanUmum::create([
@@ -227,6 +283,7 @@ class PemeriksaanController extends Controller
             'berat_badan' => $request->bb,
             'nadi' => $request->nadi,
             'respiratory_rate' => $request->rr,
+            'keadaan_umum' => $request->ku,
             'sakit_kepala_leher' => $request->sakit_kepala_leher,
             'limfadenopati_leher' => $request->limfadenopati_leher,
             'anemis_mata' => $request->anemis_mata,
@@ -237,7 +294,7 @@ class PemeriksaanController extends Controller
             'normal_gigi_mulut' => $request->normal_gigi_mulut,
             'hiperemia_faring' => $request->hiperemia_faring,
             'normal_urogenital' => $request->normal_urogenital,
-            'pemeriksaan_penunjang' => $request->pemeriksaan_penunjang,
+            'pemeriksaan_penunjang' => $filePath,
             'lainnya' => $request->lainnya,
             'catatan_assessment' => $request->catatan_assessment,
             'rencana_tindaklanjut' => $request->rencana_tindaklanjut,
@@ -264,7 +321,6 @@ class PemeriksaanController extends Controller
 
         return redirect()->back()->with('success', 'Pemeriksaan berhasil disimpan.');
     }
-
     public function showFormulirPoliKIA($nomorAntrian, $tanggalPeriksa, $pasien_id)
     {
         $kunjungan = Kunjungan::where('nomor_antrian', $nomorAntrian)
@@ -286,6 +342,30 @@ class PemeriksaanController extends Controller
             'nama_pasien' => $pasien->nama,
             'name' => $dokter->name,
             'kunjungan' => $kunjungan,
+        ]);
+    }
+
+    public function showDetailPoliKia($id)
+    {
+        $pemeriksaan = PemeriksaanKia::with(['diagnosa', 'pasien', 'kunjungan', 'user', 'obat'])->where('kunjungan_id', $id)
+            ->firstOrFail();
+        $kunjungan = Kunjungan::find($pemeriksaan->kunjungan_id);
+        $obat = PemeriksaanKiaObat::where('pemeriksaan_kia_id', $pemeriksaan->id)->get();
+
+        if (!$pemeriksaan || !$kunjungan) {
+            abort(404, 'Data pemeriksaan atau kunjungan tidak ditemukan.');
+        }
+
+        $tandaTangan = null;
+        if ($pemeriksaan->tanda_tangan) {
+            $tandaTangan = asset('storage/' . $pemeriksaan->tanda_tangan);
+        }
+
+        return view('pemeriksaan.detailpolikia', [
+            'pemeriksaan' => $pemeriksaan,
+            'kunjungan' => $kunjungan,
+            'tanda_tangan' => $tandaTangan,
+            'obat' => $obat
         ]);
     }
 
