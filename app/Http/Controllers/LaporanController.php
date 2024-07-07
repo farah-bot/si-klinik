@@ -38,7 +38,7 @@ class LaporanController extends Controller
             ->select(
                 'diagnosas.diagnosis',
                 'diagnosas.kode_icd',
-                DB::raw('SUM(COALESCE(pkias.jumlah, 0) + COALESCE(pgigis.jumlah, 0)) + COALESCE(pumums.jumlah, 0)) as total_jumlah')
+                DB::raw('SUM(COALESCE(pkias.jumlah, 0) + COALESCE(pgigis.jumlah, 0) + COALESCE(pumums.jumlah, 0)) as total_jumlah')
             )
             ->leftJoin(DB::raw('(SELECT diagnosa_id, COUNT(*) as jumlah FROM pemeriksaan_kias GROUP BY diagnosa_id) as pkias'), 'diagnosas.id', '=', 'pkias.diagnosa_id')
             ->leftJoin(DB::raw('(SELECT diagnosa_id, COUNT(*) as jumlah FROM pemeriksaan_gigis GROUP BY diagnosa_id) as pgigis'), 'diagnosas.id', '=', 'pgigis.diagnosa_id')

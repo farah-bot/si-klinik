@@ -22,7 +22,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['role:Admin']], function () {
         // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
         // Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::delete('/datapasien/delete/{id}', [PendaftaranController::class, 'destroy'])->name('deleteDataPasien');
+        Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
         Route::get('/datadiagnosa', [DiagnosaController::class, 'index'])->name('datadiagnosa');
+        Route::put('/diagnosis/{id}', [DiagnosaController::class, 'update']);
+        Route::delete('/diagnosis/{id}', [DiagnosaController::class, 'delete']);
         Route::post('/diagnosis', [DiagnosaController::class, 'store'])->name('diagnosis.store');
         Route::get('/datapasien', [PendaftaranController::class, 'dataPasien'])->name('datapasien');
         Route::post('/daftar_pasien_lama', [PendaftaranController::class, 'daftarPasienLama'])->name('daftar_pasien_lama');

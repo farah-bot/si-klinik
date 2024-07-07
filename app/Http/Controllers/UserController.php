@@ -100,4 +100,54 @@ class UserController extends Controller
             $user->givePermissionTo($permissions);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'nama_pengguna' => 'required|string|max:255',
+            'alamat' => 'required|string',
+            'jabatan' => 'required|string',
+            'username' => 'required|string|max:255|unique:users,username,' . $id,
+            'password' => 'nullable|string|min:8',
+        ]);
+
+        try {
+            $user = User::findOrFail($id);
+            $user->name = $validated['nama_pengguna'];
+            $user->alamat = $validated['alamat'];
+            $user->jabatan = $validated['jabatan'];
+            $user->username = $validated['username'];
+            if (!empty($validated['password'])) {
+                $user->password = bcrypt($validated['password']);
+            }
+            $user->save();
+
+            $role = Role::where('name', $validated['jabatan'])->first();
+            if ($role) {
+                $user->syncRoles($role);
+                $this->assignDefaultPermissions($user, $role->name);
+            }
+
+            return redirect()->back()->with('success', 'Pengguna berhasil diperbarui.');
+        } catch (\Exception $e) {
+            Log::error('Error updating user: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui pengguna.');
+        }
+    }
+    public function destroy($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+
+            $user->roles()->detach();
+            $user->permissions()->detach();
+
+            $user->delete();
+
+            return redirect()->back()->with('success', 'Pengguna berhasil dihapus.');
+        } catch (\Exception $e) {
+            Log::error('Error deleting user: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus pengguna.');
+        }
+    }
 }

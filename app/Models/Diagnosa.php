@@ -10,6 +10,6 @@ class Diagnosa extends Model
     use HasFactory;
 
     protected $fillable = [
-        'kode_icd', 'diagnosis'
+        'kode_icd', 'diagnosis', 'diagnosis_en'
     ];
 }

@@ -262,6 +262,7 @@ class PendaftaranController extends Controller
         }
     }
 
+    
     public function deleteKunjungan($id)
     {
         $kunjungan = Kunjungan::findOrFail($id);

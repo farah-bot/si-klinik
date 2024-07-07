@@ -207,6 +207,7 @@
         const patients = [
             @foreach ($kunjungans as $kunjungan)
                 {
+                    id: '{{ $kunjungan->id }}',
                     no_rm: '{{ $kunjungan->pasien->no_rm }}',
                     name: '{{ $kunjungan->pasien->nama }}',
                     birthDate: '{{ $kunjungan->pasien->tanggal_lahir }}',
@@ -274,8 +275,8 @@
                 <td>${patient.phone}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Aksi">
-                        <button class="btn btn-warning btn-sm" onclick="editPatient(${index})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})"><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn btn-warning" onclick="editPasien(${patient.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deletePasien(${patient.id})"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </td>
             </tr>`;
@@ -283,40 +284,29 @@
             });
         }
 
-        function editPatient(index) {
-            const patient = patients[index];
-            document.getElementById('no_rm').value = patient.no_rm;
-            document.getElementById('nama').value = patient.name;
-            document.getElementById('tanggal_lahir').value = patient.birthDate;
-            document.getElementById('alamat').value = patient.address;
-            document.querySelector(`input[name="jenis_kelamin"][value="${patient.gender}"]`).checked = true;
-            document.getElementById('jenis_pasien').value = patient.visitType;
-            document.getElementById('jenis_poli').value = patient.poliType;
-            document.getElementById('no').value = patient.phone;
-            document.getElementById('tanggal_kunjungan').value = patient.visitDate;
-
-            document.querySelector('.btn-tambah').setAttribute('onclick', `updatePatient(${index})`);
+        function editPasien(id) {
+            window.location.href = `/editpasien/${id}`;
         }
 
-        function updatePatient(index) {
-            patients[index].no_rm = document.getElementById('no_rm').value;
-            patients[index].name = document.getElementById('nama').value;
-            patients[index].birthDate = document.getElementById('tanggal_lahir').value;
-            patients[index].address = document.getElementById('alamat').value;
-            patients[index].gender = document.querySelector('input[name="jenis_kelamin"]:checked').value;
-            patients[index].visitType = document.getElementById('jenis_pasien').value;
-            patients[index].poliType = document.getElementById('jenis_poli').value;
-            patients[index].phone = document.getElementById('no').value;
-            patients[index].visitDate = document.getElementById('tanggal_kunjungan').value;
-
-            renderTable();
-            document.getElementById('addPatientForm').reset();
-            document.querySelector('.btn-tambah').setAttribute('onclick', 'addPatient()');
-        }
-
-        function deleteRow(index) {
-            patients.splice(index, 1);
-            renderTable();
+        function deletePasien(id) {
+            if (confirm('Apakah Anda yakin ingin menghapus pasien ini?')) {
+                fetch(`/datapasien/delete/${id}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        location.reload(); 
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            }
         }
 
         function searchPatient() {
@@ -344,8 +334,8 @@
                 <td>${patient.poliType}</td>
                 <td>${patient.phone}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="editPatient(${index})">Edit</button>
-                    <button class="btn btn-danger btn-sm" onclick="deleteRow(${index})">Hapus</button>
+                    <button class="btn btn-warning" onclick="editPasien(${patient.id})"><i class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="deletePasien(${patient.id})">Hapus</button>
                 </td>
             </tr>`;
                 table.innerHTML += row;

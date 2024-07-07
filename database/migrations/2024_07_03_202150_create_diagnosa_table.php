@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('kode_icd');
             $table->string('diagnosis');
+            $table->string('diagnosis_en');
             $table->timestamps();
         });
     }
