@@ -11,7 +11,40 @@ return new class extends Migration
      */
     public function up(): void
     {
-        
+        Schema::create('pemeriksaan_kias', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pasien_id')->constrained('pasiens')->onDelete('cascade');
+            $table->foreignId('kunjungan_id')->constrained('kunjungans')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('diagnosa_id')->constrained('diagnosas')->onDelete('cascade');
+            $table->text('subject_keluhan');
+            $table->text('riwayat_alergi')->nullable();
+            $table->text('catatan_assessment')->nullable();
+            $table->text('rencana_tindaklanjut');
+            $table->text('tindakan')->nullable();
+            $table->text('rujukan')->nullable();
+            $table->text('tanda_tangan')->nullable();
+            $table->text('catatan_resep')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('pemeriksaan_gigis', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pasien_id')->constrained('pasiens')->onDelete('cascade');
+            $table->foreignId('kunjungan_id')->constrained('kunjungans')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('diagnosa_id')->constrained('diagnosas')->onDelete('cascade');
+            $table->text('subject_keluhan');
+            $table->text('riwayat_alergi')->nullable();
+            $table->text('catatan_assessment')->nullable();
+            $table->text('rencana_tindaklanjut');
+            $table->text('tindakan')->nullable();
+            $table->text('rujukan')->nullable();
+            $table->text('tanda_tangan')->nullable();
+            $table->text('catatan_resep')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('pemeriksaan_umums', function (Blueprint $table) {
             $table->id();
             $table->foreignId('pasien_id')->constrained('pasiens')->onDelete('cascade');
@@ -53,6 +86,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('pemeriksaan_kias');
+        Schema::dropIfExists('pemeriksaan_gigis');
         Schema::dropIfExists('pemeriksaan_umums');
     }
 };
