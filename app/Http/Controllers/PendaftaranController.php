@@ -35,13 +35,13 @@ class PendaftaranController extends Controller
     public function daftarPasien(Request $request)
     {
         $request->validate([
-            'no_rm' => 'required|string|max:255',
+            'no_rm' => 'required|string|max:255|unique:pasiens,no_rm',
             'jenis_kelamin' => 'required|string',
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
             'nomor_telepon' => 'required|string|max:15',
-            'nik' => 'required|string|max:20',
+            'nik' => 'required|string|max:20|unique:pasiens,nik',
             'jenis_pasien' => 'required|string|in:Umum,BPJS',
             'nomor_bpjs' => $request->jenis_pasien === 'BPJS' ? 'required|string|max:255' : '',
             'tanggal_kunjungan' => 'required|date',
@@ -94,13 +94,13 @@ class PendaftaranController extends Controller
     public function daftarPasienLama(Request $request)
     {
         $request->validate([
-            'no_rm' => 'required|string|max:255',
+            'no_rm' => 'required|string|max:255|unique:pasiens,no_rm',
             'jenis_kelamin' => 'required|string',
             'nama' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'alamat' => 'required|string',
             'nomor_telepon' => 'required|string|max:15',
-            'nik' => 'required|string|max:20',
+            'nik' => 'required|string|max:20|unique:pasiens,nik',
             'jenis_pasien' => 'required|string|in:Umum,BPJS',
             'nomor_bpjs' => $request->jenis_pasien === 'BPJS' ? 'required|string|max:255' : '',
             'tanggal_kunjungan' => 'required|date',

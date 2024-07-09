@@ -9,6 +9,15 @@
                 <h2>Pendaftaran Pasien Baru</h2>
             </div>
             <div class="card-body">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <form id="pendaftaranForm" action="{{ route('daftar_pasien') }}" method="POST"
                     onsubmit="return showModal(event)">
                     @csrf
@@ -18,6 +27,9 @@
                                 <label for="no_rm">No RM</label>
                                 <input type="text" id="no_rm" name="no_rm" class="form-control"
                                     value="{{ old('no_rm') }}" required>
+                                @if ($errors->has('no_rm'))
+                                    <span class="text-danger">{{ $errors->first('no_rm') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -27,25 +39,40 @@
                                     <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>
                                         Perempuan</option>
                                 </select>
+                                @if ($errors->has('jenis_kelamin'))
+                                    <span class="text-danger">{{ $errors->first('jenis_kelamin') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="nama">Nama Lengkap Pasien</label>
                                 <input type="text" id="nama" name="nama" class="form-control"
                                     value="{{ old('nama') }}" required>
+                                @if ($errors->has('nama'))
+                                    <span class="text-danger">{{ $errors->first('nama') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="tanggal_lahir">Tanggal Lahir</label>
                                 <input type="date" id="tanggal_lahir" name="tanggal_lahir" class="form-control"
                                     value="{{ old('tanggal_lahir') }}" required>
+                                @if ($errors->has('tanggal_lahir'))
+                                    <span class="text-danger">{{ $errors->first('tanggal_lahir') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
                                 <textarea id="alamat" name="alamat" class="form-control" rows="3" required>{{ old('alamat') }}</textarea>
+                                @if ($errors->has('alamat'))
+                                    <span class="text-danger">{{ $errors->first('alamat') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="nomor_telepon">Nomor Telepon</label>
                                 <input type="text" id="nomor_telepon" name="nomor_telepon" class="form-control"
                                     value="{{ old('nomor_telepon') }}" required>
+                                @if ($errors->has('nomor_telepon'))
+                                    <span class="text-danger">{{ $errors->first('nomor_telepon') }}</span>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -53,6 +80,9 @@
                                 <label for="nik">NIK</label>
                                 <input type="text" id="nik" name="nik" class="form-control"
                                     value="{{ old('nik') }}" required>
+                                @if ($errors->has('nik'))
+                                    <span class="text-danger">{{ $errors->first('nik') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="jenis_pasien">Jenis Pasien</label>
@@ -64,11 +94,17 @@
                                     <option value="BPJS" {{ old('jenis_pasien') == 'BPJS' ? 'selected' : '' }}>BPJS
                                     </option>
                                 </select>
+                                @if ($errors->has('jenis_pasien'))
+                                    <span class="text-danger">{{ $errors->first('jenis_pasien') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="nomor_bpjs">Nomor BPJS</label>
                                 <input type="text" id="nomor_bpjs" name="nomor_bpjs" class="form-control"
                                     value="{{ old('nomor_bpjs') }}" {{ old('jenis_pasien') != 'BPJS' ? 'disabled' : '' }}>
+                                @if ($errors->has('nomor_bpjs'))
+                                    <span class="text-danger">{{ $errors->first('nomor_bpjs') }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -78,6 +114,9 @@
                         <label for="tanggal_kunjungan">Tanggal Kunjungan</label>
                         <input type="date" id="tanggal_kunjungan" name="tanggal_kunjungan" class="form-control"
                             value="{{ old('tanggal_kunjungan') }}">
+                        @if ($errors->has('tanggal_kunjungan'))
+                            <span class="text-danger">{{ $errors->first('tanggal_kunjungan') }}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="poli_tujuan">Poli Tujuan</label>
@@ -90,6 +129,9 @@
                             <option value="Poli KIA" {{ old('poli_tujuan') == 'Poli KIA' ? 'selected' : '' }}>Poli KIA
                             </option>
                         </select>
+                        @if ($errors->has('poli_tujuan'))
+                            <span class="text-danger">{{ $errors->first('poli_tujuan') }}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label>Jenis Kunjungan</label><br>
@@ -104,14 +146,20 @@
                                 {{ old('jenis_kunjungan') == 'Lama' ? 'checked' : '' }}>
                             <label class="form-check-label" for="jenis_kunjungan_lama">Lama</label>
                         </div>
+                        @if ($errors->has('jenis_kunjungan'))
+                            <span class="text-danger">{{ $errors->first('jenis_kunjungan') }}</span>
+                        @endif
                     </div>
                     <div class="form-group">
                         <label for="nama_dokter">Nama Dokter</label>
                         <input type="text" id="nama_dokter" name="nama_dokter" class="form-control">
+                        @if ($errors->has('nama_dokter'))
+                            <span class="text-danger">{{ $errors->first('nama_dokter') }}</span>
+                        @endif
                     </div>
                     <hr>
-                        <button type="submit" class="btn btn-tambah">Daftar</button>
-                        <a href="#" class="btn btn-batal">Batal</a>
+                    <button type="submit" class="btn btn-tambah">Daftar</button>
+                    <a href="#" class="btn btn-batal">Batal</a>
                 </form>
             </div>
         </div>
