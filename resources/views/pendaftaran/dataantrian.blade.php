@@ -8,6 +8,12 @@
             <div class="data-pengguna-header">
                 <h2>Data Pasien</h2>
             </div>
+            
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <div class="row mb-3">
                 <div class="col-md-3">

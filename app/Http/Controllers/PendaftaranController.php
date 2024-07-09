@@ -88,7 +88,7 @@ class PendaftaranController extends Controller
             'nomor_antrian' => $nomor_antrian_baru,
         ]);
 
-        return redirect()->back()->with('success', 'Pendaftaran pasien berhasil.');
+        return redirect()->route('datapasien')->with('success', 'Pendaftaran pasien berhasil.');
     }
 
     public function daftarPasienLama(Request $request)

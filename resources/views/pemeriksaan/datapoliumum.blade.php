@@ -14,7 +14,7 @@
                     <label for="filterNomorAntrian">Cari Nomor Antrian</label>
                     <div class="input-group">
                         <input type="text" id="filterNomorAntrian" class="form-control" placeholder="Nomor Antrian"
-                            onkeydown="filterData(event)">
+                            oninput="filterData(event)">
                     </div>
                 </div>
             </div>
@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <!-- Modal Panggil Antrian -->
+    
     <div class="modal fade" id="panggilAntrianModal" tabindex="-1" aria-labelledby="panggilAntrianModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">

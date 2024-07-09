@@ -40,18 +40,13 @@ class AuthController extends Controller
                 return redirect()->intended(route('dashboard'));
             } elseif($user->hasRole('Apoteker')) {
                 return redirect()->intended(route('dashboard'));
-            }
-            else {
+            } else {
                 Auth::logout();
-                return back()->withErrors([
-                    'email' => 'Anda tidak memiliki hak akses yang cukup.',
-                ]);
+                return back()->with('error', 'Anda tidak memiliki hak akses yang cukup.');
             }
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        return back()->with('error', 'Akun belum terdaftar atau informasi login salah.');
     }
 
     public function logout(Request $request)
@@ -64,3 +59,4 @@ class AuthController extends Controller
         return redirect('/');
     }
 }
+
