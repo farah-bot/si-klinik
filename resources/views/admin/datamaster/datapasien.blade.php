@@ -10,6 +10,15 @@
             </div>
             <div class="row mb-3">
                 <div class="col-lg-12">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <form id="addPatientForm" action="{{ route('daftar_pasien_lama') }}" method="POST"
                         onsubmit="return showModal(event)">
                         @csrf
@@ -19,6 +28,9 @@
                                     <label for="no_rm">No RM Lama</label>
                                     <input type="text" id="no_rm" name="no_rm" class="form-control"
                                         value="{{ old('no_rm') }}" required>
+                                    @if ($errors->has('no_rm'))
+                                        <span class="text-danger">{{ $errors->first('no_rm') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -67,6 +79,9 @@
                                     <label for="nik">NIK</label>
                                     <input type="text" id="nik" name="nik" class="form-control"
                                         value="{{ old('nik') }}" required>
+                                    @if ($errors->has('nik'))
+                                        <span class="text-danger">{{ $errors->first('nik') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -301,7 +316,7 @@
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
                         }
-                        location.reload(); 
+                        location.reload();
                     })
                     .catch(error => {
                         console.error('Error:', error);

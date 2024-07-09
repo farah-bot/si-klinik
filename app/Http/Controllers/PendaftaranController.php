@@ -161,9 +161,9 @@ class PendaftaranController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'no_rm' => 'required',
+            'no_rm' => 'required|string|max:255|unique:pasiens,no_rm',
             'nama' => 'required',
-            'nik' => 'required',
+            'nik' => 'required|string|max:20|unique:pasiens,nik',
             'alamat' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required',

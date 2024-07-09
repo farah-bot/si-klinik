@@ -13,15 +13,15 @@ use App\Http\Controllers\RiwayatPelayanan;
 
 // lOGIN
 
-Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
+// Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
+// Route::post('/users', [UserController::class, 'store'])->name('users.store');
 
 Route::group(['middleware' => ['auth']], function () {
 
     // HANYA ADMIN
     Route::group(['middleware' => ['role:Admin']], function () {
-        // Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
-        // Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::get('/datapengguna', [UserController::class, 'index'])->name('datapengguna');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
         Route::delete('/datapasien/delete/{id}', [PendaftaranController::class, 'destroy'])->name('deleteDataPasien');
         Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
         Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');

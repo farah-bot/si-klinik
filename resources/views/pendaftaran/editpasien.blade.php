@@ -9,7 +9,17 @@
                 <h2>Edit Pasien</h2>
             </div>
             <div class="card-body">
-                <form id="pendaftaranForm" action="{{ route('updatepasien', $pasien->id) }}" method="POST" onsubmit="showModal(event)">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <form id="pendaftaranForm" action="{{ route('updatepasien', $pasien->id) }}" method="POST"
+                    onsubmit="showModal(event)">
                     @csrf
                     @method('POST')
                     <div class="row">
@@ -18,6 +28,9 @@
                                 <label for="no_rm">No RM</label>
                                 <input type="text" id="no_rm" name="no_rm" class="form-control"
                                     value="{{ $pasien->no_rm }}" required>
+                                @if ($errors->has('no_rm'))
+                                    <span class="text-danger">{{ $errors->first('no_rm') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
@@ -53,6 +66,9 @@
                                 <label for="nik">NIK</label>
                                 <input type="text" id="nik" name="nik" class="form-control"
                                     value="{{ $pasien->nik }}" required>
+                                @if ($errors->has('nik'))
+                                    <span class="text-danger">{{ $errors->first('nik') }}</span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 <label for="jenis_pasien">Jenis Pasien</label>
@@ -183,12 +199,14 @@
                 </form>
             </div>
 
-            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+                aria-labelledby="confirmationModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="confirmationModalLabel">Konfirmasi</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             Apakah Data yang anda isikan sudah sesuai?
@@ -207,28 +225,27 @@
 @endsection
 
 @section('scripts')
-<script>
-    function toggleBPJSInput() {
-        var jenisPasien = document.getElementById('jenis_pasien').value;
-        var nomorBPJSInput = document.getElementById('nomor_bpjs');
+    <script>
+        function toggleBPJSInput() {
+            var jenisPasien = document.getElementById('jenis_pasien').value;
+            var nomorBPJSInput = document.getElementById('nomor_bpjs');
 
-        if (jenisPasien === 'BPJS') {
-            nomorBPJSInput.removeAttribute('disabled');
-        } else {
-            nomorBPJSInput.setAttribute('disabled', 'disabled');
+            if (jenisPasien === 'BPJS') {
+                nomorBPJSInput.removeAttribute('disabled');
+            } else {
+                nomorBPJSInput.setAttribute('disabled', 'disabled');
+            }
         }
-    }
 
-    function showModal(event) {
-        event.preventDefault();
-        var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
-        confirmationModal.show();
-        return false;
-    }
+        function showModal(event) {
+            event.preventDefault();
+            var confirmationModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+            confirmationModal.show();
+            return false;
+        }
 
-    function submitForm() {
-        document.getElementById('pendaftaranForm').submit();
-    }
-</script>
+        function submitForm() {
+            document.getElementById('pendaftaranForm').submit();
+        }
+    </script>
 @endsection
-
