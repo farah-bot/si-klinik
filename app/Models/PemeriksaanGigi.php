@@ -49,5 +49,4 @@ class PemeriksaanGigi extends Model
     {
         return $this->belongsTo(Diagnosa::class);
     }
-
 }

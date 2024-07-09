@@ -218,7 +218,6 @@ class PendaftaranController extends Controller
         return redirect()->route('dataantrian')->with('success', 'Data pasien dan kunjungannya berhasil dihapus');
     }
 
-
     public function dataPoliGigi()
     {
         $today = now()->format('Y-m-d');
@@ -255,7 +254,6 @@ class PendaftaranController extends Controller
         return view('pemeriksaan.datapoliumum', compact('kunjungans'));
     }
 
-
     public function updateStatus($id, Request $request)
     {
         $kunjungan = Kunjungan::findOrFail($id);
@@ -277,7 +275,6 @@ class PendaftaranController extends Controller
             return response()->json(['success' => false]);
         }
     }
-
 
     public function deleteKunjungan($id)
     {
