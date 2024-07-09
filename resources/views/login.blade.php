@@ -26,6 +26,13 @@
         <div class="card login-card p-4 glass-effect w-100">
             <div class="card-body">
                 <h2 class="bold-text text-center">Masuk</h2>
+                
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('login.submit') }}">
                     @csrf
                     <div class="form-group">
@@ -44,12 +51,6 @@
             </div>
         </div>
     </div>
-
-    <!-- <script>
-        document.getElementById('backButton').onclick = function() {
-            window.location.href = "{{ route('welcome') }}";
-        };
-    </script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ho+j7jyWK8fNQe+A12F3j1jlrc10+U8I4Hj3RIBs62hpH4FZ5f5MoKlDapKPpmBx"

@@ -34,15 +34,6 @@
             </div>
 
             <div class="d-flex mb-3">
-                <span class="align-self-center">Show</span>
-                <select class="custom-select custom-select-sm form-control form-control-sm mr-2" id="entries"
-                    onchange="updateEntries()">
-                    <option value="5">5</option>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
-                <span class="align-self-center mr-2">entries</span>
                 <input type="text" class="form-control form-control-sm ml-2 float-right"
                     placeholder="Cari Data Diagnosis" id="search" onkeyup="searchDiagnosis()">
             </div>
@@ -76,6 +67,11 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <div id="noDataFound" style="display: none;" class="alert alert-info mt-3">
+                        Data tidak ditemukan.
+                    </div>
+
                 </div>
             </div>
             <div class="row mt-3">
@@ -206,9 +202,6 @@
             });
         }
 
-        function updateEntries() {
-            const entries = document.getElementById('entries').value;
-        }
 
         function searchDiagnosis() {
             const searchInput = document.getElementById('search').value.toLowerCase();
@@ -228,6 +221,13 @@
                     }
                 }
                 rows[i].style.display = match ? '' : 'none';
+            }
+
+            const noDataFound = document.getElementById('noDataFound');
+            if (found) {
+                noDataFound.style.display = 'none';
+            } else {
+                noDataFound.style.display = 'block';
             }
         }
     </script>
