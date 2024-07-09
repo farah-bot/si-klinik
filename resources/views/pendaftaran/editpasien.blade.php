@@ -9,29 +9,12 @@
                 <h2>Edit Pasien</h2>
             </div>
             <div class="card-body">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <form id="pendaftaranForm" action="{{ route('updatepasien', $pasien->id) }}" method="POST"
                     onsubmit="showModal(event)">
                     @csrf
                     @method('POST')
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="no_rm">No RM</label>
-                                <input type="text" id="no_rm" name="no_rm" class="form-control"
-                                    value="{{ $pasien->no_rm }}" required>
-                                @if ($errors->has('no_rm'))
-                                    <span class="text-danger">{{ $errors->first('no_rm') }}</span>
-                                @endif
-                            </div>
                             <div class="form-group">
                                 <label for="jenis_kelamin">Jenis Kelamin</label>
                                 <select id="jenis_kelamin" name="jenis_kelamin" class="form-control" required>
@@ -62,14 +45,6 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="nik">NIK</label>
-                                <input type="text" id="nik" name="nik" class="form-control"
-                                    value="{{ $pasien->nik }}" required>
-                                @if ($errors->has('nik'))
-                                    <span class="text-danger">{{ $errors->first('nik') }}</span>
-                                @endif
-                            </div>
                             <div class="form-group">
                                 <label for="jenis_pasien">Jenis Pasien</label>
                                 <select id="jenis_pasien" name="jenis_pasien" class="form-control"

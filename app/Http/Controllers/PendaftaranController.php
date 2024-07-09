@@ -161,9 +161,7 @@ class PendaftaranController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'no_rm' => 'required|string|max:255|unique:pasiens,no_rm',
             'nama' => 'required',
-            'nik' => 'required|string|max:20|unique:pasiens,nik',
             'alamat' => 'required',
             'jenis_kelamin' => 'required',
             'tanggal_lahir' => 'required',
@@ -175,7 +173,7 @@ class PendaftaranController extends Controller
         ]);
 
         $pasien = Pasien::findOrFail($id);
-        $pasien->update($request->only(['no_rm', 'nama', 'nik', 'alamat', 'jenis_kelamin', 'tanggal_lahir', 'jenis_pasien', 'nomor_bpjs']));
+        $pasien->update($request->only(['nama', 'alamat', 'jenis_kelamin', 'tanggal_lahir', 'jenis_pasien', 'nomor_bpjs']));
 
         foreach ($request->kunjungans as $index => $kunjunganData) {
             $nomor_antrian_terakhir = Kunjungan::whereDate('tanggal_kunjungan', $kunjunganData['tanggal_kunjungan'])
