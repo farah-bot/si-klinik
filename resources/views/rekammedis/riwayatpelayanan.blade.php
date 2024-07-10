@@ -104,7 +104,7 @@
                 <td>${row.dokter}</td>
                 <td>
                     <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-info btn-sm" onclick="viewPatient('${row.id}')">
+                        <button type="button" class="btn btn-info btn-sm" onclick="viewPatient('${row.id}','${row.poli}')">
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
@@ -116,8 +116,27 @@
             updateDataInfo(data.length);
         }
 
-        function viewPatient(id) {
-            window.location.href = '/detailpoliumum/' + id;
+        function viewPatient(id,poli) {
+            const data = data.find(row => row.id === id & row.poli ===
+                poli);
+
+            let editUrl;
+            switch (data.poli) {
+                case 'Poli Gigi':
+                    editUrl = '/detailpoligigi/' + id + '/' + poli;
+                    break;
+                case 'Poli Umum':
+                    editUrl = '/detailpoliumum/' + id + '/' + poli;
+                    break;
+                case 'Poli KIA':
+                    editUrl = '/detailpolikia/' + id + '/' + poli;
+                    break;
+                default:
+                    console.error('Poli tidak dikenali:', data.poli);
+                    return;
+            }
+
+            window.location.href = editUrl;
         }
 
         function filterData() {

@@ -93,9 +93,9 @@ Route::group(['middleware' => ['auth']], function () {
     // DOKTER UMUM, KEPALA KLINIK, PERAWAT, REKAM MEDIS, DAN ADMIN
     Route::group(['middleware' =>  ['role:Dokter Umum|Kepala Klinik|Perawat|Rekam Medis|Admin']], function () {
         Route::get('/riwayatpelayananpasien', [RiwayatPelayanan::class, 'riwayatPelayananPasien'])->name('riwayatpelayananpasien');
-        Route::get('/detailpoliumum/{id}', [PemeriksaanController::class, 'showDetailPoliUmum'])->name('showDetailPoliUmum');
-        Route::get('/detailpoligigi/{id}', [PemeriksaanController::class, 'showDetailPoliGigi'])->name('showDetailPoliGigi');
-        Route::get('/detailpolikia/{id}', [PemeriksaanController::class, 'showDetailPoliKia'])->name('showDetailPoliKia');
+        Route::get('/detailpoliumum/{id}/{poli}', [PemeriksaanController::class, 'showDetailPoliUmum'])->name('showDetailPoliUmum');
+        Route::get('/detailpoligigi/{id}/{poli}', [PemeriksaanController::class, 'showDetailPoliGigi'])->name('showDetailPoliGigi');
+        Route::get('/detailpolikia/{id}/{poli}', [PemeriksaanController::class, 'showDetailPoliKia'])->name('showDetailPoliKia');
     });
 
     // DOKTER UMUM, DOKTER GIGI, PERAWAT, BIDAN, DAN ADMIN
