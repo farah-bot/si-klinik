@@ -45,6 +45,27 @@
                     </div>
                 </div>
 
+                <div class="border rounded p-3 mb-3">
+                    <h4>ODONTOGRAM</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Gambar Odontogram</label>
+                                <div class="odontogram-image-container">
+                                    <img src="{{ asset('img/odontogram.png') }}" alt="Odontogram" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="odontogram_notes">Catatan Odontogram</label>
+                                <textarea class="form-control" id="odontogram_notes" name="odontogram_notes" rows="3"
+                                    placeholder="Catatan tentang hasil pemeriksaan odontogram"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Subjective Complaints -->
                 <div class="border rounded p-3 mb-3">
                     <h4>SUBJECT (KELUHAN)</h4>
@@ -52,14 +73,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="keluhan_pasien">Subject (Keluhan Pasien)<span class="required">*</span></label>
-                                <textarea class="form-control" id="keluhan_pasien" placeholder="Input keluhan pasien" name="keluhan_pasien"
-                                    rows="3" required></textarea>
+                                <textarea class="form-control" id="keluhan_pasien" placeholder="Input keluhan pasien" name="keluhan_pasien" rows="3" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="riwayat_alergi">Riwayat Alergi</label>
                                 <textarea class="form-control" id="riwayat_alergi" placeholder="Riwayat Alergi" name="riwayat_alergi" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="file_upload">Upload Hasil Laboratorium</label>
+                                <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf,.doc,.docx">
                             </div>
                         </div>
                     </div>
@@ -139,7 +165,7 @@
                                         name="jumlah_obat[]" id="jumlah_obat">
                                 </div>
                             </div>
-                            <div class="col-md-3 d-flex align-items-end">
+                            <div class="col-md-3">
                                 <button type="button" class="btn btn-success add-prescription-row">+</button>
                                 <button type="button" class="btn btn-danger remove-prescription-row ml-2">-</button>
                             </div>
