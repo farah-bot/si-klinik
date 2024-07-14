@@ -57,8 +57,7 @@
                         <li><a class="dropdown-item" href="{{ route('riwayatpelayananpasien') }}">Riwayat Pelayanan
                                 Pasien</a></li>
                         <li><a class="dropdown-item" href="{{ route('laporankunjungan') }}">Laporan Kunjungan</a></li>
-                        <li><a class="dropdown-item" href="{{ route('laporan10besarpenyakit') }}">Laporan
-                                Surveilans</a></li>
+                        <li><a class="dropdown-item" href="{{ route('laporan10besarpenyakit') }}">Laporan 10 Besar Penyakit</a></li>
                         <li><a class="dropdown-item" href="{{ route('laporanjumlahjasapelayanandokter') }}">Laporan
                                 Jumlah Jasa Pelayanan Dokter</a></li>
                     </ul>

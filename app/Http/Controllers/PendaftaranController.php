@@ -21,7 +21,7 @@ class PendaftaranController extends Controller
         $today = Carbon::today();
         $kunjungans = Kunjungan::with('pasien')
             ->whereDate('tanggal_kunjungan', $today)
-            ->get();
+            ->paginate(10);
 
         return view('pendaftaran.dataantrianpoli', compact('kunjungans'));
     }

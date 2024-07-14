@@ -72,6 +72,12 @@
                     Data tidak ditemukan.
                 </div>
 
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        {{ $pasien->links('vendor.pagination.bootstrap-5') }}
+                    </div>
+                </div>
+
 
             </div>
         </div>

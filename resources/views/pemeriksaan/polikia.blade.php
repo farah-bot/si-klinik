@@ -61,6 +61,12 @@
                                 <textarea class="form-control" id="riwayat_alergi" placeholder="Riwayat Alergi" name="riwayat_alergi" rows="3"></textarea>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="file_upload">Upload Hasil Laboratorium</label>
+                                <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf,.doc,.docx">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
