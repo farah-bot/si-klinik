@@ -154,7 +154,8 @@ class PendaftaranController extends Controller
         $dokters = User::whereHas('roles', function ($query) {
             $query->where('name', 'Dokter Umum')
                 ->orWhere('name', 'Dokter Gigi')
-                ->orWhere('name', 'Bidan');
+                ->orWhere('name', 'Bidan')
+                ->orWhere('name', 'Kepala Klinik');
         })->get();
         return view('pendaftaran.editpasien', compact('pasien', 'dokters'));
     }
