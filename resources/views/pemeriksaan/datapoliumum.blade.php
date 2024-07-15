@@ -43,26 +43,10 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
         </div>
     </div>
 
-    
+
     <div class="modal fade" id="panggilAntrianModal" tabindex="-1" aria-labelledby="panggilAntrianModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">
@@ -203,12 +187,11 @@
             window.location.href = editUrl;
         }
 
-        function playAudioAntrian(nomorAntrian) {
+        function playAudioAntrian(nomorAntrian, poli) {
             const audioPath = '/audio/';
-            const audioQueue = ['nomor-urut.wav'];
-            const digits = nomorAntrian.split('').map(digit => `${digit}.wav`);
-
+            const audioQueue = ['poliumum.wav', 'nomor-urut.wav'];
             const nomor = parseInt(nomorAntrian, 10);
+            const digits = nomorAntrian.split('').map(digit => `${digit}.wav`);
 
             if (nomor === 10) {
                 audioQueue.push('sepuluh.wav');
@@ -223,7 +206,7 @@
                 }
             } else if (nomor >= 100 && nomor < 200) {
                 audioQueue.push('seratus.wav');
-                if (nomorAntrian[1] !== '0') {
+                if (nomorAntrian[1] !== '0' || nomorAntrian[2] !== '0') {
                     if (nomorAntrian[1] === '1' && nomorAntrian[2] === '0') {
                         audioQueue.push('sepuluh.wav');
                     } else if (nomorAntrian[1] === '1' && nomorAntrian[2] === '1') {
@@ -231,17 +214,17 @@
                     } else if (nomorAntrian[1] === '1') {
                         audioQueue.push(`${nomorAntrian[2]}.wav`, 'belas.wav');
                     } else {
-                        audioQueue.push(`${nomorAntrian[1]}.wav`, 'puluh.wav');
+                        if (nomorAntrian[1] !== '0') {
+                            audioQueue.push(`${nomorAntrian[1]}.wav`, 'puluh.wav');
+                        }
                         if (nomorAntrian[2] !== '0') {
                             audioQueue.push(`${nomorAntrian[2]}.wav`);
                         }
                     }
-                } else if (nomorAntrian[2] !== '0') {
-                    audioQueue.push(`${nomorAntrian[2]}.wav`);
                 }
             } else if (nomor >= 200 && nomor < 1000) {
                 audioQueue.push(`${nomorAntrian[0]}.wav`, 'ratus.wav');
-                if (nomorAntrian[1] !== '0') {
+                if (nomorAntrian[1] !== '0' || nomorAntrian[2] !== '0') {
                     if (nomorAntrian[1] === '1' && nomorAntrian[2] === '0') {
                         audioQueue.push('sepuluh.wav');
                     } else if (nomorAntrian[1] === '1' && nomorAntrian[2] === '1') {
@@ -249,13 +232,13 @@
                     } else if (nomorAntrian[1] === '1') {
                         audioQueue.push(`${nomorAntrian[2]}.wav`, 'belas.wav');
                     } else {
-                        audioQueue.push(`${nomorAntrian[1]}.wav`, 'puluh.wav');
+                        if (nomorAntrian[1] !== '0') {
+                            audioQueue.push(`${nomorAntrian[1]}.wav`, 'puluh.wav');
+                        }
                         if (nomorAntrian[2] !== '0') {
                             audioQueue.push(`${nomorAntrian[2]}.wav`);
                         }
                     }
-                } else if (nomorAntrian[2] !== '0') {
-                    audioQueue.push(`${nomorAntrian[2]}.wav`);
                 }
             } else {
                 audioQueue.push(...digits);
@@ -263,13 +246,15 @@
 
             console.log('Audio Queue:', audioQueue);
 
-            let delay = 0;
+            let delay = 500;
+            const delayIncrement = 2000;
+
             audioQueue.forEach(file => {
                 setTimeout(() => {
                     const audio = new Audio(audioPath + file);
                     audio.play().catch(error => console.error('Audio play error:', error));
                 }, delay);
-                delay += 500;
+                delay += delayIncrement;
             });
         }
 
@@ -283,7 +268,8 @@
             const tanggalPeriksa = document.getElementById('tanggalPeriksaPanggil')
                 .textContent;
             const rows = document.querySelectorAll(
-                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-pasien-id="${pasien_id}"]`);
+                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-pasien-id="${pasien_id}"]`
+                );
             if (rows.length > 0) {
                 const row = rows[0];
 
@@ -322,7 +308,8 @@
                 .textContent;
 
             const rows = document.querySelectorAll(
-                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-pasien-id="${pasien_id}"]`);
+                `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-pasien-id="${pasien_id}"]`
+                );
             if (rows.length > 0) {
                 const row = rows[0];
 
@@ -366,7 +353,8 @@
         function deleteData(nomorAntrian) {
             if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
                 const rows = document.querySelectorAll(
-                    `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-pasien-id="${pasien_id}"]`);
+                    `tr[data-nomor-antrian="${nomorAntrian}"][data-tanggal-periksa="${tanggalPeriksa}"][data-pasien-id="${pasien_id}"]`
+                    );
                 if (rows.length > 0) {
                     const row = rows[0];
 

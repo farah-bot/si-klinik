@@ -27,7 +27,7 @@ class LaporanController extends Controller
             }
         }
 
-        $dataPasien = $query->get();
+        $dataPasien = $query->paginate(10);
 
         return view('rekammedis.laporankunjungan', compact('dataPasien'));
     }

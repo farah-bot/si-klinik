@@ -50,27 +50,17 @@
             </div>
 
             <div class="row mt-3">
-
                 <div class="col-md-12">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    {{ $riwayatPelayanan->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
+
+
         </div>
     </div>
 
     <script>
-        const data = [
+        const Patientdata = [
 
             @foreach ($riwayatPelayanan as $riwayat)
                 {
@@ -88,10 +78,10 @@
             @endforeach
         ];
 
-        function renderTable(data) {
+        function renderTable(Patientdata) {
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
-            data.forEach(row => {
+            Patientdata.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                 <td>${row.tanggal}</td>
@@ -113,11 +103,11 @@
                 tableBody.appendChild(tr);
             });
 
-            updateDataInfo(data.length);
+            updateDataInfo(Patientdata.length);
         }
 
         function viewPatient(id,poli) {
-            const data = data.find(row => row.id === id & row.poli ===
+            const data = Patientdata.find(row => row.id === id & row.poli ===
                 poli);
 
             let editUrl;
@@ -167,6 +157,6 @@
             dataInfo.textContent = `Showing ${startEntry} to ${endEntry} of ${totalEntries} entries`;
         }
 
-        renderTable(data);
+        renderTable(Patientdata);
     </script>
 @endsection

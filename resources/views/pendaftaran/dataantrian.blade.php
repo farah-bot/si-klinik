@@ -8,7 +8,7 @@
             <div class="data-pengguna-header">
                 <h2>Data Pasien</h2>
             </div>
-            
+
             @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
@@ -43,24 +43,25 @@
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        @foreach ($pasien as $data)
+                        @foreach ($kunjungans as $data)
                             <tr>
-                                <td>{{ $data->no_rm }}</td>
-                                <td>{{ $data->nama }}</td>
-                                <td>{{ $data->nik }}</td>
-                                <td>{{ $data->alamat }}</td>
-                                <td>{{ $data->jenis_kelamin }}</td>
-                                <td>{{ $data->tanggal_lahir }}</td>
-                                <td>{{ $data->jenis_pasien }}</td>
+                                <td>{{ $data->pasien->no_rm }}</td>
+                                <td>{{ $data->pasien->nama }}</td>
+                                <td>{{ $data->pasien->nik }}</td>
+                                <td>{{ $data->pasien->alamat }}</td>
+                                <td>{{ $data->pasien->jenis_kelamin }}</td>
+                                <td>{{ $data->pasien->tanggal_lahir }}</td>
+                                <td>{{ $data->pasien->jenis_pasien }}</td>
                                 <td>
                                     <div class="btn-group" role="group" aria-label="Aksi">
-                                    <button class="btn btn-warning" onclick="editPasien({{ $data->id }})"><i
-                                            class="fas fa-edit"></i></button>
-                                    <form action="{{ route('deletePasien', $data->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                        <button class="btn btn-warning" onclick="editPasien({{ $data->pasien_id }})"><i
+                                                class="fas fa-edit"></i></button>
+                                        <form action="{{ route('deletePasien', $data->pasien_id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger"><i
+                                                    class="fas fa-trash"></i></button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -70,6 +71,12 @@
 
                 <div id="noDataFound" style="display: none;" class="alert alert-info mt-3">
                     Data tidak ditemukan.
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        {{ $kunjungans->links('vendor.pagination.bootstrap-5') }}
+                    </div>
                 </div>
 
 

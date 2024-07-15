@@ -65,20 +65,10 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+                    {{ $dataPasien->links('vendor.pagination.bootstrap-5') }}
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -136,24 +126,28 @@
             entriesInfo.textContent = `Showing 1 to ${count} of ${count} entries`;
         }
 
-    document.getElementById('btnCetakExcel').addEventListener('click', () => {
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
-        XLSX.utils.book_append_sheet(wb, ws, 'Laporan');
-        XLSX.writeFile(wb, 'LaporanKunjungan.xlsx');
-    });
-
-    document.getElementById('btnCetakPDF').addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        doc.autoTable({
-            html: '#reportTable',
-            startY: 10,
-            theme: 'grid',
-            headStyles: { fillColor: [22, 160, 133] },
+        document.getElementById('btnCetakExcel').addEventListener('click', () => {
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
+            XLSX.utils.book_append_sheet(wb, ws, 'Laporan');
+            XLSX.writeFile(wb, 'LaporanKunjungan.xlsx');
         });
-        doc.save('LaporanKunjungan.pdf');
-    });
+
+        document.getElementById('btnCetakPDF').addEventListener('click', () => {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+            doc.autoTable({
+                html: '#reportTable',
+                startY: 10,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [22, 160, 133]
+                },
+            });
+            doc.save('LaporanKunjungan.pdf');
+        });
 
         document.getElementById('cari_pasien').addEventListener('click', filterData);
 

@@ -45,6 +45,27 @@
                     </div>
                 </div>
 
+                <div class="border rounded p-3 mb-3">
+                    <h4>ODONTOGRAM</h4>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Gambar Odontogram</label>
+                                <div class="odontogram-image-container">
+                                    <img src="{{ asset('img/odontogram.png') }}" alt="Odontogram" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="odontogram_notes">Catatan Odontogram</label>
+                                <textarea class="form-control" id="odontogram_notes" name="odontogram_notes" rows="3"
+                                    placeholder="Catatan tentang hasil pemeriksaan odontogram"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Subjective Complaints -->
                 <div class="border rounded p-3 mb-3">
                     <h4>SUBJECT (KELUHAN)</h4>
@@ -60,6 +81,13 @@
                             <div class="form-group">
                                 <label for="riwayat_alergi">Riwayat Alergi</label>
                                 <textarea class="form-control" id="riwayat_alergi" placeholder="Riwayat Alergi" name="riwayat_alergi" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="file_upload">Upload Hasil Laboratorium</label>
+                                <input type="file" class="form-control" id="file_upload" name="file_upload"
+                                    accept=".pdf,.doc,.docx">
                             </div>
                         </div>
                     </div>
@@ -95,12 +123,13 @@
                 <div class="border rounded p-3 mb-3">
                     <h4>PLAN</h4>
                     <div class="form-group">
-                        <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
+                        <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span
+                                class="required">*</span></label>
                         <select class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" required>
-                        <option value="">--Pilih--</option>
-                        <option value="Medikamentosa">Medikamentosa</option>
-                        <option value="Tindakan">Tindakan</option>
-                        <option value="Rujukan">Rujukan</option>
+                            <option value="">--Pilih--</option>
+                            <option value="Medikamentosa">Medikamentosa</option>
+                            <option value="Tindakan">Tindakan</option>
+                            <option value="Rujukan">Rujukan</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -139,7 +168,7 @@
                                         name="jumlah_obat[]" id="jumlah_obat">
                                 </div>
                             </div>
-                            <div class="col-md-3 d-flex align-items-end">
+                            <div class="col-md-3">
                                 <button type="button" class="btn btn-success add-prescription-row">+</button>
                                 <button type="button" class="btn btn-danger remove-prescription-row ml-2">-</button>
                             </div>
@@ -213,14 +242,14 @@
             });
 
             $('#form-pemeriksaan').submit(function(event) {
-                event.preventDefault(); 
+                event.preventDefault();
 
                 $.ajax({
                     url: '{{ route('updateStatusGigi', $kunjungan->id) }}',
                     type: 'PUT',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        status: 'Sudah Terlayani' 
+                        status: 'Sudah Terlayani'
                     },
                     success: function(response) {
                         console.log('Status Kunjungan berhasil diupdate.');

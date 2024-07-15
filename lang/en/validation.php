@@ -39,7 +39,7 @@ return [
     'dimensions'           => ':attribute memiliki dimensi gambar yang tidak valid.',
     'distinct'             => 'Kolom :attribute memiliki nilai yang duplikat.',
     'email'                => ':attribute harus berupa alamat email yang valid.',
-    'exists'               => ':attribute yang dipilih tidak valid.',
+    'exists'               => ':attribute tidak valid.',
     'file'                 => ':attribute harus berupa file.',
     'filled'               => 'Kolom :attribute harus memiliki nilai.',
     'gt'                   => [

@@ -121,12 +121,14 @@ class PemeriksaanController extends Controller
             'keluhan_pasien' => 'required|string',
             'kode_icd10' => 'required|string|exists:diagnosas,kode_icd',
             'rencana_tindaklanjut' => 'required|string',
+            'odontogram_notes' => 'required|string',
             'tanda_tangan' => 'required',
             'nama_obat' => 'required|array',
             'nama_obat.*' => 'required|string',
             'satuan.*' => 'nullable|string',
             'jumlah_obat.*' => 'nullable|integer',
             'catatan_resep' => 'nullable|string',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 
         if ($request->has('tanda_tangan')) {
@@ -137,6 +139,14 @@ class PemeriksaanController extends Controller
 
             $fileName = 'signatures/' . uniqid() . '.png';
             Storage::disk('public')->put($fileName, $signatureData);
+        }
+
+        if ($request->hasFile('file_upload')) {
+            $file = $request->file('file_upload');
+            $fileName = $file->getClientOriginalName();
+            $filePath = $file->storeAs('file_support_tooth', $fileName, 'public');
+        } else {
+            $filePath = null;
         }
 
         $diagnosa = Diagnosa::where('kode_icd', $request->kode_icd10)->first();
@@ -153,10 +163,12 @@ class PemeriksaanController extends Controller
             'riwayat_alergi' => $request->riwayat_alergi,
             'catatan_assessment' => $request->catatan_assessment,
             'rencana_tindaklanjut' => $request->rencana_tindaklanjut,
+            'odontogram_notes' => $request->odontogram_notes,
             'tindakan' => $request->tindakan,
             'rujukan' => $request->rujukan,
             'tanda_tangan' => $fileName,
             'catatan_resep' => $request->catatan_resep,
+            'file_upload' => $filePath,
         ]);
 
         $obatData = [];
@@ -392,6 +404,7 @@ class PemeriksaanController extends Controller
             'satuan.*' => 'nullable|string',
             'jumlah_obat.*' => 'nullable|integer',
             'catatan_resep' => 'nullable|string',
+            'file_upload' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
 
         if ($request->has('tanda_tangan')) {
@@ -402,6 +415,14 @@ class PemeriksaanController extends Controller
 
             $fileName = 'signatures/' . uniqid() . '.png';
             Storage::disk('public')->put($fileName, $signatureData);
+        }
+
+        if ($request->hasFile('file_upload')) {
+            $file = $request->file('file_upload');
+            $fileName = $file->getClientOriginalName();
+            $filePath = $file->storeAs('file_support_kia', $fileName, 'public');
+        } else {
+            $filePath = null;
         }
 
         $diagnosa = Diagnosa::where('kode_icd', $request->kode_icd10)->first();
@@ -422,6 +443,7 @@ class PemeriksaanController extends Controller
             'rujukan' => $request->rujukan,
             'tanda_tangan' => $fileName,
             'catatan_resep' => $request->catatan_resep,
+            'file_upload' => $filePath,
         ]);
 
         $obatData = [];

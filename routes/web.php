@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/editpasien/{id}', [PendaftaranController::class, 'update'])->name('updatepasien');
         Route::delete('/deletepasien/{id}', [PendaftaranController::class, 'destroy'])->name('deletePasien');
     });
-    
+
     // APOTEKER DAN ADMIN
     Route::group(['middleware' => ['role:Apoteker|Admin']], function () {
         Route::get('/dataapotek', [ApotekerController::class, 'index'])->name('dataapotek');

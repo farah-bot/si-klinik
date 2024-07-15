@@ -12,7 +12,7 @@ class RiwayatPelayanan extends Controller
     {
         $riwayatPelayanan = Kunjungan::where('status', 'Sudah Terlayani')
             ->with(['user', 'pasien'])
-            ->get();
+            ->paginate(10);
         return view('rekammedis.riwayatpelayanan', [
             'riwayatPelayanan' => $riwayatPelayanan,
         ]);
