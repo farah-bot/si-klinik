@@ -22,7 +22,8 @@ class PemeriksaanKia extends Model
         'tindakan',
         'rujukan',
         'tanda_tangan',
-        'catatan_resep'
+        'catatan_resep',
+        'file_support'
     ];
 
     public function obat()

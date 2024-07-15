@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('kunjungan_id')->constrained('kunjungans')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('diagnosa_id')->constrained('diagnosas')->onDelete('cascade');
+            $table->text('file_upload')->nullable();
             $table->text('subject_keluhan');
             $table->text('riwayat_alergi')->nullable();
             $table->text('catatan_assessment')->nullable();
@@ -34,6 +35,8 @@ return new class extends Migration
             $table->foreignId('kunjungan_id')->constrained('kunjungans')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('diagnosa_id')->constrained('diagnosas')->onDelete('cascade');
+            $table->text('file_upload')->nullable();
+            $table->text('odontogram_notes')->nullable();
             $table->text('subject_keluhan');
             $table->text('riwayat_alergi')->nullable();
             $table->text('catatan_assessment')->nullable();

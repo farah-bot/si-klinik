@@ -222,6 +222,7 @@
         const patients = [
             @foreach ($kunjungans as $kunjungan)
                 {
+                    id_patiens: '{{ $kunjungan->pasien_id }}',
                     id: '{{ $kunjungan->id }}',
                     no_rm: '{{ $kunjungan->pasien->no_rm }}',
                     name: '{{ $kunjungan->pasien->nama }}',
@@ -290,8 +291,8 @@
                 <td>${patient.phone}</td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Aksi">
-                        <button class="btn btn-warning" onclick="editPasien(${patient.id})"><i class="fas fa-edit"></i></button>
-                        <button class="btn btn-danger btn-sm" onclick="deletePasien(${patient.id})"><i class="fas fa-trash-alt"></i></button>
+                        <button class="btn btn-warning" onclick="editPasien(${patient.id_patiens})"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-danger btn-sm" onclick="deletePasien(${patient.id_patiens})"><i class="fas fa-trash-alt"></i></button>
                     </div>
                 </td>
             </tr>`;

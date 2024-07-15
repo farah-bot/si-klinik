@@ -12,8 +12,8 @@ class PendaftaranController extends Controller
 {
     public function index()
     {
-        $pasien = Pasien::paginate(10);
-        return view('pendaftaran.dataantrian', compact('pasien'));
+        $kunjungans = Kunjungan::with('pasien')->paginate(10);
+        return view('pendaftaran.dataantrian', compact('kunjungans'));
     }
 
     public function dataAntrianPoli()
@@ -47,7 +47,7 @@ class PendaftaranController extends Controller
             'tanggal_kunjungan' => 'required|date',
             'poli_tujuan' => 'required|string',
             'jenis_kunjungan' => 'required|string|in:Baru,Lama',
-            'nama_dokter' => 'required|string',
+            'nama_dokter' => 'required|string|exists:users,name',
         ]);
 
         $pasien = Pasien::create([
@@ -153,7 +153,8 @@ class PendaftaranController extends Controller
         $pasien = Pasien::with('kunjungans.user')->findOrFail($id);
         $dokters = User::whereHas('roles', function ($query) {
             $query->where('name', 'Dokter Umum')
-                ->orWhere('name', 'Dokter Gigi');
+                ->orWhere('name', 'Dokter Gigi')
+                ->orWhere('name', 'Bidan');
         })->get();
         return view('pendaftaran.editpasien', compact('pasien', 'dokters'));
     }

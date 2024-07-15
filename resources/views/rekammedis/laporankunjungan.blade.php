@@ -126,24 +126,28 @@
             entriesInfo.textContent = `Showing 1 to ${count} of ${count} entries`;
         }
 
-    document.getElementById('btnCetakExcel').addEventListener('click', () => {
-        const wb = XLSX.utils.book_new();
-        const ws = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
-        XLSX.utils.book_append_sheet(wb, ws, 'Laporan');
-        XLSX.writeFile(wb, 'LaporanKunjungan.xlsx');
-    });
-
-    document.getElementById('btnCetakPDF').addEventListener('click', () => {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        doc.autoTable({
-            html: '#reportTable',
-            startY: 10,
-            theme: 'grid',
-            headStyles: { fillColor: [22, 160, 133] },
+        document.getElementById('btnCetakExcel').addEventListener('click', () => {
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.table_to_sheet(document.getElementById('reportTable'));
+            XLSX.utils.book_append_sheet(wb, ws, 'Laporan');
+            XLSX.writeFile(wb, 'LaporanKunjungan.xlsx');
         });
-        doc.save('LaporanKunjungan.pdf');
-    });
+
+        document.getElementById('btnCetakPDF').addEventListener('click', () => {
+            const {
+                jsPDF
+            } = window.jspdf;
+            const doc = new jsPDF();
+            doc.autoTable({
+                html: '#reportTable',
+                startY: 10,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [22, 160, 133]
+                },
+            });
+            doc.save('LaporanKunjungan.pdf');
+        });
 
         document.getElementById('cari_pasien').addEventListener('click', filterData);
 

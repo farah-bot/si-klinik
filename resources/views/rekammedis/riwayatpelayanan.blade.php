@@ -60,7 +60,7 @@
     </div>
 
     <script>
-        const data = [
+        const Patientdata = [
 
             @foreach ($riwayatPelayanan as $riwayat)
                 {
@@ -78,10 +78,10 @@
             @endforeach
         ];
 
-        function renderTable(data) {
+        function renderTable(Patientdata) {
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = '';
-            data.forEach(row => {
+            Patientdata.forEach(row => {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                 <td>${row.tanggal}</td>
@@ -103,11 +103,11 @@
                 tableBody.appendChild(tr);
             });
 
-            updateDataInfo(data.length);
+            updateDataInfo(Patientdata.length);
         }
 
         function viewPatient(id,poli) {
-            const data = data.find(row => row.id === id & row.poli ===
+            const data = Patientdata.find(row => row.id === id & row.poli ===
                 poli);
 
             let editUrl;
@@ -157,6 +157,6 @@
             dataInfo.textContent = `Showing ${startEntry} to ${endEntry} of ${totalEntries} entries`;
         }
 
-        renderTable(data);
+        renderTable(Patientdata);
     </script>
 @endsection

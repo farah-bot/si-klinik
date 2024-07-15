@@ -73,7 +73,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="keluhan_pasien">Subject (Keluhan Pasien)<span class="required">*</span></label>
-                                <textarea class="form-control" id="keluhan_pasien" placeholder="Input keluhan pasien" name="keluhan_pasien" rows="3" required></textarea>
+                                <textarea class="form-control" id="keluhan_pasien" placeholder="Input keluhan pasien" name="keluhan_pasien"
+                                    rows="3" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -85,7 +86,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="file_upload">Upload Hasil Laboratorium</label>
-                                <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf,.doc,.docx">
+                                <input type="file" class="form-control" id="file_upload" name="file_upload"
+                                    accept=".pdf,.doc,.docx">
                             </div>
                         </div>
                     </div>
@@ -121,12 +123,13 @@
                 <div class="border rounded p-3 mb-3">
                     <h4>PLAN</h4>
                     <div class="form-group">
-                        <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
+                        <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span
+                                class="required">*</span></label>
                         <select class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" required>
-                        <option value="">--Pilih--</option>
-                        <option value="Medikamentosa">Medikamentosa</option>
-                        <option value="Tindakan">Tindakan</option>
-                        <option value="Rujukan">Rujukan</option>
+                            <option value="">--Pilih--</option>
+                            <option value="Medikamentosa">Medikamentosa</option>
+                            <option value="Tindakan">Tindakan</option>
+                            <option value="Rujukan">Rujukan</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -239,14 +242,14 @@
             });
 
             $('#form-pemeriksaan').submit(function(event) {
-                event.preventDefault(); 
+                event.preventDefault();
 
                 $.ajax({
                     url: '{{ route('updateStatusGigi', $kunjungan->id) }}',
                     type: 'PUT',
                     data: {
                         _token: '{{ csrf_token() }}',
-                        status: 'Sudah Terlayani' 
+                        status: 'Sudah Terlayani'
                     },
                     success: function(response) {
                         console.log('Status Kunjungan berhasil diupdate.');

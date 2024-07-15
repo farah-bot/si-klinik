@@ -64,7 +64,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="file_upload">Upload Hasil Laboratorium</label>
-                                <input type="file" class="form-control" id="file_upload" name="file_upload" accept=".pdf,.doc,.docx">
+                                <input type="file" class="form-control" id="file_upload" name="file_upload"
+                                    accept=".pdf,.doc,.docx">
                             </div>
                         </div>
                     </div>
@@ -102,10 +103,10 @@
                     <div class="form-group">
                         <label for="rencana_tindaklanjut">Rencana Tindaklanjut Pasien<span class="required">*</span></label>
                         <select class="form-control" id="rencana_tindaklanjut" name="rencana_tindaklanjut" required>
-                        <option value="">--Pilih--</option>
-                        <option value="Medikamentosa">Medikamentosa</option>
-                        <option value="Tindakan">Tindakan</option>
-                        <option value="Rujukan">Rujukan</option>
+                            <option value="">--Pilih--</option>
+                            <option value="Medikamentosa">Medikamentosa</option>
+                            <option value="Tindakan">Tindakan</option>
+                            <option value="Rujukan">Rujukan</option>
                         </select>
                     </div>
                     <div class="form-group">
