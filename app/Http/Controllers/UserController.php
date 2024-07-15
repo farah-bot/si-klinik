@@ -106,6 +106,8 @@ class UserController extends Controller
         $validated = $request->validate([
             'nama_pengguna' => 'required|string|max:255',
             'alamat' => 'required|string',
+            'jenis_kelamin' => 'required|string',
+            'tanggal_lahir' => 'required|string',
             'jabatan' => 'required|string',
             'username' => 'required|string|max:255|unique:users,username,' . $id,
             'password' => 'nullable|string|min:8',
@@ -115,6 +117,8 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $user->name = $validated['nama_pengguna'];
             $user->alamat = $validated['alamat'];
+            $user->jenis_kelamin = $validated['jenis_kelamin'];
+            $user->tanggal_lahir = $validated['tanggal_lahir'];
             $user->jabatan = $validated['jabatan'];
             $user->username = $validated['username'];
             if (!empty($validated['password'])) {
