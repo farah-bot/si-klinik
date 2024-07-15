@@ -21,6 +21,7 @@ class PemeriksaanUmum extends Model
         'berat_badan' ,
         'nadi' ,
         'respiratory_rate' ,
+        'keadaan_umum' ,
         'sakit_kepala_leher' ,
         'limfadenopati_leher' ,
         'anemis_mata' ,

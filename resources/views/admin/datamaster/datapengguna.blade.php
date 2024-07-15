@@ -150,7 +150,7 @@
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Aksi">
                                             <button class="btn btn-warning btn-sm"
-                                                onclick="editUser('{{ $user->id }}','{{ $user->nama_pengguna }}','{{ $user->alamat }}',   '{{ $user->jabatan }}', '{{ $user->id_pengguna }}','{{ $user->username }}')">
+                                                onclick="editUser('{{ $user->id }}','{{ $user->name }}','{{ $user->alamat }}','{{ $user->jabatan }}','{{ $user->username }}','{{ $user->tanggal_lahir }}','{{ $user->jenis_kelamin }}')">
                                                 <i class="fas fa-edit"></i>
                                             </button>
                                             <button class="btn btn-danger btn-sm"
@@ -192,9 +192,31 @@
                             <input type="text" class="form-control" id="editNamaPengguna" name="nama_pengguna"
                                 required>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Jenis Kelamin *</label><br>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki_laki"
+                                        value="Laki-Laki" required>
+                                    <label class="form-check-label" for="laki_laki">Laki-Laki</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan"
+                                        value="Perempuan" required>
+                                    <label class="form-check-label" for="perempuan">Perempuan</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label for="editAlamat">Alamat</label>
                             <textarea class="form-control" id="editAlamat" name="alamat" required></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="editTanggalLahir">Tanggal Lahir *</label>
+                                <input type="date" class="form-control" id="editTanggalLahir" name="tanggal_lahir"
+                                    required>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="editJabatan">Jabatan</label>
@@ -228,13 +250,15 @@
     </div>
 
     <script>
-        function editUser(id, nama_pengguna, alamat, jabatan, username) {
+        function editUser(id, name, alamat, jabatan, username, tanggal_lahir, jenis_kelamin) {
             document.getElementById('editUserForm').action = '/users/' + id;
             document.getElementById('editUserId').value = id;
-            document.getElementById('editNamaPengguna').value = nama_pengguna;
+            document.getElementById('editNamaPengguna').value = name;
             document.getElementById('editAlamat').value = alamat;
-            document.getElementById('editUsername').value = username;
+            document.getElementById('editTanggalLahir').value = tanggal_lahir;
             document.getElementById('editJabatan').value = jabatan;
+            // document.getElementById('editLaki_Laki').value = jenis_kelamin;
+            document.getElementById('editUsername').value = username;
 
             var editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
             editUserModal.show();

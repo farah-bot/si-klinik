@@ -23,6 +23,7 @@
                 <table class="table table-bordered" id="antrianTable">
                     <thead>
                         <tr>
+                            <th>No. Antrian</th>
                             <th>No. RM</th>
                             <th>Nama Pasien</th>
                             <th>Tanggal Periksa</th>
@@ -53,6 +54,7 @@
         const dataAntrian = [
             @foreach ($kunjungans as $kunjungan)
                 {
+                    nomorAntrian: '{{ $kunjungan->nomor_antrian }}',
                     noRM: '{{ $kunjungan->pasien->no_rm }}',
                     namaPasien: '{{ $kunjungan->pasien->nama }}',
                     tanggalPeriksa: '{{ $kunjungan->tanggal_kunjungan }}',
@@ -71,6 +73,7 @@
             data.forEach(item => {
                 tableHTML += `
                 <tr>
+                    <td>${item.nomorAntrian}</td>
                     <td>${item.noRM}</td>
                     <td>${item.namaPasien}</td>
                     <td>${item.tanggalPeriksa}</td>

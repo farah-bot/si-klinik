@@ -140,7 +140,7 @@
                 </div>
                 <div class="form-group">
                     <label>Catatan Resep</label>
-                    <p class="form-control-static">1512</p>
+                    <p class="form-control-static">{{ $pemeriksaan->catatan_resep }}</p>
                 </div>
             </div>
 

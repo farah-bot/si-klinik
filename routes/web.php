@@ -44,8 +44,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::put('/updatestatusgigi/{id}', [PemeriksaanController::class, 'updateStatus'])->name('updateStatusGigi');
     });
 
-    // ADMIN DAN DOKTER UMUM
-    Route::group(['middleware' => ['role:Dokter Umum|Admin']], function () {
+    // ADMIN, KEPALA KLINIK DAN DOKTER UMUM 
+    Route::group(['middleware' => ['role:Dokter Umum|Admin|Kepala Klinik']], function () {
         Route::post('/updatestatusumum/{id}', [PendaftaranController::class, 'updateStatus'])->name('update-status');
         Route::post('/skipstatusumum/{id}', [PendaftaranController::class, 'skipStatus'])->name('skip-status');
         Route::delete('/deletekunjunganumum/{id}', [PendaftaranController::class, 'deleteKunjungan'])->name('delete-kunjungan');
